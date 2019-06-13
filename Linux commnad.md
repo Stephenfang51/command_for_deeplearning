@@ -1,7 +1,7 @@
 <h1 align=center>Linux / VIM C++ command</h1>
 <p align=right>update 2019.6.12</p>
 <p align=center>該文件包含了linux基礎指令，vim下基礎指令，持续更新中</p>
-<
+
 <h3>目錄</h2>
 
 
