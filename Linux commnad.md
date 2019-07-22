@@ -1,5 +1,5 @@
 <h1 align=center>Linux / VIM C++ command</h1>
-<p align=right>update 2019.6.25</p>
+<p align=right>update 2019.7.19</p>
 <p align=center>該文件包含了linux基礎指令，vim下基礎指令</p>
 <h3>目錄</h2>
 
@@ -9,19 +9,23 @@
 2. [查看文件下的资料 ls](#)
 3. [创建文件 touch](#)
 4. [創建文件夾 mkdir](#)
-5. [remove 所有资料 rm](#)
-6. [解压缩](#)
-7. [杀死用户进程 kill](#)
-8. [VIM C++](#)
-   1. [編寫文件常用指令](#)
-   2. [編譯執行](#)
-   3. [编辑中使用鼠标](#)
-   4. [vim下一鍵生成編譯](#)
-   5. [vim编辑时显示当前的文件名](#)
-9. [VIM 插件](#)
-   1. ale 語法檢查
-   2. Vundle 插件管理器
-   3. youcompleteme 代碼補全
+5. [搜寻文件or文件夹](#)
+6. [remove 所有资料 rm](#)
+7. [解压缩](#)
+8. [杀死用户进程 kill](#)
+9. [确认本机IP位置及端口l](#)
+10. [实时查看NVIDIA GPU使用率](#)
+11. [VIM C++](#)
+    1. [編寫文件常用指令](#)
+    2. [g++編譯執行](#)
+    3. [连接头文件及源文件的编译方式](#)
+    4. [编辑中使用鼠标](#)
+    5. [vim下一鍵生成編譯](#)
+    6. [vim编辑时显示当前的文件名](#)
+12. [VIM 插件](#)
+    1. ale 語法檢查
+    2. Vundle 插件管理器
+    3. youcompleteme 代碼補全
 
 ------
 
@@ -45,17 +49,31 @@
 
 - ls -a 列出文件夹下所有文件
 
-<h3 id=>創建文件夾</h4>
+------
 
+<h3 id=>創建文件夾</h4>
 ```mkdir test1``` :創建一個空目錄
 
 ```mkdir -p test1/test2```:递归创建多个目录
+
+------
 
 <h3 id=> 创建文件 </h3>
 
 先cd到你要的创建文件的路径，接着
 
 ```touch 文件名.扩展名```
+
+------
+
+<h3 id=>搜寻文件or文件夹
+</h3>
+
+```find / -iname "文件名"```：
+
+```find / -type d -iname "文件夹名```
+
+------
 
 <h3 id=>Remove 所有资料</h4>
 
@@ -67,6 +85,9 @@ ps.使用时请千万谨慎
 
 <h3 id=>解压缩</h4>
 
+
+
+- ```tar xvf file.tar -C /dir you want```
 - ```tar xvzf file.tgz -C /dir you want```
 - ```tar xvzf file.tar.gz -C /dir you want```
 - ```unzip file.zip -d /dir you want```
@@ -89,6 +110,34 @@ ps.使用时请千万谨慎
 
 ------
 
+<h3 id=>确认本机IP及端口 </h3>
+
+```ifconfig -a``` : 确认IP位置
+
+```netstat -anptl``` : 确认端口
+
+------
+
+<h3 id=>实时查看NVIDIA GPU使用率</h4>
+
+Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
+
+```nvidia-smi```
+
+如果想不间断持续监控可以使用watch 指令
+
+基础用法：
+
+```watch [options]  command```
+
+最常用的参数是 -n， 后面指定是每多少秒来执行一次命令。
+
+监视显存：我们设置为每 10s 显示一次显存的情况：
+
+```watch -n 10 nvidia-smi```
+
+------
+
 <h3 id=>VIM C++</h4>
 
 <h4>編寫文件常用指令</h4>
@@ -100,14 +149,34 @@ ps.使用时请千万谨慎
 - ```:w ``` : 保存不退出
 - ```：wq！```：保存后退出
 
-<h4>編譯/執行</h4>
+<h4>g++編譯/執行</h4>
 
 1. 使用g++ 編譯cpp文件：
 
 - ```g++ filename.cpp``` : 自動生成a.out文件
 - ```g++ filename.cpp``` -c 生成文件名 : 自動生成指定的文件名
 
-2. ./檔名 ：執行文件
+2. ```./檔名``` ：執行文件
+
+
+
+
+
+#### 连接头文件与源文件的编译方式
+
+假设有三个文件包含
+
+**function.cpp** ：源文件
+
+**function.h** ： 头文件
+
+**main.cpp** ： main 执行文件
+
+```g++ -o out Function.cpp Function.h mian.cpp``` ： 将三个文件一起编译
+
+接着会生成out(这个out是可以指定名称的)
+
+然后执行 ```./out``` 就能运行文件
 
 ------
 
@@ -116,6 +185,10 @@ ps.使用时请千万谨慎
 : set mouse=a 可以开启功能 （鼠标mode下无法使用复制贴上)
 
 : set mouse= 关闭功能
+
+
+
+**或是直接在vimrc中添加 :set mouse=a**, 永久使用
 
 ------
 
@@ -238,7 +311,7 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 6. 执行编译(完成下面两步骤）
 
 - ```cd ~/.vim/bundle/YouCompleteMe``` :到安装的目录下
-- ```./install.py --clang-completer``` :执行isntall.py来进行编译安装
+- ```./install.py --clang-completer``` :执行install.py来进行编译安装
 
 这个时候安装还没有完成， 打开cpp会出现
 “No .ycm_extra_conf.py file detected, so no compile flags are available. Thus no semantic support for C/C++/ObjC/ObjC++”
