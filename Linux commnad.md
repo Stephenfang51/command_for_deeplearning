@@ -1,5 +1,5 @@
 <h1 align=center>Linux / VIM C++ command</h1>
-<p align=right>update 2019.8.3</p>
+<p align=right>update 2019.8.7</p>
 <p align=center>該文件包含了linux基礎指令，vim下基礎指令</p>
 <h3>目錄</h2>
 
@@ -16,18 +16,19 @@
 7. [remove 所有资料 rm](#)
 8. [移動文件](#)
 9. [解压缩](#)
-10. [查看CPU，内存占用率](#)
-11. [杀死用户进程 kill](#)
-12. [确认本机IP位置及端口l](#)
-13. [实时查看NVIDIA GPU使用率](#)
-14. [VIM C++](#)
+10. [建立资料连接 In](#)
+11. [查看CPU，内存占用率](#)
+12. [杀死用户进程 kill](#)
+13. [确认本机IP位置及端口l](#)
+14. [实时查看NVIDIA GPU使用率](#)
+15. [VIM C++](#)
     1. [編寫文件常用指令](#)
     2. [g++編譯執行](#)
     3. [连接头文件及源文件的编译方式](#)
     4. [编辑中使用鼠标](#)
     5. [vim下一鍵生成編譯](#)
     6. [vim编辑时显示当前的文件名](#)
-15. [VIM 插件](#)
+16. [VIM 插件](#)
     1. ale 語法檢查
     2. Vundle 插件管理器
     3. youcompleteme 代碼補全
@@ -138,7 +139,31 @@ mv 文件名 方式 目的地
 
 
 
+------
 
+<h3 id=>建立资料连接 In </h3>
+
+ln 是在 Linux 及其他 Unix Like 作業系統建立連結的指令，概念跟 Windows 的捷徑差不多
+
+**ln 的語法**
+
+ln [OPTION]… TARGET […] [LINKNAME […]]
+
+
+
+**ln 常用參數**
+-s, –symbolic: 建立 symbolic link。
+-f, –force: 如果目標檔案已經存在，不會提出詢問，而會直接強制覆蓋檔案。
+-i, –interactive: 如果目標檔案已經存在，會先提出詢問，不會直接強制覆蓋檔案。
+-n, –no-clobber： 不會覆蓋任何檔案。
+
+
+
+Example:
+
+在目前工作目錄建立一個 symbolic link，連結到 /var/www/html/index.htm
+
+```$ ln -s /var/www/html/index.htm```
 
 ------
 
