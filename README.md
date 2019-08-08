@@ -1,7 +1,7 @@
-# Linux_command
-整合使用Linux编程时常应用到的指令，编辑器vim为基础， 语言C++
+# command_for_deeplearning
+整合一份使用使用Linux 以及 conda环境等做深度学习 常使用到的指令
 
-update date 2019.8.7持续更新中
+update date 2019.8.8持续更新中
 
 基于当初学习Linux时以及C++，网上常常找不到一分好的指令大全， 太多指令用不上， 不然就是写的很难理解
 
