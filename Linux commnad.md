@@ -1,11 +1,7 @@
-<h1 align=center>Linux / VIM C++ command</h1>
-<p align=right>update 2019.8.7</p>
+<h1 align=center>Linux / VIM C++ /Mini-conda command</h1>
+<p align=right>update 2019.8.8</p>
 <p align=center>該文件包含了linux基礎指令，vim下基礎指令</p>
 <h3>目錄</h2>
-
-
-
-
 
 1. [移动到指定目录 cd](#)
 2. [查看文件下的资料 ls](#)
@@ -21,17 +17,20 @@
 12. [杀死用户进程 kill](#)
 13. [确认本机IP位置及端口l](#)
 14. [实时查看NVIDIA GPU使用率](#)
-15. [VIM C++](#)
+15. [g++相关](#)
+16. [VIM C++](#)
     1. [編寫文件常用指令](#)
     2. [g++編譯執行](#)
     3. [连接头文件及源文件的编译方式](#)
     4. [编辑中使用鼠标](#)
-    5. [vim下一鍵生成編譯](#)
-    6. [vim编辑时显示当前的文件名](#)
-16. [VIM 插件](#)
+    5. [设定行数显示](#)
+    6. [vim下一鍵生成編譯](#)
+    7. [vim编辑时显示当前的文件名](#)
+17. [VIM 插件](#)
     1. ale 語法檢查
     2. Vundle 插件管理器
     3. youcompleteme 代碼補全
+18. [Mini-Conda使用](#)
 
 ------
 
@@ -278,9 +277,31 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 : set mouse= 关闭功能
 
+------
 
+<h4>设定行数显示</h4>
+
+: set numbers 可以开启功能
 
 **或是直接在vimrc中添加 :set mouse=a**, 永久使用
+
+
+
+------
+
+<h4 align = center id = >g++ 相关</h4>
+
+查看g++ 版本 ：`g++ -v`
+
+版本安装， 例如4.8版  `sudo apt-get install gcc-4.8`
+
+查看安装是否成功 `ls /usr/bin/gcc*`
+
+设置优先级 `sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 100`
+
+查看设置结果 `sudo update-alternatives --config gcc`
+
+
 
 ------
 
@@ -414,8 +435,35 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 
 ```
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+
 ```
 
 注意网上还有很多估计是旧版本的插件， 所以.ycm_extra_conf.py的档案位置不同, 新版本的路径请依照上面
 
 8. 打开cpp档案， 补全功能正常运行
+
+------
+
+
+
+<h3 align = center id=> Mini-Conda 使用 </h3>
+
+创建虚拟环境 virtualEnv : `conda create -n 环境名 python=3.6 -y`
+
+启动环境 ：`source activate 环境名`
+
+安装package ：`conda install 包名`
+
+
+
+将jupyter notebook添加 conda的虚拟环境内核， 也就是jupyter可以使用conda的环境
+
+1. 启动虚拟环境 `source activate 环境名`
+
+2. 安装`conda install ipykernel`
+
+3. 将环境添加至juypter notebook中
+
+`python -m ipykernel install --user --name open-mmlab --display-name "python (open-mmlab)"`
+
+4.启动juypter notebook > kernel > change kernel 就能看见新增的内核了
