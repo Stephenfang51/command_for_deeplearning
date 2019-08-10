@@ -4,44 +4,44 @@
 <h3>目錄</h2>
 
 1. [移动到指定目录 cd](#)
-1. [查看文件下的资料 ls](#)
-1. [创建文件 touch](#)
-1. [創建文件夾 mkdir](#)
-1. [搜寻文件or文件夹](#)
-1. [查看当前目录下的文件数](#)
-1. [remove 所有资料 rm](#)
-1. [移動文件](#)
-1. [解压缩](#)
-1. [建立资料连接 In](#)
-1. [查看CPU，内存占用率](#)
-1. [杀死用户进程 kill](#)
-1. [确认本机IP位置及端口l](#)
-1. [实时查看NVIDIA GPU使用率](#)
-1. [g++相关](#)
-1. [VIM C++](#)
-	1. [編寫文件常用指令](#)
-	1. [g++編譯執行](#)
-	1. [连接头文件及源文件的编译方式](#)
-	1. [编辑中使用鼠标](#)
-	1. [设定行数显示](#)
-	1. [vim下一鍵生成編譯](#)
-	1. [vim编辑时显示当前的文件名](#)
-1. [VIM 插件](#)
-	1. ale 語法檢查
-	1. Vundle 插件管理器
-	1. youcompleteme 代碼補全
-1. [Mini-Conda使用](#)
-1. [git 指令集](#)
+2. [查看文件下的资料 ls](#)
+3. [创建文件 touch](#)
+4. [創建文件夾 mkdir](#)
+5. [搜寻文件or文件夹](#)
+6. [查看当前目录下的文件数](#)
+7. [remove 所有资料 rm](#)
+8. [移動文件](#)
+9. [解压缩](#)
+10. [建立资料连接 In](#)
+11. [查看CPU，内存占用率](#)
+12. [杀死用户进程 kill](#)
+13. [确认本机IP位置及端口l](#)
+14. [实时查看NVIDIA GPU使用率](#)
+15. [g++相关](#)
+16. [VIM C++](#)
+    1. [編寫文件常用指令](#)
+    2. [g++編譯執行](#)
+    3. [连接头文件及源文件的编译方式](#)
+    4. [编辑中使用鼠标](#)
+    5. [设定行数显示](#)
+    6. [vim下一鍵生成編譯](#)
+    7. [vim编辑时显示当前的文件名](#)
+17. [VIM 插件](#)
+    1. ale 語法檢查
+    2. Vundle 插件管理器
+    3. youcompleteme 代碼補全
+18. [Mini-Conda使用](#)
+19. [git 指令集](#)
 
----
+------
 
 <h3 id=>移动到指定目录</h4>
 
 1. `cd ./path`
 
-1. 返回上一層 ：`cd ../ `
+2. 返回上一層 ：`cd ../ `
 
-1. 如果要指定的目录在上面多层 可以用 ```../../```, 放回基层就放多少个```../```
+3. 如果要指定的目录在上面多层 可以用 ```../../```, 放回基层就放多少个```../```
 
    Example: 
 
@@ -49,28 +49,28 @@
    ../../input/dataset
    ```
 
-1. 回到主目录 ```cd ~```
+4. 回到主目录 ```cd ~```
 
 <h3 id=>查看文件下的资料</h4>
 
-* ls -a 列出文件夹下所有文件
+- ls -a 列出文件夹下所有文件
 
----
+------
 
 <h3 id=>創建文件夾</h4>
 ```mkdir test1``` :創建一個空目錄
 
 ```mkdir -p test1/test2```:递归创建多个目录
 
----
-
+------
 
 <h3 id=> 创建文件 </h3>
+
 先cd到你要的创建文件的路径，接着
 
 ```touch 文件名.扩展名```
 
----
+------
 
 <h3 id=>搜寻文件or文件夹
 </h3>
@@ -79,7 +79,7 @@
 
 ```find / -type d -iname "文件夹名```
 
----
+------
 
 <h3 id=>查看当前目录下的文件数</h4>
 
@@ -112,9 +112,10 @@ $ ls -lR | grep "^d" | wc -l
 - `wc -l`
   统计输出信息的行数，统计结果就是输出信息的行数，一行信息对应一个文件，所以就是文件的个数。
 
----
+------
 
 <h3 id=>Remove 所有资料</h4>
+
 
 
 此方法是强制删除所有目录下文件:rm -rf /path
@@ -124,19 +125,21 @@ ps.使用时请千万谨慎
 <h3 id=>解压缩</h4>
 
 
-* ```tar xvf file.tar -C /dir you want```
-* ```tar xvzf file.tgz -C /dir you want```
-* ```tar xvzf file.tar.gz -C /dir you want```
-* ```unzip file.zip -d /dir you want```
 
----
+- ```tar xvf file.tar -C /dir you want```
+- ```tar xvzf file.tgz -C /dir you want```
+- ```tar xvzf file.tar.gz -C /dir you want```
+- ```unzip file.zip -d /dir you want```
+
+------
 
 <h3 id=>移動文件 </h3>
+
 mv 文件名 方式 目的地
 
 
 
----
+------
 
 <h3 id=>建立资料连接 In </h3>
 
@@ -162,13 +165,13 @@ Example:
 
 ```$ ln -s /var/www/html/index.htm```
 
----
+------
 
 <h3 id=>查看CPU、内存占用率 </h3>
+
 键入```top``` : 
 
-- 
-  PID：进程的ID
+- PID：进程的ID
 - USER：进程所有者
 - PR：进程的优先级别，越小越优先被执行
 - NInice：值
@@ -180,9 +183,10 @@ Example:
 - %MEM：进程使用的物理内存和总内存的百分比
 - TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。
 
----
+------
 
 <h3 id=>杀死进程kill PID </h3>
+
 ```ps aux``` : 查看所有进程
 
 ```kill pid``` : 找到对应的pid号， 例如2316是你要关闭的程序pid， 则```kill 2316```
@@ -195,14 +199,15 @@ Example:
 
 ```ps -ef | grep vim| awk '{print $2}' | xargs kill -9```
 
----
+------
 
 <h3 id=>确认本机IP及端口 </h3>
+
 ```ifconfig -a``` : 确认IP位置
 
 ```netstat -anptl``` : 确认端口
 
----
+------
 
 <h3 id=>实时查看NVIDIA GPU使用率</h4>
 
@@ -222,23 +227,26 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ```watch -n 3 nvidia-smi```
 
----
+------
 
 <h3 id=>VIM C++</h4>
 
 <h4>編寫文件常用指令</h4>
-* ```i``` ：insert 用來鍵入
-* `d` : delete 删除所选的区域
-* ```x``` : 游標的地方delete
-* ```u``` : 返回上一步
-* ```：q!``` : 不保存強制退出
-* ```:w ``` : 保存不退出
-* ```：wq！```：保存后退出
+
+- ```i``` ：insert 用來鍵入
+- `d` : delete 删除所选的区域
+- ```x``` : 游標的地方delete
+- ```u``` : 返回上一步
+- ```：q!``` : 不保存強制退出
+- ```:w ``` : 保存不退出
+- ```：wq！```：保存后退出
 
 <h4>g++編譯/執行</h4>
+
 1. 使用g++ 編譯cpp文件：
-* ```g++ filename.cpp``` : 自動生成a.out文件
-* ```g++ filename.cpp``` -c 生成文件名 : 自動生成指定的文件名
+
+- ```g++ filename.cpp``` : 自動生成a.out文件
+- ```g++ filename.cpp``` -c 生成文件名 : 自動生成指定的文件名
 
 2. ```./檔名``` ：執行文件
 
@@ -262,13 +270,15 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 然后执行 ```./out``` 就能运行文件
 
----
+------
+
 <h4>编辑中使用鼠标</h4>
+
 : set mouse=a 可以开启功能 （鼠标mode下无法使用复制贴上)
 
 : set mouse= 关闭功能
 
----
+------
 
 <h4>设定行数显示</h4>
 
@@ -278,7 +288,7 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 
 
----
+------
 
 <h4 align = center id = >g++ 相关</h4>
 
@@ -294,14 +304,15 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 
 
----
+------
 
 
 
 <h4 align = center id = >vim下一鍵生成編譯</h4>
-將以下代碼添加到 ~/.vimrc中， vimrc 打開方式 ``` vi ~/.vimrc```
-```
 
+將以下代碼添加到 ~/.vimrc中， vimrc 打開方式 ``` vi ~/.vimrc```
+
+```
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
@@ -333,20 +344,23 @@ endfunc
 
 添加后保存，Fn+F5可一鍵編譯運行
 
----
+------
 
 <h4 align = center id=>vim编辑时显示当前的文件名</h4>
+
 命令vi .vimrc叫出vimrc
 
 添加
 ```set laststatus=2``` 在最底部
 
----
+------
 
 <h3 align = center id=> vim 插件 </h3>
+
 ### ale 語法檢查
 
 git hub地址
+
 > https://github.com/w0rp/ale
 
 install
@@ -355,7 +369,9 @@ install
 mkdir -p ~/.vim/pack/git-plugins/start
 git clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/start/ale
 ```
----
+
+------
+
 ### vundle 插件管理器
 
 1. install
@@ -363,6 +379,7 @@ git clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/star
 ```
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
+
 2. 配置.vimrc
 
 ```vi .vimrc```
@@ -387,24 +404,19 @@ call vundle#end()
 filetype plugin indent on      "加载vim自带和插件相应的语法和文件类型相关脚本，必须"
 ```
 
----
-
+------
 
 ### youcompleteme 代碼補全
 
 直接利用Vundle插件管理器安装
 
 1. vi .vimrc 进入vimrc配置
-
 2. 在call vundle#begin()以及call vundle#end()  之间 加入
 
 ```Plugin 'Valloric/YouCompleteMe'```
 
-
 3. :wq 保存跳出
-
 4. 进入vim 使用 ：进行尾行命令 输入 PluginInstall 完成安装
-
 
 5. 执行  ```git submodule update --init --recursive```
 
@@ -413,7 +425,6 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 6. 执行编译(完成下面两步骤）
 
 - ```cd ~/.vim/bundle/YouCompleteMe``` :到安装的目录下
-
 - ```./install.py --clang-completer``` :执行install.py来进行编译安装
 
 这个时候安装还没有完成， 打开cpp会出现
@@ -431,7 +442,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 8. 打开cpp档案， 补全功能正常运行
 
----
+------
 
 
 
@@ -448,16 +459,14 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 将jupyter notebook添加 conda的虚拟环境内核， 也就是jupyter可以使用conda的环境
 
 1. 启动虚拟环境 `source activate 环境名`
-
 2. 安装`conda install ipykernel`
-
 3. 将环境添加至juypter notebook中
 
 `python -m ipykernel install --user --name open-mmlab --display-name "python (open-mmlab)"`
 
 4.启动juypter notebook > kernel > change kernel 就能看见新增的内核了
 
----
+------
 
 <h3 align = center id=> git 操作指令</h3>
 
@@ -573,7 +582,7 @@ git rm -r --cached 文件名
 
 
 
----
+------
 
 <h3 align = center id=> cuda 使用 </h3>
 
