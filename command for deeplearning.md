@@ -459,7 +459,9 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 将jupyter notebook添加 conda的虚拟环境内核， 也就是jupyter可以使用conda的环境
 
 1. 启动虚拟环境 `source activate 环境名`
+
 2. 安装`conda install ipykernel`
+
 3. 将环境添加至juypter notebook中
 
 `python -m ipykernel install --user --name open-mmlab --display-name "python (open-mmlab)"`
@@ -578,9 +580,19 @@ git rm -r --cached 文件名
 
 
 
-记得最终如果要同步到remote repo都要git push以下
+记得最终如果要同步到remote repo都要git push一下
 
+### 问题解决
 
+error: failed to push some refs to
+
+解决方式：
+
+先进行更新
+
+```git pull --rebase origin master```
+
+然后在push即可
 
 ------
 
