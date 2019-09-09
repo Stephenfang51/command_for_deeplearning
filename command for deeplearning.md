@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Mini-conda, git command</h1>
-<p align=right>update 2019.8.10</p>
+<p align=right>update 2019.9.9</p>
 <p align=center>該文件包含了linux，vim, mini-conda, git 基础指令</p>
 <h3>目錄</h2>
 
@@ -10,7 +10,7 @@
 5. [搜寻文件or文件夹](#)
 6. [查看当前目录下的文件数](#)
 7. [remove 所有资料 rm](#)
-8. [移動文件](#)
+8. [移動文件及复制文件移动](#)
 9. [解压缩](#)
 10. [建立资料连接 In](#)
 11. [查看CPU，内存占用率](#)
@@ -77,7 +77,7 @@
 
 ```find / -iname "文件名"```：
 
-```find / -type d -iname "文件夹名```
+```find / -type d -iname "文件夹名"```
 
 ------
 
@@ -133,9 +133,33 @@ ps.使用时请千万谨慎
 
 ------
 
-<h3 id=>移動文件 </h3>
+<h3 id=>移動文件及复制文件移动 </h3>
 
-mv 文件名 方式 目的地
+`mv 文件名 方式 目的地`
+
+
+
+#### 复制文件下的内容移动
+
+```CP [选项] 源文件或目录 目的文件或目录```
+
+- -b 同名,备分原来的文件
+- -f 强制覆盖同名文件
+- -r 按递归方式保留原目录结构复制文件
+
+#### 复制文件夹下内容
+
+*号表示所有文件的意思， 将dir1文件夹中所有的东西全部复制都dstpath/dir2文件夹下面
+
+```cp sourcepath/dir1/*  dstpath/dir2```
+
+#### 复制文件夹及里面的内容
+
+将dir1文件夹 完整复制到path2底下
+
+```cp -a path1/dir1 path2/```
+
+
 
 
 
@@ -229,7 +253,7 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ------
 
-<h3 id=>VIM C++</h4>
+<h3 id=>VIM 编写C++</h4>
 
 <h4>編寫文件常用指令</h4>
 
@@ -238,8 +262,10 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 - ```x``` : 游標的地方delete
 - ```u``` : 返回上一步
 - ```：q!``` : 不保存強制退出
-- ```:w ``` : 保存不退出
-- ```：wq！```：保存后退出
+- ```:w ``` : 写入保存不退出
+- ```：wq！```：写入保存后退出
+- `y`：鼠标框起复制
+- `p`:   贴上复制内容（同一份文件内）
 
 <h4>g++編譯/執行</h4>
 
@@ -459,9 +485,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 将jupyter notebook添加 conda的虚拟环境内核， 也就是jupyter可以使用conda的环境
 
 1. 启动虚拟环境 `source activate 环境名`
-
 2. 安装`conda install ipykernel`
-
 3. 将环境添加至juypter notebook中
 
 `python -m ipykernel install --user --name open-mmlab --display-name "python (open-mmlab)"`
