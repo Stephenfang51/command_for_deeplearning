@@ -1,7 +1,9 @@
 <h1 align=center>Linux, VIM C++, Mini-conda, git command</h1>
-<p align=right>update 2019.9.9</p>
+<p align=right>update 2019.9.20</p>
 <p align=center>該文件包含了linux，vim, mini-conda, git 基础指令</p>
 <h3>目錄</h2>
+
+
 
 1. [移动到指定目录 cd](#)
 2. [查看文件下的资料 ls](#)
@@ -32,6 +34,7 @@
     3. youcompleteme 代碼補全
 18. [Mini-Conda使用](#)
 19. [git 指令集](#)
+20. [cuda使用](#)
 
 ------
 
@@ -255,17 +258,20 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 <h3 id=>VIM 编写C++</h4>
 
+
+
 <h4>編寫文件常用指令</h4>
 
 - ```i``` ：insert 用來鍵入
 - `d` : delete 删除所选的区域
 - ```x``` : 游標的地方delete
 - ```u``` : 返回上一步
+- `ctrl + r`: 撤銷上一步
 - ```：q!``` : 不保存強制退出
 - ```:w ``` : 写入保存不退出
 - ```：wq！```：写入保存后退出
 - `y`：鼠标框起复制
-- `p`:   贴上复制内容（同一份文件内）
+- `p`:贴上
 
 <h4>g++編譯/執行</h4>
 
@@ -462,6 +468,7 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 
 ```
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+
 ```
 
 注意网上还有很多估计是旧版本的插件， 所以.ycm_extra_conf.py的档案位置不同, 新版本的路径请依照上面
@@ -501,6 +508,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 ```
 git config --global user.name Your Name
 git config --global user.email email@example.com
+
 ```
 
 git config命令的–global参数，用了这个参数，表示你这台机器上所有的 Git 仓库都会使用这个配置
@@ -511,6 +519,7 @@ git config命令的–global参数，用了这个参数，表示你这台机器�
 
 ```
 ssh-keygen -t rsa -C email@example.com
+
 ```
 
 
@@ -528,12 +537,14 @@ cd 指定路径
 mkdir myprogram
 cd myprogram
 mkdir example #这就是一个repo存在myprogram中
+
 ```
 
 接着在example文件夹下执行git init 初始化本地仓库 就可成功创建repo仓库
 
 ```
 git init
+
 ```
 
 然后将要存放的文件放进example资料夹中, 例如放了一个test.txt文件进去
@@ -542,12 +553,14 @@ git init
 
 ```git ad
 git add test.txt
+
 ```
 
 确认没有问题， 就可以commit到repo中， 例如”update the file“
 
 ```
 git commit -m "updata the file"
+
 ```
 
 
@@ -568,12 +581,14 @@ git commit -m "updata the file"
 
 ```
 git push origin master #依照branch可替换名称
+
 ```
 
 检查repo状态, 可以查看当前的状态
 
 ```
 git status
+
 ```
 
 
@@ -584,6 +599,7 @@ git status
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
+
 ```
 
 #### 删除文件
@@ -592,6 +608,7 @@ cd到repo的文件夹后， 一般的删除本地以及远程文件的方式
 
 ```
 git rm 文件名
+
 ```
 
 
@@ -600,6 +617,7 @@ git rm 文件名
 
 ```
 git rm -r --cached 文件名
+
 ```
 
 
