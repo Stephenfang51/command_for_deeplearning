@@ -1,26 +1,45 @@
-<h1 align=center>Linux, VIM C++, Mini-conda, git command</h1>
-<p align=right>update 2019.9.26</p>
-<p align=center>該文件包含了linux，vim, mini-conda, git 基础指令</p>
-<h3>目錄</h2>
+<h1 align=center>Linux, VIM C++, Anaconda3, git</h1>
+<p align=right>update 2019.10.2</p>
+<h3 align = 'center'>目錄</h2>
 
-
+#### Linux
 
 1. [移动到指定目录 cd](#)
+
 2. [查看文件下的资料 ls](#)
+
 3. [创建文件 touch](#)
+
 4. [創建文件夾 mkdir](#)
+
 5. [搜寻文件or文件夹](#)
+
 6. [查看当前目录下的文件数](#)
+
 7. [remove 所有资料 rm](#)
-8. [移動文件及复制文件移动](#)
+
+8. [移動文件及复制文件移动, 修改文件名mv](#)
+
 9. [解压缩](#)
+
 10. [建立资料连接 In](#)
-11. [查看CPU，内存占用率](#)
-12. [杀死用户进程 kill](#)
-13. [确认本机IP位置及端口l](#)
-14. [实时查看NVIDIA GPU使用率](#)
-15. [g++相关](#)
-16. [VIM C++](#)
+
+11. [执行Shell脚本权限不够问题](#)
+
+12. [查看CPU，内存占用率](#)
+
+13. [杀死用户进程 kill](#)
+
+14. [确认本机IP位置及端口l](#)
+
+15. [实时查看NVIDIA GPU使用率](#)
+
+16. [g++相关](#)
+
+    #### Vim
+
+17. [VIM C++](#)
+
     1. [編寫文件常用指令](#)
     2. [g++編譯執行](#)
     3. [连接头文件及源文件的编译方式](#)
@@ -28,13 +47,26 @@
     5. [设定行数显示](#)
     6. [vim下一鍵生成編譯](#)
     7. [vim编辑时显示当前的文件名](#)
-17. [VIM 插件](#)
+
+18. [VIM 插件](#)
+
     1. ale 語法檢查
     2. Vundle 插件管理器
     3. youcompleteme 代碼補全
-18. [Mini-Conda使用](#)
-19. [git 指令集](#)
-20. [cuda使用](#)
+
+    #### Anaconda3
+
+19. [anaconda3 / mini-conda 使用](#)
+
+    #### Git
+
+20. [git 指令集](#)
+
+    #### others
+
+21. [cuda使用](#)
+
+22. [pycharm SSH访问远程服务器](#)
 
 ------
 
@@ -61,9 +93,10 @@
 ------
 
 <h3 id=>創建文件夾</h4>
-```mkdir test1``` :創建一個空目錄
 
-```mkdir -p test1/test2```:递归创建多个目录
+`mkdir test1` :創建一個空目錄
+
+`mkdir -p test1/test2`:递归创建多个目录
 
 ------
 
@@ -162,9 +195,11 @@ ps.使用时请千万谨慎
 
 ```cp -a path1/dir1 path2/```
 
+<h4 id=>修改文件名 mv </h4>
 
+将filename1 改成 filename2
 
-
+`mv filename1 filename2`
 
 ------
 
@@ -191,6 +226,20 @@ Example:
 在目前工作目錄建立一個 symbolic link，連結到 /var/www/html/index.htm
 
 ```$ ln -s /var/www/html/index.htm```
+
+------
+
+<h3 id=>执行Shell脚本 权限不够问题 </h3>
+
+1.先对脚本赋予权限
+
+`chmod 777 ./make.sh`
+
+
+
+2.在执行脚本
+
+`./make.sh`
 
 ------
 
@@ -493,17 +542,29 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
+<h3 align = center id=> anaconda3/ Mini-Conda 使用 </h3>
 
-
-<h3 align = center id=> Mini-Conda 使用 </h3>
+#### 虚拟环境
 
 创建虚拟环境 virtualEnv : `conda create -n 环境名 python=3.6 -y`
 
 启动环境 ：`source activate 环境名`
 
+关闭环境 ：`source deactivate`
+
 安装package ：`conda install 包名`
 
+#### 虚拟环境路径
 
+`../anaconda3/envs/`
+
+#### 虚拟环境包的路径
+
+`../anaconda3/envs/lib/python3.x/site-package/`
+
+
+
+#### jupyter notebook 添加conda环境到内核
 
 将jupyter notebook添加 conda的虚拟环境内核， 也就是jupyter可以使用conda的环境
 
@@ -579,7 +640,7 @@ git commit -m "updata the file"
 
 建立好远程仓库之后， 就可以进行远程 - 本地连接
 
-```git remote add origin remote网址```
+```git remote add origin 网址.git```
 
 
 
@@ -648,4 +709,36 @@ error: failed to push some refs to
 查看cuda版本
 
 `cat /usr/local/cuda/version.txt`
+
+------
+
+<h3 align = center id=> pycharm SSH访问远程服务器 </h3>
+
+1. #### 将pycharm IDE SSH连线到远程服务器段
+
+   - 服务器需要提供host ip地址，port端口号， host name(root)， 登入密码
+
+   - Pycharm setting中的project interpreter中可以新增服务器上的python解释器，找到SSH Interpreter地方， 输入以上服务器提供的资料进行连接
+
+
+
+2. #### 实现资料互传
+
+   - Pycharm>tools > deployment>configuation 的mapping可以设置映射
+
+     ​	- Local path是本地项目的路径
+
+     ​	- Deplotment path是服务器的路径
+
+   
+
+   - Pycharm>tools > deployment>Brose remote host 可以访问远程的资料夹
+
+   
+
+3. #### 开启服务器的终端
+
+   Pycharm > tools > start SSH session 可以在pycharm下方开启远程终端
+
+------
 
