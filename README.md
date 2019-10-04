@@ -7,7 +7,7 @@
 目前整合一份在Linux， conda环境下等做深度学习相关项目时， 常使用到的指令以及一些设置
 
 
->update date 2019.10.2持续更新中
+>update date 2019.10.4持续更新中
 
 内容涵盖如下
 
@@ -15,7 +15,8 @@
 2. vim
 3. anaconda3
 4. git
-5. others(cuda, pycharm)
+5. others
+    - cuda, pycharm SSH, 清华源加速
 
 
 
