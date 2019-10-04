@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git</h1>
-<p align=right>update 2019.10.2</p>
+<p align=right>update 2019.10.4</p>
 <h3 align = 'center'>目錄</h2>
 
 #### Linux
@@ -67,6 +67,8 @@
 21. [cuda使用](#)
 
 22. [pycharm SSH访问远程服务器](#)
+
+23. [Pip install 清华源加速](#)
 
 ------
 
@@ -710,6 +712,8 @@ error: failed to push some refs to
 
 `cat /usr/local/cuda/version.txt`
 
+`nvcc -V`
+
 ------
 
 <h3 align = center id=> pycharm SSH访问远程服务器 </h3>
@@ -717,7 +721,6 @@ error: failed to push some refs to
 1. #### 将pycharm IDE SSH连线到远程服务器段
 
    - 服务器需要提供host ip地址，port端口号， host name(root)， 登入密码
-
    - Pycharm setting中的project interpreter中可以新增服务器上的python解释器，找到SSH Interpreter地方， 输入以上服务器提供的资料进行连接
 
 
@@ -742,3 +745,10 @@ error: failed to push some refs to
 
 ------
 
+<h3 align = center id=> pip install 清华源加速 </h3>
+
+pip安装包之前， 命令行键入
+
+`pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
+
+在进行包的安装即可飞速
