@@ -1,6 +1,8 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git</h1>
-<p align=right>update 2019.10.4</p>
+<p align=right>update 2019.10.7</p>
 <h3 align = 'center'>目錄</h2>
+
+
 
 #### Linux
 
@@ -88,9 +90,15 @@
 
 4. 回到主目录 ```cd ~```
 
+5. `pwd`获取当前绝对路径
+
 <h3 id=>查看文件下的资料</h4>
 
-- ls -a 列出文件夹下所有文件
+- `ls -a` 列出文件夹下所有文件
+
+- `ls- lah` 列出文件下的文件 以及 效果信息例如文件大小
+
+  
 
 ------
 
@@ -710,7 +718,7 @@ error: failed to push some refs to
 
 查看cuda版本
 
-`cat /usr/local/cuda/version.txt`
+`	`
 
 `nvcc -V`
 
