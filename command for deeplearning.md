@@ -105,7 +105,7 @@
 
 ------
 
-<h3 id=>6. 查看当前目录下的文件数</h4>
+<h3 id="6">6. 查看当前目录下的文件数</h4>
 
 - 统计当前目录下文件的个数（不包括目录）
 
@@ -138,7 +138,7 @@ $ ls -lR | grep "^d" | wc -l
 
 ------
 
-<h3 id=>7. Remove 所有资料</h4>
+<h3 id="7">7. Remove 所有资料</h4>
 
 
 
@@ -146,7 +146,7 @@ $ ls -lR | grep "^d" | wc -l
 
 ps.使用时请千万谨慎
 
-<h3 id=>8. 解压缩</h4>
+<h3 id="8">8. 解压缩</h4>
 
 
 
@@ -157,7 +157,7 @@ ps.使用时请千万谨慎
 
 ------
 
-<h3 id=>9. 移動文件及复制文件移动 </h3>
+<h3 id="9">9. 移動文件及复制文件移动， 修改文件名 </h3>
 
 `mv 文件名 方式 目的地`
 
@@ -183,7 +183,7 @@ ps.使用时请千万谨慎
 
 ```cp -a path1/dir1 path2/```
 
-<h4 id=>9. 修改文件名 mv </h4>
+<h4>修改文件名 mv </h4>
 
 将filename1 改成 filename2
 
@@ -191,7 +191,7 @@ ps.使用时请千万谨慎
 
 ------
 
-<h3 id=>10. 建立资料连接 In </h3>
+<h3 id="10">10. 建立资料连接 In </h3>
 
 ln 是在 Linux 及其他 Unix Like 作業系統建立連結的指令，概念跟 Windows 的捷徑差不多
 
@@ -217,7 +217,7 @@ Example:
 
 ------
 
-<h3 id=>11. 执行Shell脚本 权限不够问题 </h3>
+<h3 id="11">11. 执行Shell脚本 权限不够问题 </h3>
 
 1.先对脚本赋予权限
 
@@ -231,7 +231,7 @@ Example:
 
 ------
 
-<h3 id=>12. 查看CPU、内存占用率 </h3>
+<h3 id="12">12. 查看CPU、内存占用率 </h3>
 
 键入```top``` : 
 
@@ -249,7 +249,7 @@ Example:
 
 ------
 
-<h3 id=>13. 杀死进程kill PID </h3>
+<h3 id="13">13. 杀死进程kill PID </h3>
 
 ```ps aux``` : 查看所有进程
 
@@ -265,7 +265,7 @@ Example:
 
 ------
 
-<h3 id=>14. 确认本机IP及端口 </h3>
+<h3 id="14">14. 确认本机IP及端口 </h3>
 
 ```ifconfig -a``` : 确认IP位置
 
@@ -273,7 +273,7 @@ Example:
 
 ------
 
-<h3 id=>15. 实时查看NVIDIA GPU使用率</h4>
+<h3 id="15">15. 实时查看NVIDIA GPU使用率</h4>
 
 Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
@@ -293,7 +293,7 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ------
 
-<h3 id=>16. VIM 编辑器常用操作</h4>
+<h3 id="16">16. VIM 编辑器常用操作</h4>
 
 <h4 #="16-1">編寫文件常用指令</h4>
 
@@ -473,7 +473,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3>18.  g++ 相关</h3>
+<h3 id = "18">18.  g++ 相关</h3>
 <h4>g++編譯/執行</h4>
 
 1. 使用g++ 編譯cpp文件：
@@ -515,7 +515,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3 id=>19. anaconda3/ Mini-Conda 使用 </h3>
+<h3 id="19">19. anaconda3/ Mini-Conda 使用 </h3>
 
 #### 虚拟环境
 
@@ -551,7 +551,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3 id=>20. git 操作指令</h3>
+<h3 id="20">20. git 操作指令</h3>
 
 1. 配置指令如以下， Your Name 键入github名称， email键入注册github的邮箱
 
