@@ -4,77 +4,55 @@
 
 
 
-#### Linux
+> Linux
 
-1. [移动到指定目录 cd](#)
+1. [移动到指定目录 cd](#1)
+2. [查看文件下的资料 ls](#2)
+3. [创建文件 touch](#3)
+4. [創建文件夾 mkdir](#4)
+5. [搜寻文件or文件夹](#5)
+6. [查看当前目录下的文件数](#6)
+7. [remove 所有资料 rm](#7)
+8. [解压缩](#8)
+9. [移動文件及复制文件移动, 修改文件名mv](#9)
+10. [建立资料连接 In](#10)
+11. [执行Shell脚本权限不够问题](#11)
+12. [查看CPU，内存占用率](#12)
+13. [杀死用户进程 kill PID](#13)
+14. [确认本机IP位置及端口](#14)
+15. [实时查看NVIDIA GPU使用率](#15)
 
-2. [查看文件下的资料 ls](#)
+> Vim
 
-3. [创建文件 touch](#)
-
-4. [創建文件夾 mkdir](#)
-
-5. [搜寻文件or文件夹](#)
-
-6. [查看当前目录下的文件数](#)
-
-7. [remove 所有资料 rm](#)
-
-8. [移動文件及复制文件移动, 修改文件名mv](#)
-
-9. [解压缩](#)
-
-10. [建立资料连接 In](#)
-
-11. [执行Shell脚本权限不够问题](#)
-
-12. [查看CPU，内存占用率](#)
-
-13. [杀死用户进程 kill](#)
-
-14. [确认本机IP位置及端口l](#)
-
-15. [实时查看NVIDIA GPU使用率](#)
-
-16. [g++相关](#)
-
-    #### Vim
-
-17. [VIM C++](#)
-
-    1. [編寫文件常用指令](#)
-    2. [g++編譯執行](#)
-    3. [连接头文件及源文件的编译方式](#)
-    4. [编辑中使用鼠标](#)
-    5. [设定行数显示](#)
-    6. [vim下一鍵生成編譯](#)
-    7. [vim编辑时显示当前的文件名](#)
-
-18. [VIM 插件](#)
-
+16. [VIM 编辑器常用操作](#16)
+    1. [編寫文件常用指令](#16-1)
+    2. [编辑中使用鼠标](#16-4)
+    3. [设定行数显示](#16-5)
+    4. [vim下一鍵生成編譯](#16-6)
+    5. [vim编辑时显示当前的文件名](#16-7)
+17. [VIM 插件](#17)
     1. ale 語法檢查
     2. Vundle 插件管理器
     3. youcompleteme 代碼補全
+18. [g++相关](#18)
 
-    #### Anaconda3
+> Anaconda3
 
-19. [anaconda3 / mini-conda 使用](#)
+19. [anaconda3 / mini-conda 使用](#19)
 
-    #### Git
+> Git
 
-20. [git 指令集](#)
+20. [git 指令集](#20)
 
-    #### others
+> others
 
-21. [cuda使用](#)
-
-22. [pycharm SSH访问远程服务器](#)
-
-23. [Pip install 清华源加速](#)
+21. [cuda使用](#21)
+22. [pycharm SSH访问远程服务器](#22)
+23. [Pip install 清华源加速](#23)
 
 ------
 
-<h3 id=>移动到指定目录</h4>
+<h3 id="1">1. 移动到指定目录</h3>
 
 1. `cd ./path`
 
@@ -92,7 +70,7 @@
 
 5. `pwd`获取当前绝对路径
 
-<h3 id=>查看文件下的资料</h4>
+<h3 id="2">2. 查看文件下的资料</h4>
 
 - `ls -a` 列出文件夹下所有文件
 
@@ -102,7 +80,7 @@
 
 ------
 
-<h3 id=>創建文件夾</h4>
+<h3 id="3">3. 創建文件夾</h4>
 
 `mkdir test1` :創建一個空目錄
 
@@ -110,7 +88,7 @@
 
 ------
 
-<h3 id=> 创建文件 </h3>
+<h3 id="4">4.  创建文件 </h3>
 
 先cd到你要的创建文件的路径，接着
 
@@ -118,7 +96,7 @@
 
 ------
 
-<h3 id=>搜寻文件or文件夹
+<h3 id="5">5. 搜寻文件or文件夹
 </h3>
 
 ```find / -iname "文件名"```：
@@ -127,7 +105,7 @@
 
 ------
 
-<h3 id=>查看当前目录下的文件数</h4>
+<h3 id=>6. 查看当前目录下的文件数</h4>
 
 - 统计当前目录下文件的个数（不包括目录）
 
@@ -160,7 +138,7 @@ $ ls -lR | grep "^d" | wc -l
 
 ------
 
-<h3 id=>Remove 所有资料</h4>
+<h3 id=>7. Remove 所有资料</h4>
 
 
 
@@ -168,7 +146,7 @@ $ ls -lR | grep "^d" | wc -l
 
 ps.使用时请千万谨慎
 
-<h3 id=>解压缩</h4>
+<h3 id=>8. 解压缩</h4>
 
 
 
@@ -179,7 +157,7 @@ ps.使用时请千万谨慎
 
 ------
 
-<h3 id=>移動文件及复制文件移动 </h3>
+<h3 id=>9. 移動文件及复制文件移动 </h3>
 
 `mv 文件名 方式 目的地`
 
@@ -205,7 +183,7 @@ ps.使用时请千万谨慎
 
 ```cp -a path1/dir1 path2/```
 
-<h4 id=>修改文件名 mv </h4>
+<h4 id=>9. 修改文件名 mv </h4>
 
 将filename1 改成 filename2
 
@@ -213,7 +191,7 @@ ps.使用时请千万谨慎
 
 ------
 
-<h3 id=>建立资料连接 In </h3>
+<h3 id=>10. 建立资料连接 In </h3>
 
 ln 是在 Linux 及其他 Unix Like 作業系統建立連結的指令，概念跟 Windows 的捷徑差不多
 
@@ -239,7 +217,7 @@ Example:
 
 ------
 
-<h3 id=>执行Shell脚本 权限不够问题 </h3>
+<h3 id=>11. 执行Shell脚本 权限不够问题 </h3>
 
 1.先对脚本赋予权限
 
@@ -253,7 +231,7 @@ Example:
 
 ------
 
-<h3 id=>查看CPU、内存占用率 </h3>
+<h3 id=>12. 查看CPU、内存占用率 </h3>
 
 键入```top``` : 
 
@@ -271,7 +249,7 @@ Example:
 
 ------
 
-<h3 id=>杀死进程kill PID </h3>
+<h3 id=>13. 杀死进程kill PID </h3>
 
 ```ps aux``` : 查看所有进程
 
@@ -287,7 +265,7 @@ Example:
 
 ------
 
-<h3 id=>确认本机IP及端口 </h3>
+<h3 id=>14. 确认本机IP及端口 </h3>
 
 ```ifconfig -a``` : 确认IP位置
 
@@ -295,7 +273,7 @@ Example:
 
 ------
 
-<h3 id=>实时查看NVIDIA GPU使用率</h4>
+<h3 id=>15. 实时查看NVIDIA GPU使用率</h4>
 
 Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
@@ -315,11 +293,9 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ------
 
-<h3 id=>VIM 编写C++</h4>
+<h3 id=>16. VIM 编辑器常用操作</h4>
 
-
-
-<h4>編寫文件常用指令</h4>
+<h4 #="16-1">編寫文件常用指令</h4>
 
 - ```i``` ：insert 用來鍵入
 
@@ -347,40 +323,9 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
   在要注釋掉的行尾 加入`#endif`
 
-  
-
-<h4>g++編譯/執行</h4>
-
-1. 使用g++ 編譯cpp文件：
-
-- ```g++ filename.cpp``` : 自動生成a.out文件
-- ```g++ filename.cpp``` -c 生成文件名 : 自動生成指定的文件名
-
-2. ```./檔名``` ：執行文件
-
-
-
-
-
-#### 连接头文件与源文件的编译方式
-
-假设有三个文件包含
-
-**function.cpp** ：源文件
-
-**function.h** ： 头文件
-
-**main.cpp** ： main 执行文件
-
-```g++ -o out Function.cpp Function.h mian.cpp``` ： 将三个文件一起编译
-
-接着会生成out(这个out是可以指定名称的)
-
-然后执行 ```./out``` 就能运行文件
-
 ------
 
-<h4>编辑中使用鼠标</h4>
+<h4 #="16-2">编辑中使用鼠标</h4>
 
 : set mouse=a 可以开启功能 （鼠标mode下无法使用复制贴上)
 
@@ -388,35 +333,15 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ------
 
-<h4>设定行数显示</h4>
+<h4 #="16-3">设定行数显示</h4>
 
 : set numbers 可以开启功能
 
 **或是直接在vimrc中添加 :set mouse=a**, 永久使用
 
-
-
 ------
 
-<h4 align = center id = >g++ 相关</h4>
-
-查看g++ 版本 ：`g++ -v`
-
-版本安装， 例如4.8版  `sudo apt-get install gcc-4.8`
-
-查看安装是否成功 `ls /usr/bin/gcc*`
-
-设置优先级 `sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 100`
-
-查看设置结果 `sudo update-alternatives --config gcc`
-
-
-
-------
-
-
-
-<h4 align = center id = >vim下一鍵生成編譯</h4>
+<h4 id ="16-4" >vim下一鍵生成編譯</h4>
 
 將以下代碼添加到 ~/.vimrc中， vimrc 打開方式 ``` vi ~/.vimrc```
 
@@ -454,7 +379,7 @@ endfunc
 
 ------
 
-<h4 align = center id=>vim编辑时显示当前的文件名</h4>
+<h4 #="16-5">vim编辑时显示当前的文件名</h4>
 
 命令vi .vimrc叫出vimrc
 
@@ -463,9 +388,9 @@ endfunc
 
 ------
 
-<h3 align = center id=> vim 插件 </h3>
+<h3 id="17">17. vim 插件 </h3>
 
-### ale 語法檢查
+#### ale 語法檢查
 
 git hub地址
 
@@ -478,9 +403,7 @@ mkdir -p ~/.vim/pack/git-plugins/start
 git clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/start/ale
 ```
 
-------
-
-### vundle 插件管理器
+#### vundle 插件管理器
 
 1. install
 
@@ -512,9 +435,7 @@ call vundle#end()
 filetype plugin indent on      "加载vim自带和插件相应的语法和文件类型相关脚本，必须"
 ```
 
-------
-
-### youcompleteme 代碼補全
+#### youcompleteme 代碼補全
 
 直接利用Vundle插件管理器安装
 
@@ -552,7 +473,49 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3 align = center id=> anaconda3/ Mini-Conda 使用 </h3>
+<h3>18.  g++ 相关</h3>
+<h4>g++編譯/執行</h4>
+
+1. 使用g++ 編譯cpp文件：
+
+- ```g++ filename.cpp``` : 自動生成a.out文件
+- ```g++ filename.cpp``` -c 生成文件名 : 自動生成指定的文件名
+
+2. ```./檔名``` ：執行文件
+
+
+
+#### 连接头文件与源文件的编译方式
+
+假设有三个文件包含
+
+**function.cpp** ：源文件
+
+**function.h** ： 头文件
+
+**main.cpp** ： main 执行文件
+
+```g++ -o out Function.cpp Function.h mian.cpp``` ： 将三个文件一起编译
+
+接着会生成out(这个out是可以指定名称的)
+
+然后执行 ```./out``` 就能运行文件
+
+<h4 id = >g++ 其它</h4>
+
+查看g++ 版本 ：`g++ -v`
+
+版本安装， 例如4.8版  `sudo apt-get install gcc-4.8`
+
+查看安装是否成功 `ls /usr/bin/gcc*`
+
+设置优先级 `sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 100`
+
+查看设置结果 `sudo update-alternatives --config gcc`
+
+------
+
+<h3 id=>19. anaconda3/ Mini-Conda 使用 </h3>
 
 #### 虚拟环境
 
@@ -588,7 +551,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3 align = center id=> git 操作指令</h3>
+<h3 id=>20. git 操作指令</h3>
 
 1. 配置指令如以下， Your Name 键入github名称， email键入注册github的邮箱
 
@@ -700,7 +663,7 @@ git rm -r --cached 文件名
 
 记得最终如果要同步到remote repo都要git push一下
 
-### 问题解决
+#### 问题解决
 
 error: failed to push some refs to
 
@@ -714,7 +677,7 @@ error: failed to push some refs to
 
 ------
 
-<h3 align = center id=> cuda 使用 </h3>
+<h3 id="21">21. cuda 使用 </h3>
 
 查看cuda版本
 
@@ -724,7 +687,7 @@ error: failed to push some refs to
 
 ------
 
-<h3 align = center id=> pycharm SSH访问远程服务器 </h3>
+<h3  id="22"> 22. pycharm SSH访问远程服务器 </h3>
 
 1. #### 将pycharm IDE SSH连线到远程服务器段
 
@@ -753,7 +716,7 @@ error: failed to push some refs to
 
 ------
 
-<h3 align = center id=> pip install 清华源加速 </h3>
+<h3 id="23">23. pip install 清华源加速 </h3>
 
 pip安装包之前， 命令行键入
 
