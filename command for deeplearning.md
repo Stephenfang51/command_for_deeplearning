@@ -1,5 +1,5 @@
-<h1 align=center>Linux, VIM C++, Anaconda3, git</h1>
-<p align=right>update 2019.10.7</p>
+<h1 align=center>Linux, VIM C++, Anaconda3, git,  Docker</h1>
+<p align=right>update 2019.10.24</p>
 <h3 align = 'center'>目錄</h2>
 
 
@@ -49,6 +49,11 @@
 21. [cuda使用](#21)
 22. [pycharm SSH访问远程服务器](#22)
 23. [Pip install 清华源加速](#23)
+
+> Docker 指令
+
+24. Docker指令 ( 镜像, 容器操作 )
+25. python 安装 基于Linux
 
 ------
 
@@ -105,7 +110,7 @@
 
 ------
 
-<h3 id="6">6. 查看当前目录下的文件数</h4>
+<h3 id=>6. 查看当前目录下的文件数</h4>
 
 - 统计当前目录下文件的个数（不包括目录）
 
@@ -138,7 +143,7 @@ $ ls -lR | grep "^d" | wc -l
 
 ------
 
-<h3 id="7">7. Remove 所有资料</h4>
+<h3 id=>7. Remove 所有资料</h4>
 
 
 
@@ -146,7 +151,7 @@ $ ls -lR | grep "^d" | wc -l
 
 ps.使用时请千万谨慎
 
-<h3 id="8">8. 解压缩</h4>
+<h3 id=>8. 解压缩</h4>
 
 
 
@@ -157,7 +162,7 @@ ps.使用时请千万谨慎
 
 ------
 
-<h3 id="9">9. 移動文件及复制文件移动， 修改文件名 </h3>
+<h3 id=>9. 移動文件及复制文件移动 </h3>
 
 `mv 文件名 方式 目的地`
 
@@ -183,7 +188,7 @@ ps.使用时请千万谨慎
 
 ```cp -a path1/dir1 path2/```
 
-<h4>修改文件名 mv </h4>
+<h4 id=>9. 修改文件名 mv </h4>
 
 将filename1 改成 filename2
 
@@ -191,7 +196,7 @@ ps.使用时请千万谨慎
 
 ------
 
-<h3 id="10">10. 建立资料连接 In </h3>
+<h3 id=>10. 建立资料连接 In </h3>
 
 ln 是在 Linux 及其他 Unix Like 作業系統建立連結的指令，概念跟 Windows 的捷徑差不多
 
@@ -217,7 +222,7 @@ Example:
 
 ------
 
-<h3 id="11">11. 执行Shell脚本 权限不够问题 </h3>
+<h3 id=>11. 执行Shell脚本 权限不够问题 </h3>
 
 1.先对脚本赋予权限
 
@@ -231,7 +236,7 @@ Example:
 
 ------
 
-<h3 id="12">12. 查看CPU、内存占用率 </h3>
+<h3 id=>12. 查看CPU、内存占用率 </h3>
 
 键入```top``` : 
 
@@ -249,7 +254,7 @@ Example:
 
 ------
 
-<h3 id="13">13. 杀死进程kill PID </h3>
+<h3 id=>13. 杀死进程kill PID </h3>
 
 ```ps aux``` : 查看所有进程
 
@@ -265,7 +270,7 @@ Example:
 
 ------
 
-<h3 id="14">14. 确认本机IP及端口 </h3>
+<h3 id=>14. 确认本机IP及端口 </h3>
 
 ```ifconfig -a``` : 确认IP位置
 
@@ -273,7 +278,7 @@ Example:
 
 ------
 
-<h3 id="15">15. 实时查看NVIDIA GPU使用率</h4>
+<h3 id=>15. 实时查看NVIDIA GPU使用率</h4>
 
 Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
@@ -293,8 +298,7 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ------
 
-<h3 id="16">16. VIM 编辑器常用操作</h4>
-
+<h3 id=>16. VIM 编辑器常用操作</h4>
 <h4 #="16-1">編寫文件常用指令</h4>
 
 - ```i``` ：insert 用來鍵入
@@ -322,6 +326,8 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
   在要注釋掉的行首 加入`#if 0`
 
   在要注釋掉的行尾 加入`#endif`
+
+- `/键入要查找的关键字` :可以查找关键字
 
 ------
 
@@ -473,7 +479,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3 id = "18">18.  g++ 相关</h3>
+<h3>18.  g++ 相关</h3>
 <h4>g++編譯/執行</h4>
 
 1. 使用g++ 編譯cpp文件：
@@ -515,7 +521,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3 id="19">19. anaconda3/ Mini-Conda 使用 </h3>
+<h3 id=>19. anaconda3/ Mini-Conda 使用 </h3>
 
 #### 虚拟环境
 
@@ -551,7 +557,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3 id="20">20. git 操作指令</h3>
+<h3 id=>20. git 操作指令</h3>
 
 1. 配置指令如以下， Your Name 键入github名称， email键入注册github的邮箱
 
@@ -723,3 +729,215 @@ pip安装包之前， 命令行键入
 `pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
 
 在进行包的安装即可飞速
+
+------
+
+<h3 id="">24. Docker 指令 </h3>
+
+#### 使用指南
+
+需要了解镜像， 容器， 仓库三个概念， 仓库用来存放镜像
+
+1.镜像 》 pull 》列出 》 建立 》 存出/载入 》 移除 
+
+2.容器 》 启动 》 终止 》 进入容器 》 汇出与汇入容器 》 删除
+
+参考 [Docker hub](https://hub.docker.com/) 存储大量的images可以pull
+
+
+
+**中国使用镜像网易加速 for mac版本**
+
+在任务栏点击 Docker for mac 应用图标 -> Perferences... -> Daemon -> Registry mirrors。在列表中填写加速器地址即可。修改完成之后，点击 Apply & Restart 按钮，Docker 就会重启并应用配置的镜像地址了。
+
+
+
+**pull 镜像下来**
+
+`docker pull  XXXX ` : 可以从registry 下载所需要的images
+
+> 指令含义 ： *Usage: docker pull [OPTIONS] NAME[:TAG|@DIGEST]*
+>
+> 假设`docker pull ubuntu:latest`
+>
+> 预设的registry是Docker Hub， 所以指令等同于
+>
+> `docker pull registry.hub.docker.com/ubuntu:latest`
+
+
+
+
+
+**启动镜像**
+
+例如启动bvlc/caffe:cpu这个镜像, cpu这tag一定要指定
+
+```
+docker run -ti bvlc/caffe:cpu
+```
+
+表示启动caffe cpu版本 并且使用ipython交互式
+
+```
+docker run -ti bvlc/caffe:cpu ipython
+```
+
+> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+
+
+常用options
+
+- **-i:** 以交互模式运行容器，通常与 -t 同时使用；
+- -t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；
+
+**跳出执行中的容器**
+
+`ctrl + D` : 可以跳出正在执行中的容器， 但是容器并没有结束
+
+
+
+
+
+**查看本机装的images**
+
+`docker images -a` 查看目前本机有的images, 效果如下
+
+```
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+bvlc/caffe          cpu                 0b577b836386        18 months ago       1.64GB
+```
+
+
+
+**保存镜像到本地（save)与 载入(load)**
+
+`docker save -o images-name.tar images-name:images tag` : 会将images 保存到本地
+
+Images_name.tar 可以自定义
+
+`docker load --input images-name.04.tar` : 将保存在本地的读取载入
+
+
+
+
+
+**其他**
+
+`docker --version` : 查看docker 版本
+
+`docker stop $(docker ps -aq)` ： 停止所有的容器
+
+`docker rm` 删除不需要的容器， 容器必须是停止状态
+
+`docker rm  $(docker ps -q -a)` 删除所有已经停止的容器
+
+`docker rmi <image id>` 删除镜像， 确保删除之前容器已经移除
+
+`docker rmi $(docker images -q)` 删除所有的镜像， 确认把需要的已经备份了才执行（谨慎操作）
+
+`docker ps -a` 查看正在运行中的container
+
+`docker system df`:查看docker 占用本地硬盘的状况
+
+`docker attach container-id`: 可以重新进入运行在后台的容器
+
+`dokcer tag 镜像ID 修改后的镜像名:修改后的tag` : 重新修改images
+
+`docker rename 容器ID 修改后的容器名：修改后的容器tag` : 重新修改containers
+
+
+
+**保存修改后的镜像**
+
+1. [root@xxxxxxxx /]# 中的xxxxxx是产生的容器ID
+
+2. 将容器打包成镜像` docker commit xxxxxxxxxxx 镜像名称`， 则会自动存储好镜像
+3. 如果要删除旧镜像， 会有依赖关系， 必须将新的镜像先save出来到本地， 然后将新与旧镜像删除之后， 在load进刚刚save到本地的镜像
+
+
+
+参考https://my.oschina.net/u/2937605/blog/1797218
+
+
+
+
+
+**基于深度学习的docker image**
+
+Deepo: https://github.com/ufoym/deepo
+
+`docker pull ufoym/deepo:cpu`
+
+
+
+**在docker上安装jupyter 与本地端浏览器上使用**
+
+1. 先在镜像上安装好jupyter notebook: `pip install jupyter` 
+
+   然后执行`jupyter notebook --generate-config` 生成配置文件(不确定是否完全需要)
+
+2. 安装好之后记得重新保存一个镜像
+
+3. 启动刚刚保存好的镜像 启动方式
+
+   `docker run -it -p 8888:8888 deepo_jupyter`
+
+   加了一个 -p 表示将本机的port端口导入容器中的port端口， 左边为本机， 右边为容器的
+
+4. 在容器中启动jupyter notebook
+
+   ```py
+   jupyter notebook --ip 0.0.0.0 --port 8888 --no-browser --allow-root
+   ```
+
+    终端会显示例如下面地址
+
+   http://127.0.0.1:8888/?token=2dd74bc68a1a2b6aabab07b34c678f0b6ef0156f6afc13cf
+
+   在本地浏览器可打开
+
+ps.参考[https://medium.com/@jihung.mycena/docker-%E5%BB%BA%E7%AB%8B-jupyter-container-8084748e2f33
+
+
+
+**问题参考**
+
+如果遇到Jupyter notebook启动kernel时 发生
+
+```
+ImportError: cannot import name 'create_prompt_application'
+#注意该报错会显示在终端， jupyter notebook的服务器无法成功连接
+```
+
+表示 ipython 和 prompt-toolkit 版本匹配有问题
+
+解决如下
+
+1.重新安装ipython
+
+```
+sudo pip3 uninstall ipython
+sudo pip3 install ipython
+```
+
+2. 重新强制安装prompt-toolkit
+
+```
+sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
+```
+
+3. 执行完毕后记得存储镜像
+
+------
+
+<h3 id="">25. python 安装基于Linux </h3>
+
+```bash
+# wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz 
+# tar -xzvf Python-3.7.2.tgz
+# cd Python-3.7.2
+# ./configure --enable-optimizations
+# make
+# make install
+```
