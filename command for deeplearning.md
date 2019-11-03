@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker</h1>
-<p align=right>update 2019.10.24</p>
+<p align=right>update 2019.10.30</p>
 <h3 align = 'center'>目錄</h2>
 
 
@@ -258,7 +258,11 @@ Example:
 
 ```ps aux``` : 查看所有进程
 
+`top` : 查看所有进程
+
 ```kill pid``` : 找到对应的pid号， 例如2316是你要关闭的程序pid， 则```kill 2316```
+
+`kill -9 pid` : 强制终止进程
 
 删除指定程序所有进程：
 
@@ -469,6 +473,7 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 
 ```
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+
 ```
 
 注意网上还有很多估计是旧版本的插件， 所以.ycm_extra_conf.py的档案位置不同, 新版本的路径请依照上面
@@ -645,6 +650,7 @@ git status
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
+
 ```
 
 #### 删除文件
@@ -653,6 +659,7 @@ cd到repo的文件夹后， 一般的删除本地以及远程文件的方式
 
 ```
 git rm 文件名
+
 ```
 
 
@@ -816,9 +823,13 @@ Images_name.tar 可以自定义
 
 
 
+
+
 **其他**
 
-`docker --version` : 查看docker 版本
+`docker ps -a` 查看正在运行中的container
+
+`docker stop <container id>` : 停止指定的docker
 
 `docker stop $(docker ps -aq)` ： 停止所有的容器
 
@@ -830,8 +841,6 @@ Images_name.tar 可以自定义
 
 `docker rmi $(docker images -q)` 删除所有的镜像， 确认把需要的已经备份了才执行（谨慎操作）
 
-`docker ps -a` 查看正在运行中的container
-
 `docker system df`:查看docker 占用本地硬盘的状况
 
 `docker attach container-id`: 可以重新进入运行在后台的容器
@@ -839,6 +848,8 @@ Images_name.tar 可以自定义
 `dokcer tag 镜像ID 修改后的镜像名:修改后的tag` : 重新修改images
 
 `docker rename 容器ID 修改后的容器名：修改后的容器tag` : 重新修改containers
+
+`docker --version` : 查看docker 版本
 
 
 
@@ -875,7 +886,7 @@ Deepo: https://github.com/ufoym/deepo
 
 3. 启动刚刚保存好的镜像 启动方式
 
-   `docker run -it -p 8888:8888 deepo_jupyter`
+   `docker run -it -p 8888:8888 镜像名称`
 
    加了一个 -p 表示将本机的port端口导入容器中的port端口， 左边为本机， 右边为容器的
 
