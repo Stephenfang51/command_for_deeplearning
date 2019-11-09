@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker</h1>
-<p align=right>update 2019.10.30</p>
+<p align=right>update 2019.11.7</p>
 <h3 align = 'center'>目錄</h2>
 
 
@@ -473,7 +473,6 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 
 ```
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
-
 ```
 
 注意网上还有很多估计是旧版本的插件， 所以.ycm_extra_conf.py的档案位置不同, 新版本的路径请依照上面
@@ -527,6 +526,8 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 <h3 id="19">19. anaconda3/ Mini-Conda 使用 </h3>
 
 #### 虚拟环境
+
+查看当前所有环境 ： `conda info —env`
 
 创建虚拟环境 virtualEnv : `conda create -n 环境名 python=3.6 -y`
 
@@ -610,6 +611,12 @@ git init
 git add test.txt
 ```
 
+如果上传文件较多， 可以直接追踪全部
+
+```
+git add --all
+```
+
 确认没有问题， 就可以commit到repo中， 例如”update the file“
 
 ```
@@ -650,7 +657,6 @@ git status
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
-
 ```
 
 #### 删除文件
@@ -659,7 +665,6 @@ cd到repo的文件夹后， 一般的删除本地以及远程文件的方式
 
 ```
 git rm 文件名
-
 ```
 
 
@@ -676,7 +681,7 @@ git rm -r --cached 文件名
 
 #### 问题解决
 
-error: failed to push some refs to
+1. error: failed to push some refs to
 
 解决方式：
 
@@ -685,6 +690,14 @@ error: failed to push some refs to
 ```git pull --rebase origin master```
 
 然后在push即可
+
+
+
+
+
+2. Changes not staged for commit:
+
+   因為要提交的提交的档案尚未track， 需要对该档案 git add 档案名， 然后在重新执行commit, push等
 
 ------
 
@@ -870,7 +883,7 @@ Images_name.tar 可以自定义
 
 **基于深度学习的docker image**
 
-Deepo: https://github.com/ufoym/deepo
+Deepo:  
 
 `docker pull ufoym/deepo:cpu`
 
@@ -884,7 +897,7 @@ Deepo: https://github.com/ufoym/deepo
 
 2. 安装好之后记得重新保存一个镜像
 
-3. 启动刚刚保存好的镜像 启动方式
+3. 启动刚刚保存好的镜像 启动容器的方式必须向下面这样
 
    `docker run -it -p 8888:8888 镜像名称`
 
