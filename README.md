@@ -6,6 +6,8 @@
 
 目前整合一份在Linux， conda环境下等做深度学习相关项目时， 常使用到的指令以及一些设置
 
+>update date 2019.12.5 新增swapfile 新增虚拟内存
+
 >update date 2019.10.24 新增Docker 指令
 
 
