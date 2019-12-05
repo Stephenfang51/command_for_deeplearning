@@ -1,6 +1,8 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker</h1>
-<p align=right>update 2019.11.7</p>
+<p align=right>update 2019.12.5</p>
 <h3 align = 'center'>目錄</h2>
+
+
 
 
 
@@ -8,8 +10,8 @@
 
 1. [移动到指定目录 cd](#1)
 2. [查看文件下的资料 ls](#2)
-3. [创建文件 touch](#3)
-4. [創建文件夾 mkdir](#4)
+3. [創建文件夾 mkdir or rmdir](#3)
+4. [创建文件夹 touch](#4)
 5. [搜寻文件or文件夹](#5)
 6. [查看当前目录下的文件数](#6)
 7. [remove 所有资料 rm](#7)
@@ -17,7 +19,8 @@
 9. [移動文件及复制文件移动, 修改文件名mv](#9)
 10. [建立资料连接 In](#10)
 11. [执行Shell脚本权限不够问题](#11)
-12. [查看CPU，内存占用率](#12)
+12. [查看CPU，内存占用率, 磁盘占用](#12)
+    - swapfile 增加虚拟内存
 13. [杀死用户进程 kill PID](#13)
 14. [确认本机IP位置及端口](#14)
 15. [实时查看NVIDIA GPU使用率](#15)
@@ -59,9 +62,9 @@
 
 <h3 id="1">1. 移动到指定目录</h3>
 
-1. `cd ./path`
+1. 到指定目录 ：`cd ./path` 
 
-2. 返回上一層 ：`cd ../ `
+2. 返回上级目录 ：`cd .. `
 
 3. 如果要指定的目录在上面多层 可以用 ```../../```, 放回基层就放多少个```../```
 
@@ -79,17 +82,19 @@
 
 - `ls -a` 列出文件夹下所有文件
 
-- `ls- lah` 列出文件下的文件 以及 效果信息例如文件大小
+- `ls -lah` 列出文件下的文件 以及 效果信息例如文件大小
 
   
 
 ------
 
-<h3 id="3">3. 創建文件夾</h4>
+<h3 id="3">3. 創建文件夾及删除文件夹</h4>
 
 `mkdir test1` :創建一個空目錄
 
 `mkdir -p test1/test2`:递归创建多个目录
+
+`rmdir` 也就是remove empty directories 只能删除空目录 较少用
 
 ------
 
@@ -172,6 +177,10 @@ ps.使用时请千万谨慎
 
 ```CP [选项] 源文件或目录 目的文件或目录```
 
+例如要备份一个source.list文件
+
+`cp /etc/apt/sources.list /etc/apt/sources.list.backup`
+
 - -b 同名,备分原来的文件
 - -f 强制覆盖同名文件
 - -r 按递归方式保留原目录结构复制文件
@@ -202,7 +211,7 @@ ln 是在 Linux 及其他 Unix Like 作業系統建立連結的指令，概念�
 
 **ln 的語法**
 
-ln [OPTION]… TARGET […] [LINKNAME […]]
+ln [选项] 源文件 
 
 
 
@@ -236,7 +245,7 @@ Example:
 
 ------
 
-<h3 id="12">12. 查看CPU、内存占用率 </h3>
+<h3 id="12">12. 查看CPU、内存占用率, 磁盘占用 </h3>
 
 键入```top``` : 
 
@@ -251,6 +260,44 @@ Example:
 - %CPU：进程占用CPU的使用率
 - %MEM：进程使用的物理内存和总内存的百分比
 - TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。
+
+
+
+`df -h` ： 查看磁盘占用情况
+
+#### swapfile 設置 增加虛擬內存
+
+切割原磁盤空間， 例如需要4GB空間作為內存
+
+1. `sudo fallocate -l 4G /swapfile` :  l用來指定分配大小， /swapfile作為swap使用的檔案存放路徑
+
+2. `. sudo chmod 600 /swapfile` ：为设置好的档案添加root权限
+
+3. `sudo mkswap /swapfile` :  告知系统将此档案作为swap使用
+
+4. `sudo swapon /swapfile` ：启用swap
+
+将swap设定为开机时自动挂载（ubuntu 18之下）
+
+```
+sudo vim /etc/fstab
+添加以下到最下排
+/swapfile   none swap    sw 0 0
+```
+
+
+
+`swapon -s` : 查看当前的swap状态
+
+`swaoff /swapfile` ：禁用swapfile
+
+`swaoff -a` ：禁用所有的swapfile
+
+`swapon -a`:  启用所有swapfile
+
+可以通过先禁用，再启动的方式，来擦除swap中已有的数据
+
+
 
 ------
 
@@ -276,7 +323,7 @@ Example:
 
 <h3 id="14">14. 确认本机IP及端口 </h3>
 
-```ifconfig -a``` : 确认IP位置
+```ifconfig -a``` : 确认IP位置，如果是连接wifi 请看wlan0底下inet的位置
 
 ```netstat -anptl``` : 确认端口
 
@@ -705,6 +752,10 @@ git rm -r --cached 文件名
 
 查看cuda版本
 
+`cat /usr/local/cuda/version.txt`
+
+查看NVCC版本
+
 `nvcc -V`
 
 ------
@@ -869,7 +920,6 @@ Images_name.tar 可以自定义
 **保存修改后的镜像**
 
 1. [root@xxxxxxxx /]# 中的xxxxxx是产生的容器ID
-
 2. 将容器打包成镜像` docker commit xxxxxxxxxxx 镜像名称`， 则会自动存储好镜像
 3. 如果要删除旧镜像， 会有依赖关系， 必须将新的镜像先save出来到本地， 然后将新与旧镜像删除之后， 在load进刚刚save到本地的镜像
 
@@ -951,7 +1001,7 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 
 <h3 id="">25. python 安装基于Linux </h3>
 
-```bash
+```cbash
 # wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz 
 # tar -xzvf Python-3.7.2.tgz
 # cd Python-3.7.2
