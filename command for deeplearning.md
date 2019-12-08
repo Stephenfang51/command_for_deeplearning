@@ -1,8 +1,6 @@
-<h1 align=center>Linux, VIM C++, Anaconda3, git, Docker</h1>
-<p align=right>update 2019.12.5</p>
-<h3 align = 'center'>目錄</h2>
-
-
+<h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
+<p align=right>update 2019.12.8</p>
+<h2 align = 'center'>目錄</h2>
 
 
 
@@ -18,7 +16,7 @@
 8. [解压缩](#8)
 9. [移動文件及复制文件移动, 修改文件名mv](#9)
 10. [建立资料连接 In](#10)
-11. [执行Shell脚本权限不够问题](#11)
+11. [chmod 添加文件或目录权限](#11)
 12. [查看CPU，内存占用率, 磁盘占用](#12)
     - swapfile 增加虚拟内存
 13. [杀死用户进程 kill PID](#13)
@@ -56,7 +54,8 @@
 > Docker 指令
 
 24. Docker指令 ( 镜像, 容器操作 )
-25. python 安装 基于Linux
+25. Shell 脚本 (Shell script) 
+26. python 安装 基于Linux
 
 ------
 
@@ -231,17 +230,54 @@ Example:
 
 ------
 
-<h3 id="11">11. 执行Shell脚本 权限不够问题 </h3>
+<h3 id="11">11. chmod 添加文件或目录权限 </h3>
 
-1.先对脚本赋予权限
+> 参考http://linux.vbird.org/linux_basic/0210filepermission.php
 
-`chmod 777 ./make.sh`
+Linux 下分别为owner、groups、others三种身份并且有各自的read/wrtie/execute 权限， 一共3x3=9种
+
+利用ls -al可以查看目录下文件的详细权限， 可看到类似-rwxrwxrwx 的字样， 这九个权限为三个三个为一组
+
+可用分数表示各权限
+
+r : 2
+
+w : 4
+
+x : 1
+
+所以权限数字为
+
+owner = rwx = 4+2+1 = 7
+group = rwx = 4+2+1 = 7
+others= --- = 0+0+0 = 0
+
+如果要将一个文件的权限设定为所有对象都可以开启， 那么也就是-rwxrwxrwx, 也就是777
+
+`chmod 777 ./test.sh`
+
+如果希望该档案不让人修改， 可以`chmod 755 ./test.sh`
 
 
 
-2.在执行脚本
+##### 用符号类型改变权限
 
-`./make.sh`
+`chmod u +x  filename`   +/-/=
+
+```
+u ： user 
+g ：group 
+o ：others
+a ： all(所有身份)
+```
+
+```
+r : read
+w : write
+x : execute
+```
+
+
 
 ------
 
@@ -270,11 +306,8 @@ Example:
 切割原磁盤空間， 例如需要4GB空間作為內存
 
 1. `sudo fallocate -l 4G /swapfile` :  l用來指定分配大小， /swapfile作為swap使用的檔案存放路徑
-
 2. `. sudo chmod 600 /swapfile` ：为设置好的档案添加root权限
-
 3. `sudo mkswap /swapfile` :  告知系统将此档案作为swap使用
-
 4. `sudo swapon /swapfile` ：启用swap
 
 将swap设定为开机时自动挂载（ubuntu 18之下）
@@ -352,6 +385,10 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 <h3 id="16">16. VIM 编辑器常用操作</h4>
 
 <h4 #="16-1">編寫文件常用指令</h4>
+
+- `w` 向下行移動
+
+- `b` 向上行移動
 
 - ```i``` ：insert 用來鍵入
 
@@ -901,6 +938,8 @@ Images_name.tar 可以自定义
 
 `docker rm  $(docker ps -q -a)` 删除所有已经停止的容器
 
+`docker container prune -f` 删除所有已经停止的容器
+
 `docker rmi <image id>` 删除镜像， 确保删除之前容器已经移除
 
 `docker rmi $(docker images -q)` 删除所有的镜像， 确认把需要的已经备份了才执行（谨慎操作）
@@ -914,6 +953,12 @@ Images_name.tar 可以自定义
 `docker rename 容器ID 修改后的容器名：修改后的容器tag` : 重新修改containers
 
 `docker --version` : 查看docker 版本
+
+
+
+**从容器中复制文件到宿主机**
+
+docker cp <容器ID>:/文件路径/文件<这里有空格>/宿主机保存路径 
 
 
 
@@ -999,7 +1044,52 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 
 ------
 
-<h3 id="">25. python 安装基于Linux </h3>
+<h3 id="">25. Shell 脚本语法 </h3>
+
+- 编写脚本时 第一行指定解释器 `#! /bin/bash`
+- `chmod +x  xxxxx.sh ` 加上x 表示为sh文件添加可执行（excute） 权限, 否则无法执行
+
+##### 变量Variable
+
+- `variable=123 ` 变量赋值时， 等号左右没有空格
+- `${variable}` 使用变量时可以加{}
+- 变量 `$0` 表示sh脚本本身
+
+##### 传参
+
+- `$1, $2, $3....$n` 表示传入的参数， 并且依照顺序， 例如 ./test.sh A B C， 则`$1`就是A   `$2`就是B
+
+##### 条件字句 if
+
+```bash
+if condition
+then
+	command1 
+	command2
+	...
+	commandN 
+fi
+```
+
+##### if else
+
+```bash
+if condition
+then
+	command1 
+	command2
+	...
+	commandN
+else
+	comand
+fi
+```
+
+
+
+------
+
+<h3 id="">26. python 安装基于Linux </h3>
 
 ```cbash
 # wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz 
@@ -1009,3 +1099,6 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 # make
 # make install
 ```
+
+------
+
