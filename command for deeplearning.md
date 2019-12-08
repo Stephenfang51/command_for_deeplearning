@@ -834,77 +834,169 @@ pip安装包之前， 命令行键入
 
 #### 使用指南
 
-需要了解镜像， 容器， 仓库三个概念， 仓库用来存放镜像
+需要了解三个概念
 
-1.镜像 》 pull 》列出 》 建立 》 存出/载入 》 移除 
+1. 镜像 images
+2. 容器 container
+3. 仓库 repository
 
-2.容器 》 启动 》 终止 》 进入容器 》 汇出与汇入容器 》 删除
+##### 镜像images
 
-参考 [Docker hub](https://hub.docker.com/) 存储大量的images可以pull
+镜像构建时， 是一层一层的构建， 前一层的镜像为当前层的基础， 任一层的改变只发生在当前层， 每一层只包含该层需要添加的东西， 任何额外的层都应该在构建结束前清除
 
+官方的 [Docker hub](https://hub.docker.com/) 存储大量的images可以pull
 
+##### 容器container
 
-**中国使用镜像网易加速 for mac版本**
-
-在任务栏点击 Docker for mac 应用图标 -> Perferences... -> Daemon -> Registry mirrors。在列表中填写加速器地址即可。修改完成之后，点击 Apply & Restart 按钮，Docker 就会重启并应用配置的镜像地址了。
-
-
-
-**pull 镜像下来**
-
-`docker pull  XXXX ` : 可以从registry 下载所需要的images
-
-> 指令含义 ： *Usage: docker pull [OPTIONS] NAME[:TAG|@DIGEST]*
->
-> 假设`docker pull ubuntu:latest`
->
-> 预设的registry是Docker Hub， 所以指令等同于
->
-> `docker pull registry.hub.docker.com/ubuntu:latest`
+容器可以有自己root文件系统， 网络配置， 有自己独立的空间， 跟虚拟机类似， 每创建容器时是以镜像为基础添加一层
 
 
 
+##### 镜像加速器
+
+主要为服务商提供类似于Docker Hub
+
+- Azure 中国镜像 https://dockerhub.azk8s.cn
+- 网易云 https://hub-mirror.c.163.com
+- 七牛云加速器 https://reg-mirror.qiniu.com
+
+加速器地址
+
+```json
+{
+	"registry-mirrors": [
+	"https://dockerhub.azk8s.cn",
+	"https://hub-mirror.c.163.com", 
+	"https://reg-mirror.qiniu.com"
+	]
+}
+```
 
 
-**启动镜像**
+
+1. mac 桌面版 添加加速器
+
+   在任务栏点击 Docker for mac 应用图标 -> Perferences... -> Daemon -> Registry mirrors。在列表中填写加速器地址即可。修改完成之后，点击 Apply & Restart 按钮，Docker 就会重启并应用配置的镜像地址了。
+
+
+
+2. Linux 添加加速器
+
+```
+cd /etc/docker
+vim daemon.json
+
+#添加下面内容, 文件必须符合json规范
+{
+	"registry-mirrors": [
+	"https://dockerhub.azk8s.cn",
+	"https://hub-mirror.c.163.com", 
+	"https://reg-mirror.qiniu.com"
+	]
+}
+
+#保存后离开， 重启docker
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+```
+
+
+
+
+
+**Pull 镜像下来**
+
+```
+docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
+```
+
+假设从Docker hub pull一个ubuntu的镜像 则`docker pull ubuntu:18.04`
+
+仓库名其实是两段式名称<用户名/软件名>, 如果没给用户名就是默认官方 library/ubuntu
+
+预设的registry是Docker Hub， 所以指令等同于
+
+`docker pull registry.hub.docker.com/ubuntu:latest`
+
+
+
+
+
+
+
+**Run 运行容器**
 
 例如启动bvlc/caffe:cpu这个镜像, cpu这tag一定要指定
 
 ```
-docker run -ti bvlc/caffe:cpu
+docker run -it bvlc/caffe:cpu
 ```
+
+
 
 表示启动caffe cpu版本 并且使用ipython交互式
 
 ```
-docker run -ti bvlc/caffe:cpu ipython
+docker run -it bvlc/caffe:cpu ipython
 ```
 
-> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 常用options
 
-- **-i:** 以交互模式运行容器，通常与 -t 同时使用；
-- -t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；
-
-**跳出执行中的容器**
-
-`ctrl + D` : 可以跳出正在执行中的容器， 但是容器并没有结束
+- -i ： 以交互模式运行容器，通常与 -t 同时使用；
+- -t ： 为容器重新分配一个伪输入终端，通常与 -i 同时使用；
 
 
 
 
 
-**查看本机装的images**
+**查看本机装的镜像images**
 
-`docker images -a` 查看目前本机有的images, 效果如下
+`docker image ls` 查看目前本机有的images
 
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 bvlc/caffe          cpu                 0b577b836386        18 months ago       1.64GB
 ```
+
+`docker image ls -a` 可以看到中间层镜像， 也就是无标签镜像， 不需要删除
+
+
+
+#### container  容器常用指令 
+
+
+
+**查看容器container**
+
+`docker ps -a`或是`docker container ls -a` : 可以查看到终止状态的容器，前者为旧的指令
+
+`docker container ls` ：可以查看运行中的容器
+
+
+
+**跳出运行中的容器**
+
+`ctrl + D` : 可以跳出正在执行中的容器， 容器状态为EXIT终止， 但是并没有被删除
+
+
+
+**重新启动终止状态的容器** 
+
+`docker container start <container ID>` ： 一样ID只需要输入前三位就可以
+
+
+
+**进入容器** 
+
+确保容器不是终止的状态
+
+`docker attach <container ID>` ：进入容器， 离开后会终止
+
+`docker exec [option] <container ID> bash` : 该方式进入容器， 离开后容器不会终止
 
 
 
@@ -916,13 +1008,25 @@ Images_name.tar 可以自定义
 
 `docker load --input images-name.04.tar` : 将保存在本地的读取载入
 
+**导入与导出容器**
+
+`docker export /containerID/ > test.tar `  ： 将某个容器导出为test.tar
+
+`cat test.tar | docker import - test/test:v1.0` ： 透过Import将一个容器导入到镜像库
+
+`docker import https://www.xxxxx.tgz example/imagerepo` ： 透过url导入
 
 
 
+**PS import 与 load区别在于容**
+
+容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状
+态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入
+时可以重新指定标签等元数据信息。
 
 
 
-**其他**
+**其他常用**
 
 `docker ps -a` 查看正在运行中的container
 
@@ -936,9 +1040,9 @@ Images_name.tar 可以自定义
 
 `docker container prune -f` 删除所有已经停止的容器
 
-`docker rmi <image id>` 删除镜像， 确保删除之前容器已经移除
+`docker image rm <image id>` 删除镜像， 确保删除之前容器已经移除， 通常image id 只需要取前三位就可以判别
 
-`docker rmi $(docker images -q)` 删除所有的镜像， 确认把需要的已经备份了才执行（谨慎操作）
+`docker image rm $(docker image ls -q xxxxx)` 可以删除所有仓库名为xxxxx的
 
 `docker system df`:查看docker 占用本地硬盘的状况
 
@@ -954,7 +1058,11 @@ Images_name.tar 可以自定义
 
 **从容器中复制文件到宿主机**
 
-docker cp <容器ID>:/文件路径/文件<这里有空格>/宿主机保存路径 
+`docker cp <容器ID>:/文件路径/文件<这里有空格>/宿主机保存路径 `
+
+假设要复制一个jpg文件可以
+
+`docker cp <42b12412411> : /etc/apt/test.jpg /home/Stephen/Desktop`
 
 
 
