@@ -6,6 +6,8 @@
 
 目前整合一份在Linux， conda环境下等做深度学习相关项目时， 常使用到的指令以及一些设置
 
+>update date 2019.12.8 新增shell脚本基础， chmod权限设置
+
 >update date 2019.12.5 新增swapfile 新增虚拟内存
 
 >update date 2019.10.24 新增Docker 指令
@@ -21,7 +23,8 @@
 3. anaconda3
 4. git
 5. Docker
-6. others
+6. Shell script
+7. others
     - cuda, pycharm SSH, 清华源加速, python安装
 
 
