@@ -11,7 +11,7 @@
 #### 更新
 
 
->update date 2019.12.8 新增shell脚本基础， chmod权限设置
+>update date 2019.12.8 新增shell脚本基础， chmod权限设置, docker 修改（还需要修正）
 
 >update date 2019.12.5 新增swapfile 新增虚拟内存
 
