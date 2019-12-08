@@ -54,7 +54,7 @@
 > Docker 指令
 
 24. Docker指令 ( 镜像, 容器操作 )
-25. Shell 脚本 (Shell script) 
+25. Shell 脚本(Shell script) 语法与执行 
 26. python 安装 基于Linux
 
 ------
@@ -149,15 +149,11 @@ $ ls -lR | grep "^d" | wc -l
 
 <h3 id="7">7. Remove 所有资料</h4>
 
-
-
 此方法是强制删除所有目录下文件:rm -rf /path
 
 ps.使用时请千万谨慎
 
 <h3 id="8">8. 解压缩</h4>
-
-
 
 - ```tar xvf file.tar -C /dir you want```
 - ```tar xvzf file.tgz -C /dir you want```
@@ -234,9 +230,9 @@ Example:
 
 > 参考http://linux.vbird.org/linux_basic/0210filepermission.php
 
-Linux 下分别为owner、groups、others三种身份并且有各自的read/wrtie/execute 权限， 一共3x3=9种
+Linux 的文件可以分别为owner、groups、others三种身份并且有各自的read/wrtie/execute 权限， 一共3x3=9种
 
-利用ls -al可以查看目录下文件的详细权限， 可看到类似-rwxrwxrwx 的字样， 这九个权限为三个三个为一组
+利用`ls -al`可以查看目录下文件的详细权限， 可看到类似-rwxrwxrwx 的字样， 这九个权限为三个三个为一组
 
 可用分数表示各权限
 
@@ -1044,7 +1040,7 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 
 ------
 
-<h3 id="">25. Shell 脚本语法 </h3>
+<h3 id="">25. Shell 脚本语法与执行 </h3>
 
 - 编写脚本时 第一行指定解释器 `#! /bin/bash`
 - `chmod +x  xxxxx.sh ` 加上x 表示为sh文件添加可执行（excute） 权限, 否则无法执行
@@ -1054,6 +1050,7 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 - `variable=123 ` 变量赋值时， 等号左右没有空格
 - `${variable}` 使用变量时可以加{}
 - 变量 `$0` 表示sh脚本本身
+- 变量`$#` 返回参数数量
 
 ##### 传参
 
@@ -1084,6 +1081,45 @@ else
 	comand
 fi
 ```
+
+##### 整数之间判断
+
+| -eq  | 兩數值相等 (equal)                     |
+| ---- | :------------------------------------- |
+| -ne  | 兩數值不等 (not equal)                 |
+| -gt  | n1 大於 n2 (greater than)              |
+| -lt  | n1 小於 n2 (less than)                 |
+| -ge  | n1 大於等於 n2 (greater than or equal) |
+| -le  | n1 小於等於 n2 (less than or equal)    |
+
+example:
+
+```bash
+if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
+    echo "Usage: $0 <Install Folder>"
+    exit
+```
+
+
+
+
+
+#### script的执行
+
+1. `source`
+
+   - Source 是在当前的shell中执行文件， 也就是在父程序中执行
+
+   - 可简写为 `.` , ex : `. test.sh`, 主要中间有空格
+   - 让某些指令写入 `~/.bashrc`时候， 就必须使用`source ~/.bashrc`
+
+2. `bash` / `sh` / `./`
+
+   是在当前shell中的child shell中执行脚本， 并且不会影响到父shell
+
+   `./`通常权限不够， 需要透过chmod添加
+
+
 
 
 
