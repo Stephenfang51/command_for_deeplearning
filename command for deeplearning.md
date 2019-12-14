@@ -1,10 +1,8 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2019.12.8</p>
+<p align=right>update 2019.12.14</p>
 <h2 align = 'center'>目錄</h2>
 
-
-
-> Linux
+> ### Linux
 
 1. [移动到指定目录 cd](#1)
 2. [查看文件下的资料 ls](#2)
@@ -23,7 +21,9 @@
 14. [确认本机IP位置及端口](#14)
 15. [实时查看NVIDIA GPU使用率](#15)
 
-> Vim
+------
+
+> ### Vim
 
 16. [VIM 编辑器常用操作](#16)
     1. [編寫文件常用指令](#16-1)
@@ -37,27 +37,35 @@
     3. youcompleteme 代碼補全
 18. [g++相关](#18)
 
-> Anaconda3
+------
+
+> ### Anaconda3
 
 19. [anaconda3 / mini-conda 使用](#19)
 
-> Git
+------
+
+> ### Git
 
 20. [git 指令集](#20)
 
-> others
+------
 
 21. [cuda使用](#21)
 22. [pycharm SSH访问远程服务器](#22)
 23. [Pip install 清华源加速](#23)
-
-> Docker 指令
-
-24. Docker指令 ( 镜像, 容器操作 )
-25. Shell 脚本(Shell script) 语法与执行 
-26. python 安装 基于Linux
+24. Jupyter-notebook SSH远程连接 （待完成）
+25. Docker指令 ( 镜像, 容器操作 )
+26. Shell 脚本(Shell script) 语法与执行 
+27. python 安装 基于Linux
 
 ------
+
+<h3 align=center>目录结束<h3>
+
+------
+
+
 
 <h3 id="1">1. 移动到指定目录</h3>
 
@@ -420,13 +428,13 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 : set mouse= 关闭功能
 
+或是直接在vimrc中添加 : **set mouse=a**, 永久使用
+
 ------
 
 <h4 #="16-3">设定行数显示</h4>
 
-: set numbers 可以开启功能
-
-**或是直接在vimrc中添加 :set mouse=a**, 永久使用
+: set number 可以开启功能
 
 ------
 
@@ -713,7 +721,7 @@ git commit -m "updata the file"
 
 
 
-
+ a
 
 接着就可以进行同步 push到remote repo, 注意下面的xxxx表示 branch名称 
 
@@ -830,7 +838,14 @@ pip安装包之前， 命令行键入
 
 ------
 
-<h3 id="">24. Docker 指令 </h3>
+<h3 id="24">24. Jupyter notebook SSH 远程连接 </h3>
+
+1. 首先确保本机与远程主机都已经安装且可以正常使用jupyter notebook
+2. 待完成。。。
+
+------
+
+<h3 id="">25. Docker 指令 </h3>
 
 #### 使用指南
 
@@ -917,8 +932,6 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 预设的registry是Docker Hub， 所以指令等同于
 
 `docker pull registry.hub.docker.com/ubuntu:latest`
-
-
 
 
 
@@ -1058,11 +1071,7 @@ Images_name.tar 可以自定义
 
 **从容器中复制文件到宿主机**
 
-`docker cp <容器ID>:/文件路径/文件<这里有空格>/宿主机保存路径 `
-
-假设要复制一个jpg文件可以
-
-`docker cp <42b12412411> : /etc/apt/test.jpg /home/Stephen/Desktop`
+docker cp <容器ID>:/文件路径/文件<这里有空格>/宿主机保存路径 
 
 
 
@@ -1148,7 +1157,7 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 
 ------
 
-<h3 id="">25. Shell 脚本语法与执行 </h3>
+<h3 id="">26. Shell 脚本语法与执行 </h3>
 
 - 编写脚本时 第一行指定解释器 `#! /bin/bash`
 - `chmod +x  xxxxx.sh ` 加上x 表示为sh文件添加可执行（excute） 权限, 否则无法执行
@@ -1217,7 +1226,6 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 1. `source`
 
    - Source 是在当前的shell中执行文件， 也就是在父程序中执行
-
    - 可简写为 `.` , ex : `. test.sh`, 主要中间有空格
    - 让某些指令写入 `~/.bashrc`时候， 就必须使用`source ~/.bashrc`
 
@@ -1233,7 +1241,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 ------
 
-<h3 id="">26. python 安装基于Linux </h3>
+<h3 id="">27. python 安装基于Linux </h3>
 
 ```cbash
 # wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz 
