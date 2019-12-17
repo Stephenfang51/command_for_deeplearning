@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2019.12.14</p>
+<p align=right>update 2019.12.17</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -53,7 +53,7 @@
 
 21. [cuda使用](#21)
 22. [pycharm SSH访问远程服务器](#22)
-23. [Pip install 清华源加速](#23)
+23. [python pip 包管理](#23)
 24. Jupyter-notebook SSH远程连接 （待完成）
 25. Docker指令 ( 镜像, 容器操作 )
 26. Shell 脚本(Shell script) 语法与执行 
@@ -806,6 +806,7 @@ git rm -r --cached 文件名
 1. #### 将pycharm IDE SSH连线到远程服务器段
 
    - 服务器需要提供host ip地址，port端口号， host name(root)， 登入密码
+     - 例如远程服务器的为 test@192.168.3.2， test为hostname, 192.168.3.2为host 地址
    - Pycharm setting中的project interpreter中可以新增服务器上的python解释器，找到SSH Interpreter地方， 输入以上服务器提供的资料进行连接
 
 
@@ -828,13 +829,51 @@ git rm -r --cached 文件名
 
 ------
 
-<h3 id="23">23. pip install 清华源加速 </h3>
+<h3 id="23">23. python pip 包管理 </h3>
+
+#### 清华源加速
 
 pip安装包之前， 命令行键入
 
 `pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
 
 在进行包的安装即可飞速
+
+
+
+#### ReadTimeoutError(“HTTPSConnectionPool）
+
+遇到这样的问题通常就是国外源从国内访问太慢
+
+建议可以直接下载包的whl 或者 tar.gz压缩包到本地进行安装
+
+```
+sudo pip3 install xxxxx.whl
+```
+
+或者是将压缩包解压缩后进行安装
+
+```
+tar -xvzf xxxxx.tar.gz
+cd xxxxxx
+sudo python3 setup.py install
+```
+
+即可完成安装
+
+
+
+#### Ubuntu下 安装常用的包
+
+##### matplotlib
+
+```
+sudo apt-get python3-matplotlib 
+```
+
+
+
+
 
 ------
 
