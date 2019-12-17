@@ -9,7 +9,7 @@
 
 
 #### 更新
-
+>update date 2019.12.17 修正第23点为 **python pip 包管理**
 
 >update date 2019.12.8 新增shell脚本基础， chmod权限设置, docker 修改（还需要修正）
 
