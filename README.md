@@ -9,6 +9,8 @@
 
 
 #### 更新
+>update date 2019.12.24 修正**others** 查看版本openCV
+
 >update date 2019.12.19 新增**others** 大项， 新增28.onnx 模型相关 29.PytorchToCaffe
 
 >update date 2019.12.17 修正第23点为 **python pip 包管理**
