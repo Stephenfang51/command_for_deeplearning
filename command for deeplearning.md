@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2019.12.19</p>
+<p align=right>update 2019.12.24</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -67,7 +67,7 @@
 
 > ### Others
 
-1. 查看Ubuntu版本
+1. 查看版本
 
 ------
 
@@ -571,6 +571,7 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 
 ```
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+
 ```
 
 注意网上还有很多估计是旧版本的插件， 所以.ycm_extra_conf.py的档案位置不同, 新版本的路径请依照上面
@@ -666,6 +667,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 ```
 git config --global user.name Your Name
 git config --global user.email email@example.com
+
 ```
 
 git config命令的–global参数，用了这个参数，表示你这台机器上所有的 Git 仓库都会使用这个配置
@@ -676,6 +678,7 @@ git config命令的–global参数，用了这个参数，表示你这台机器�
 
 ```
 ssh-keygen -t rsa -C email@example.com
+
 ```
 
 
@@ -693,12 +696,14 @@ cd 指定路径
 mkdir myprogram
 cd myprogram
 mkdir example #这就是一个repo存在myprogram中
+
 ```
 
 接着在example文件夹下执行git init 初始化本地仓库 就可成功创建repo仓库
 
 ```
 git init
+
 ```
 
 然后将要存放的文件放进example资料夹中, 例如放了一个test.txt文件进去
@@ -707,18 +712,21 @@ git init
 
 ```git ad
 git add test.txt
+
 ```
 
 如果上传文件较多， 可以直接追踪全部
 
 ```
 git add --all
+
 ```
 
 确认没有问题， 就可以commit到repo中， 例如”update the file“
 
 ```
 git commit -m "updata the file"
+
 ```
 
 
@@ -739,12 +747,14 @@ git commit -m "updata the file"
 
 ```
 git push origin master #依照branch可替换名称
+
 ```
 
 检查repo状态, 可以查看当前的状态
 
 ```
 git status
+
 ```
 
 
@@ -755,6 +765,7 @@ git status
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
+
 ```
 
 #### 删除文件
@@ -763,6 +774,7 @@ cd到repo的文件夹后， 一般的删除本地以及远程文件的方式
 
 ```
 git rm 文件名
+
 ```
 
 
@@ -771,6 +783,7 @@ git rm 文件名
 
 ```
 git rm -r --cached 文件名
+
 ```
 
 
@@ -808,6 +821,16 @@ git rm -r --cached 文件名
 查看NVCC版本
 
 `nvcc -V`
+
+查看cudnn 版本
+
+`cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2`
+
+
+
+**cudnn 下载**  : 依照对应的CUDA下载 
+
+[https://developer.nvidia.com/rdp/cudnn-download](https://developer.nvidia.com/rdp/cudnn-download)
 
 ------
 
@@ -934,6 +957,7 @@ sudo apt-get python3-matplotlib
 	"https://reg-mirror.qiniu.com"
 	]
 }
+
 ```
 
 
@@ -962,6 +986,7 @@ vim daemon.json
 #保存后离开， 重启docker
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
+
 ```
 
 
@@ -972,6 +997,7 @@ $ sudo systemctl restart docker
 
 ```
 docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
+
 ```
 
 假设从Docker hub pull一个ubuntu的镜像 则`docker pull ubuntu:18.04`
@@ -992,6 +1018,7 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 ```
 docker run -it bvlc/caffe:cpu
+
 ```
 
 
@@ -1000,6 +1027,7 @@ docker run -it bvlc/caffe:cpu
 
 ```
 docker run -it bvlc/caffe:cpu ipython
+
 ```
 
 
@@ -1022,6 +1050,7 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 bvlc/caffe          cpu                 0b577b836386        18 months ago       1.64GB
+
 ```
 
 `docker image ls -a` 可以看到中间层镜像， 也就是无标签镜像， 不需要删除
@@ -1164,6 +1193,7 @@ Deepo:
 
    ```py
    jupyter notebook --ip 0.0.0.0 --port 8888 --no-browser --allow-root
+   
    ```
 
     终端会显示例如下面地址
@@ -1183,6 +1213,7 @@ ps.参考[https://medium.com/@jihung.mycena/docker-%E5%BB%BA%E7%AB%8B-jupyter-co
 ```
 ImportError: cannot import name 'create_prompt_application'
 #注意该报错会显示在终端， jupyter notebook的服务器无法成功连接
+
 ```
 
 表示 ipython 和 prompt-toolkit 版本匹配有问题
@@ -1194,12 +1225,14 @@ ImportError: cannot import name 'create_prompt_application'
 ```
 sudo pip3 uninstall ipython
 sudo pip3 install ipython
+
 ```
 
 2. 重新强制安装prompt-toolkit
 
 ```
 sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
+
 ```
 
 3. 执行完毕后记得存储镜像
@@ -1232,6 +1265,7 @@ then
 	...
 	commandN 
 fi
+
 ```
 
 ##### if else
@@ -1246,6 +1280,7 @@ then
 else
 	comand
 fi
+
 ```
 
 ##### 整数之间判断
@@ -1264,6 +1299,7 @@ example:
 if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
     echo "Usage: $0 <Install Folder>"
     exit
+
 ```
 
 
@@ -1299,6 +1335,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 # ./configure --enable-optimizations
 # make
 # make install
+
 ```
 
 ------
@@ -1330,9 +1367,17 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 <h2 id="" align="center"> others </h2>
 
-#### 查看Ubuntu版本
+#### 查看版本
+
+查看Ubuntu版本
 
 - 三个指令任选一 ： `lsb_release -a`  / `uname -a`  /  `cat /proc/version`
 
+查看Cmake版本
 
+- `cmake --version`
+
+查看OpenCV 版本 (Ubuntu下)
+
+- `pkg-config --modversion opencv`
 
