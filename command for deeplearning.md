@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2019.12.24</p>
+<p align=right>update 2019.12.28</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -571,7 +571,6 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 
 ```
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
-
 ```
 
 注意网上还有很多估计是旧版本的插件， 所以.ycm_extra_conf.py的档案位置不同, 新版本的路径请依照上面
@@ -667,7 +666,6 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 ```
 git config --global user.name Your Name
 git config --global user.email email@example.com
-
 ```
 
 git config命令的–global参数，用了这个参数，表示你这台机器上所有的 Git 仓库都会使用这个配置
@@ -678,7 +676,6 @@ git config命令的–global参数，用了这个参数，表示你这台机器�
 
 ```
 ssh-keygen -t rsa -C email@example.com
-
 ```
 
 
@@ -696,14 +693,12 @@ cd 指定路径
 mkdir myprogram
 cd myprogram
 mkdir example #这就是一个repo存在myprogram中
-
 ```
 
 接着在example文件夹下执行git init 初始化本地仓库 就可成功创建repo仓库
 
 ```
 git init
-
 ```
 
 然后将要存放的文件放进example资料夹中, 例如放了一个test.txt文件进去
@@ -712,21 +707,18 @@ git init
 
 ```git ad
 git add test.txt
-
 ```
 
 如果上传文件较多， 可以直接追踪全部
 
 ```
 git add --all
-
 ```
 
 确认没有问题， 就可以commit到repo中， 例如”update the file“
 
 ```
 git commit -m "updata the file"
-
 ```
 
 
@@ -739,22 +731,18 @@ git commit -m "updata the file"
 
 
 
- a
-
 接着就可以进行同步 push到remote repo, 注意下面的xxxx表示 branch名称 
 
 通常push需要输入username 和 password，就输入github的即可
 
 ```
 git push origin master #依照branch可替换名称
-
 ```
 
 检查repo状态, 可以查看当前的状态
 
 ```
 git status
-
 ```
 
 
@@ -765,7 +753,6 @@ git status
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
-
 ```
 
 #### 删除文件
@@ -774,7 +761,6 @@ cd到repo的文件夹后， 一般的删除本地以及远程文件的方式
 
 ```
 git rm 文件名
-
 ```
 
 
@@ -783,12 +769,53 @@ git rm 文件名
 
 ```
 git rm -r --cached 文件名
-
 ```
 
 
 
 记得最终如果要同步到remote repo都要git push一下
+
+#### 分支（branch）
+
+部分参考http://gogojimmy.net/2012/01/21/how-to-use-git-2-basic-usage-and-worflow/
+
+- 查看当前分支 `git branch` , 如果包含远程 加上`-a`
+
+- 开设分支 `Git branch <new branch-name>`
+
+- 切换分支 `git checkout branch-name`
+
+- 删除分支 `git branch -d branch-name`
+
+- 合并分支 
+
+  - 例如开发人员在A branch开发成功， 希望合并目前的master， 可以在A branch下输入
+
+    `git rebase master` 该方法会基于master branch最新的commit内容在将自己A分支下新添加的内容加进去, **PS. commit 量较多建议使用rebase·**
+
+  - `git merge` 不同于rebase, 是从master额外来条线
+
+- 删除远程分支
+
+  - 先查看远程分支 `git branch -r` 找到要刪除的
+
+  - `git branch -r -d origin/branch-name` ， -r表示remote的意思, 該句主要将远程和本地的跟踪删除
+
+  - `git push origin :branch-name` 正式删除远程分支
+
+    
+
+#### 取消操作
+
+- 回到上一次commit时的状态 `git reset --hard HEAD `, 参数HEAD^表示目前版本的上个版本， HEAD~2则是在上一个
+
+
+
+#### 開啟Git GUI
+
+`gitk --all` : 可以開啟git的gui版本
+
+
 
 #### 问题解决
 
@@ -804,11 +831,20 @@ git rm -r --cached 文件名
 
 
 
-
-
 2. Changes not staged for commit:
 
    因為要提交的提交的档案尚未track， 需要对该档案 git add 档案名， 然后在重新执行commit, push等
+
+   
+
+3. Git修改密码后命令行push代码报“fatal: Authentication failed for 
+
+   ```shell
+   git config --system --unset credential.helper
+   git config --global credential.helper store
+   ```
+
+   然后在git push 就会要求输入使用者的账号和密码
 
 ------
 
@@ -957,7 +993,6 @@ sudo apt-get python3-matplotlib
 	"https://reg-mirror.qiniu.com"
 	]
 }
-
 ```
 
 
@@ -986,7 +1021,6 @@ vim daemon.json
 #保存后离开， 重启docker
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
-
 ```
 
 
@@ -997,7 +1031,6 @@ $ sudo systemctl restart docker
 
 ```
 docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
-
 ```
 
 假设从Docker hub pull一个ubuntu的镜像 则`docker pull ubuntu:18.04`
@@ -1018,7 +1051,6 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 ```
 docker run -it bvlc/caffe:cpu
-
 ```
 
 
@@ -1027,7 +1059,6 @@ docker run -it bvlc/caffe:cpu
 
 ```
 docker run -it bvlc/caffe:cpu ipython
-
 ```
 
 
@@ -1050,7 +1081,6 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 bvlc/caffe          cpu                 0b577b836386        18 months ago       1.64GB
-
 ```
 
 `docker image ls -a` 可以看到中间层镜像， 也就是无标签镜像， 不需要删除
@@ -1193,7 +1223,6 @@ Deepo:
 
    ```py
    jupyter notebook --ip 0.0.0.0 --port 8888 --no-browser --allow-root
-   
    ```
 
     终端会显示例如下面地址
@@ -1213,7 +1242,6 @@ ps.参考[https://medium.com/@jihung.mycena/docker-%E5%BB%BA%E7%AB%8B-jupyter-co
 ```
 ImportError: cannot import name 'create_prompt_application'
 #注意该报错会显示在终端， jupyter notebook的服务器无法成功连接
-
 ```
 
 表示 ipython 和 prompt-toolkit 版本匹配有问题
@@ -1225,14 +1253,12 @@ ImportError: cannot import name 'create_prompt_application'
 ```
 sudo pip3 uninstall ipython
 sudo pip3 install ipython
-
 ```
 
 2. 重新强制安装prompt-toolkit
 
 ```
 sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
-
 ```
 
 3. 执行完毕后记得存储镜像
@@ -1265,7 +1291,6 @@ then
 	...
 	commandN 
 fi
-
 ```
 
 ##### if else
@@ -1280,7 +1305,6 @@ then
 else
 	comand
 fi
-
 ```
 
 ##### 整数之间判断
@@ -1299,7 +1323,6 @@ example:
 if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
     echo "Usage: $0 <Install Folder>"
     exit
-
 ```
 
 
@@ -1335,7 +1358,6 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 # ./configure --enable-optimizations
 # make
 # make install
-
 ```
 
 ------
