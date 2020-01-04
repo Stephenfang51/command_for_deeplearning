@@ -9,6 +9,8 @@
 
 
 #### 更新
+>update date 2020.1.4 修正vim 部分
+
 >udpate date 2019.12.27 新增git指令 branch
 
 >update date 2019.12.24 修正**others** 查看版本openCV
