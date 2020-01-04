@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2019.12.28</p>
+<p align=right>update 2020.1.4</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -27,10 +27,9 @@
 
 16. [VIM 编辑器常用操作](#16)
     1. [編寫文件常用指令](#16-1)
-    2. [编辑中使用鼠标](#16-4)
-    3. [设定行数显示](#16-5)
-    4. [vim下一鍵生成編譯](#16-6)
-    5. [vim编辑时显示当前的文件名](#16-7)
+    2. [vim功能添加](#16-5)
+    3. [vim下一鍵生成編譯](#16-6)
+    4. [vim编辑时显示当前的文件名](#16-7)
 17. [VIM 插件](#17)
     1. ale 語法檢查
     2. Vundle 插件管理器
@@ -432,19 +431,24 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ------
 
-<h4 #="16-2">编辑中使用鼠标</h4>
+<h4 #="16-5">VIM 功能添加</h4>
 
-: set mouse=a 可以开启功能 （鼠标mode下无法使用复制贴上)
+vim提供许多的功能可以依照需求在编辑文件中时添加， 也能直接在~/.vimrc文件中添加成永久功能
 
-: set mouse= 关闭功能
+#### 透过vimrc添加为永久功能
 
-或是直接在vimrc中添加 : **set mouse=a**, 永久使用
+1. `vim ~/.vimrc` 开启or新建文件 (mac位置通常放在/User/yourname/.vimrc, linux 在etc/vimrc/.vimrc)
+2. 将需要的功能添加进文件并且保存退出
 
-------
+#### 功能列表
 
-<h4 #="16-3">设定行数显示</h4>
+`: syntax on` 开启语法高亮
 
-: set number 可以开启功能
+`: set mouse=a` 可以开启功能 （鼠标mode下无法使用复制贴上)
+
+`: set mouse =` 关闭功能, 或是直接在vimrc中添加 : **set mouse=a**, 永久使用
+
+`: set number` 可以开启功能
 
 ------
 
@@ -820,6 +824,8 @@ git rm -r --cached 文件名
 #### 问题解决
 
 1. error: failed to push some refs to
+
+问题在于远程版本比本地的还要新， 需要先pull回来做更新才能重新push
 
 解决方式：
 
@@ -1366,8 +1372,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 - Netron 
   - 在线导入onnx模型可视化 [lutzroeder](https://lutzroeder.github.io/netron/)
-  -  [lutzroeder github](https://github.com/lutzroeder/netron)
-
+  - [lutzroeder github](https://github.com/lutzroeder/netron)
 - onnx - tensorrt : 将onnx转换为tensorrt
   - [official onnx-tensorrt github](https://github.com/onnx/onnx-tensorrt)
 
