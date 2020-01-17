@@ -71,8 +71,7 @@
 ------
 
 <h3 align=center>目录结束<h3>
-
-------
+---
 
 
 
@@ -645,7 +644,9 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 #### 虚拟环境包的路径
 
-`../anaconda3/envs/lib/python3.x/site-package/`
+conda环境下， 查看安装的package `pip list`
+
+`/usr/local/anaconda3(或者是miniconda3)/envs/环境名（自己创建的）/lib/python3.x/site-packages/`
 
 
 
@@ -660,6 +661,37 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 `python -m ipykernel install --user --name open-mmlab --display-name "python (open-mmlab)"`
 
 4.启动juypter notebook > kernel > change kernel 就能看见新增的内核了
+
+
+
+#### conda 安装pytorch
+
+```
+# CUDA 9.0
+conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=9.0 -c pytorch
+
+# CUDA 10.0
+conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch
+
+# CPU Only
+conda install pytorch-cpu==1.0.1 torchvision-cpu==0.2.2 cpuonly -c pytorch
+```
+
+参考Pytorch官方 [https://pytorch.org/get-started/previous-versions/](https://pytorch.org/get-started/previous-versions/)
+
+
+
+#### conda 换源
+
+```
+
+```
+
+
+
+
+
+
 
 ------
 
@@ -758,6 +790,26 @@ git status
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
 ```
+
+
+
+克隆项目中特定的版本
+
+```
+git clone -b <version_name> --single-branch
+```
+
+
+
+更新子模块submodule
+
+```
+git clone --recursive-submodule http://xxxxxxxxxxxxxx.git
+```
+
+
+
+
 
 #### 删除文件
 
@@ -1030,6 +1082,35 @@ $ sudo systemctl restart docker
 ```
 
 
+
+**从Dockerfile 创造镜像image**
+
+与Dockerfile同一层目录下 依照 `docker build -t name:tag `
+
+Ex. 例如建造onnx-tensorrt的镜像, 就先clone下项目的repo， 然后确认repo中有dockerfile
+
+```
+#务必加上sudo
+sudo docker build -t ubuntu/onnx2trt:v5.0
+```
+
+接着就会如下开始build
+
+```
+Sending build context to Docker daemon  3.977MB
+Step 1/16 : FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+9.0-cudnn7-devel-ubuntu16.04: Pulling from nvidia/cuda
+976a760c94fc: Pull complete 
+c58992f3c37b: Pull complete 
+0ca0e5e7f12e: Pull complete 
+f2a274cc00ca: Pull complete 
+708a53113e13: Pull complete 
+371ddc2ca87b: Pull complete 
+f81888eb6932: Pull complete 
+19dbd9dd59d6: Pull complete 
+e07d92c8415d: Extracting [======================>                            ]  276.3MB/615.8MB
+aa4c26baf056: Download complete 
+```
 
 
 
@@ -1407,4 +1488,14 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 查看OpenCV 版本 (Ubuntu下)
 
 - `pkg-config --modversion opencv`
+
+查看TensorRT 版本 （Ubuntu下）
+
+- `dpkg -l | grep TensorRT`
+
+
+
+#### 推荐好用
+
+Sourcegraph : chrome浏览器插件， 可以用来浏览github 项目代码
 
