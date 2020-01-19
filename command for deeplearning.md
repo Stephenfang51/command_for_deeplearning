@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.1.4</p>
+<p align=right>update 2020.1.19</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -124,9 +124,27 @@
 <h3 id="5">5. 搜寻文件or文件夹
 </h3>
 
+参考 https://blog.miniasp.com/post/2010/08/27/Linux-find-command-tips-and-notice
+
+注意以下都是用 `/` 表示搜索所有路径， 也可以依照需求改变路径
+
+依照文件名找
+
 ```find / -iname "文件名"```：
 
-```find / -type d -iname "文件夹名"```
+依照目录找
+
+```find /  -iname "文件夹名" -type d```
+
+依照档案名找
+
+`find / -iname "档案" -type f`
+
+`find / -iname '*.log' -type f ` : 找副档名为log, 可以依照需求自己改
+
+
+
+
 
 ------
 
