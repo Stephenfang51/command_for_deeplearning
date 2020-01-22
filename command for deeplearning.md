@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.1.19</p>
+<p align=right>update 2020.1.22</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -19,7 +19,8 @@
     - swapfile 增加虚拟内存
 13. [杀死用户进程 kill PID](#13)
 14. [确认本机IP位置及端口](#14)
-15. [实时查看NVIDIA GPU使用率](#15)
+15. [其他](#15)
+    1. Nm 目标文件格式分析
 
 ------
 
@@ -67,11 +68,12 @@
 > ### Others
 
 1. 查看版本
+2. 推荐好用
+3. Nvidia 查看GPU使用率
 
 ------
 
-<h3 align=center>目录结束<h3>
----
+<h2 align=center>目录结束<h2>
 
 
 
@@ -392,23 +394,17 @@ sudo vim /etc/fstab
 
 ------
 
-<h3 id="15">15. 实时查看NVIDIA GPU使用率</h4>
+<h3 id="15">15. 其他</h4>
 
-Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
+#### 1. nm 目标文件格式分析
 
-```nvidia-smi```
+查看动态库 (so) ：`nm -D /path/to/xxxx.so`
 
-如果想不间断持续监控可以使用watch 指令
+這樣會打印出全部內容， 可以用grep篩選 如
 
-基础用法：
+`nm -D /path/to/xxxx.so | grep xxxx`
 
-```watch [options]  command```
 
-最常用的参数是 -n， 后面指定是每多少秒来执行一次命令。
-
-监视显存：我们设置为每 3s 显示一次显存的情况：
-
-```watch -n 3 nvidia-smi```
 
 ------
 
@@ -1517,3 +1513,28 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 Sourcegraph : chrome浏览器插件， 可以用来浏览github 项目代码
 
+
+
+#### 查看Nvidia GPU 使用率
+
+Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
+
+```
+nvidia-smi
+```
+
+如果想不间断持续监控可以使用watch 指令
+
+基础用法：
+
+```
+watch [options]  command
+```
+
+最常用的参数是 -n， 后面指定是每多少秒来执行一次命令。
+
+监视显存：我们设置为每 3s 显示一次显存的情况：
+
+```
+watch -n 3 nvidia-smi
+```
