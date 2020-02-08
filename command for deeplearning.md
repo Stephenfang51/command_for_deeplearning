@@ -640,7 +640,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 #### 虚拟环境
 
-查看当前所有环境 ： `conda info —env`
+查看当前所有环境 ： `conda info --env` or `conda env list`
 
 创建虚拟环境 virtualEnv : `conda create -n 环境名 python=3.6 -y`
 
@@ -648,7 +648,13 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 关闭环境 ：`source deactivate`
 
-安装package ：`conda install 包名`
+删除环境 :`conda env remove -n 环境名`
+
+安装package ：`conda install 包名` 用conda设置的源安装
+
+安装package 方法二 : `pip install` 
+
+
 
 #### 虚拟环境路径
 
@@ -677,6 +683,8 @@ conda环境下， 查看安装的package `pip list`
 
 
 #### conda 安装pytorch
+
+如果要用自己设置的源安装, 将后面的`-c pytorch`去除
 
 ```
 # CUDA 9.0
@@ -729,6 +737,17 @@ ssl_verify: true
 
 
 #以上三个源， 泽一即可
+```
+
+经过实际测验， 以下速度飞快， 推荐使用
+
+```
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/
+  - defaults
+show_channel_urls: true
 ```
 
 
