@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.1.22</p>
+<p align=right>update 2020.2.8</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -74,8 +74,6 @@
 ------
 
 <h2 align=center>目录结束<h2>
-
-
 
 <h3 id="1">1. 移动到指定目录</h3>
 
@@ -697,8 +695,40 @@ conda install pytorch-cpu==1.0.1 torchvision-cpu==0.2.2 cpuonly -c pytorch
 
 #### conda 换源
 
-```
+設置源的文件在  `~/.condarc`
 
+所以用vim 進入編輯
+
+```shell
+#1  vim 进入
+vim ~/.condarc
+#2. 貼入清華源
+
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+ssl_verify: true
+
+
+#3. 如清華源失效， 可以試試中科大源
+channels:
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+ssl_verify: true
+
+
+#4. 上海交大源
+channels:
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge/
+ssl_verify: true
+
+
+#以上三个源， 泽一即可
 ```
 
 
