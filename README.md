@@ -9,6 +9,9 @@
 
 
 #### 更新
+
+>update date 2020.2.8 新增conda换源方式
+
 >update date 2020.1.22 修正Linux 第15点 成其他
 
 >update date 2020.1.19 更新linux find指令
