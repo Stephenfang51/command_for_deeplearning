@@ -10,6 +10,8 @@
 
 #### 更新
 
+>update date 2020.2.15 修正第10点 In
+
 >update date 2020.2.8 新增conda换源方式
 
 >update date 2020.1.22 修正Linux 第15点 成其他
