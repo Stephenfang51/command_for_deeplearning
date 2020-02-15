@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.2.8</p>
+<p align=right>update 2020.2.15</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -13,7 +13,7 @@
 7. [remove 所有资料 rm](#7)
 8. [解压缩](#8)
 9. [移動文件及复制文件移动, 修改文件名mv](#9)
-10. [建立资料连接 In](#10)
+10. [建立资料连接, 软连接  In](#10)
 11. [chmod 添加文件或目录权限](#11)
 12. [查看CPU，内存占用率, 磁盘占用](#12)
     - swapfile 增加虚拟内存
@@ -234,29 +234,45 @@ ps.使用时请千万谨慎
 
 ------
 
-<h3 id="10">10. 建立资料连接 In </h3>
+<h3 id="10">10. 建立资料连接， 软连接 In </h3>
 
-ln 是在 Linux 及其他 Unix Like 作業系統建立連結的指令，概念跟 Windows 的捷徑差不多
+Linux ln命令是一个非常重要命令，它的功能是为某一个文件在另外一个位置建立一个同步的链接。
+
+当我们需要在不同的目录，用到相同的文件时，**我们不需要在每一个需要的目录下都放一个必须相同的文件**，我们只要在某个固定的目录，放上该文件，然后在 其它的目录下用ln命令链接（link）它就可以，**不必重复的占用磁盘空间。**
 
 **ln 的語法**
 
-ln [选项] 源文件 
+```
+ln [选项] [源文件] [目标文件或目录]
+```
 
 
 
-**ln 常用參數**
--s, –symbolic: 建立 symbolic link。
--f, –force: 如果目標檔案已經存在，不會提出詢問，而會直接強制覆蓋檔案。
--i, –interactive: 如果目標檔案已經存在，會先提出詢問，不會直接強制覆蓋檔案。
--n, –no-clobber： 不會覆蓋任何檔案。
+**ln 必要参数**：
+
+- -b 删除，覆盖以前建立的链接
+- -d 允许超级用户制作目录的硬链接
+- -f 强制执行
+- -i 交互模式，文件存在则提示用户是否覆盖
+- -n 把符号链接视为一般目录
+- -s 软链接(符号链接)
+- -v 显示详细的处理过程
 
 
+
+**软连接 / 硬连接**
+
+链接又可分为两种 : 硬链接(hard link)与软链接(symbolic link)，硬链接的意思是一个档案可以有多个名称，而软链接的方式则是产生一个特殊的档案，该档案的内容是指向另一个档案的位置
 
 Example:
 
-在目前工作目錄建立一個 symbolic link，連結到 /var/www/html/index.htm
+之前刚好遇到一个问题用上了软连接， Cmake编译的过程中， lib里面找不到libcudart.so这个动态库， 于是建立一个软连接将cuda文件夹中的libcudart.so 连接到 /usr/lib/下
 
-```$ ln -s /var/www/html/index.htm```
+```shell
+ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so
+```
+
+
 
 ------
 
@@ -683,8 +699,6 @@ conda环境下， 查看安装的package `pip list`
 
 
 #### conda 安装pytorch
-
-如果要用自己设置的源安装, 将后面的`-c pytorch`去除
 
 ```
 # CUDA 9.0
