@@ -10,6 +10,8 @@
 
 #### 更新
 
+>update date 2020.2.20 修正git 部分
+
 >update date 2020.2.15 修正第10点 In
 
 >update date 2020.2.8 新增conda换源方式
