@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.2.15</p>
+<p align=right>update 2020.2.20</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -948,6 +948,34 @@ git rm -r --cached 文件名
 
 `gitk --all` : 可以開啟git的gui版本
 
+#### 更新 fetch / pull
+
+本机如果有推送东西到server， 除了本地的分支， 远程分支也会记录一份在本机上， 一样也是有HEAD / master分支， 但会在前面加行远程节点origin， 变成`origin/HEAD` 以及 `origin/master`
+
+如果线上有更新的部分， 但是本机并没有， 则执行fetch时候， 会自动从远程抓一份下来， 并且更新origin的部分
+
+```
+git fetch
+```
+
+既然`origin/master`是从`master`分支出去且更新， 如果想要master更新`origin/master`， 就需要merge
+
+```
+git merge origin/master
+```
+
+执行之后就会将master 来回到跟`origin/master`同个位置
+
+
+
+而 git pull = git fetch + git merge
+
+```
+git pull --rebase
+```
+
+
+
 
 
 #### 问题解决
@@ -958,9 +986,10 @@ git rm -r --cached 文件名
 
 解决方式：
 
-先进行更新
+先进行更新, 然後合併
 
-```git pull --rebase origin master```
+1. `git fetch `
+2. `git merge `
 
 然后在push即可
 
