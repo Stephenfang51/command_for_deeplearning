@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.2.20</p>
+<p align=right>update 2020.3.4</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -11,7 +11,7 @@
 5. [搜寻文件or文件夹](#5)
 6. [查看当前目录下的文件数](#6)
 7. [remove 所有资料 rm](#7)
-8. [解压缩](#8)
+8. [解压缩及打包](#8)
 9. [移動文件及复制文件移动, 修改文件名mv](#9)
 10. [建立资料连接, 软连接  In](#10)
 11. [chmod 添加文件或目录权限](#11)
@@ -187,12 +187,42 @@ $ ls -lR | grep "^d" | wc -l
 
 ps.使用时请千万谨慎
 
-<h3 id="8">8. 解压缩</h4>
+<h3 id="8">8. 解压缩及打包</h4>
 
 - ```tar xvf file.tar -C /dir you want```
 - ```tar xvzf file.tgz -C /dir you want```
 - ```tar xvzf file.tar.gz -C /dir you want```
 - ```unzip file.zip -d /dir you want```
+
+#### zip 打包
+
+如果是直接压缩几个文件，那就可以直接使用命令 ,
+
+```
+zip newfilename.zip filename1 filename2
+```
+
+但是一般情况下都会压缩一个文件夹或者叫目录，使用命令
+
+```
+zip -r newfilename.zip file1 file2。
+```
+
+如果文件夹下面包含太多的文件，可以使用-q选项，不现实压缩的过程，即zip -q -r newfilename.zip file1 file2。
+一般来讲，-q选项和-r选项已经够用了
+
+EX.
+将/root/test文件夹下的test1文件夹和test2.txt压缩到 aaa.zip
+在/root/test目录下，执行命令
+
+```
+zip -q -r aaa.zip test1 test2.txt
+```
+
+
+OK！压缩完成！
+
+
 
 ------
 
