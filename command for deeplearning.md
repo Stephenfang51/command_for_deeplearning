@@ -1665,6 +1665,8 @@ watch -n 3 nvidia-smi
 
 参考 https://c7sky.com/common-ffmpeg-commands.html
 
+参考 http://www.mikewootc.com/wiki/sw_develop/multimedia/ffmpeg_app_param.html
+
 [FFmpeg](http://ffmpeg.org/) 是一个处理视频和音频内容的开源工具库，可以实现编码、解码、转码、流媒体和后处理等服务
 
 #### 转换格式
@@ -1727,3 +1729,35 @@ ffmpeg -i input.mov -strict -2 -vf crop=640:640:x:y out.mp4
 ```
 
 - crop : 表示剪裁视频的画面， 格式为width:height: x:y, width:height表示剪裁后的尺寸， x:y表示剪裁区域的左上角坐标
+
+
+
+#### 视频提取帧数
+
+Ex.从视频中提取帧数, 每秒提取24幅图
+
+```
+ffmpeg -i twice_v2.mp4 -ss 00:00 -r 24 -f image2 test/image-%05d.jpg
+```
+
+- -r 指定抽取的帧率，即从视频中每秒钟抽取图片的数量。1代表每秒抽取一帧，５就表示一秒抽5张图
+- -f 指定保存图像的格式
+- image-%05d.jpg ：表示存取的图像名称 05d表示00000的格式计数， 前面可以添加路劲
+
+
+
+#### 設置幀率
+
+Ex. 設置視頻的幀率
+
+```
+ffmpeg -i input.avi -codec:v mpeg4 -r 30 -qscale:v 2 -codec:a copy C.avi
+```
+
+- `-codec:v mpeg4` :  使用mpeg4的encoder
+
+- `-qscale:v n` : 或者`-q:v n`表示输出的video的quality， n从1~31， 1为最高级品质， 建议2~5为mp4
+
+- `-qscale:a  `: 或者 `-q:s ` 表示audio的quality， nn
+
+- `-codec:a copy` : 從input 複製audio 到output， 避免reencoding
