@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.3.4</p>
+<p align=right>update 2020.3.5</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -70,6 +70,7 @@
 1. 查看版本
 2. 推荐好用
 3. Nvidia 查看GPU使用率
+4. ffmpeg 使用
 
 ------
 
@@ -219,10 +220,7 @@ EX.
 zip -q -r aaa.zip test1 test2.txt
 ```
 
-
 OK！压缩完成！
-
-
 
 ------
 
@@ -1660,3 +1658,72 @@ watch [options]  command
 ```
 watch -n 3 nvidia-smi
 ```
+
+
+
+### ffmpeg 使用
+
+参考 https://c7sky.com/common-ffmpeg-commands.html
+
+[FFmpeg](http://ffmpeg.org/) 是一个处理视频和音频内容的开源工具库，可以实现编码、解码、转码、流媒体和后处理等服务
+
+#### 转换格式
+
+Ex. 将mov转换为mp4
+
+```shell
+ffmpeg -i input.mov output.mp4
+```
+
+- -i ：表示输入文件
+
+
+
+#### 视频剪切
+
+Ex. 剪切前10秒
+
+```
+ffmpeg -ss 0:0 -t 0:10 -i input.mov output.mp4
+```
+
+- -ss : 表示视频开始时间
+
+- -t : 表示持续时间
+
+
+
+Ex. 裁剪视频最后10秒
+
+```
+ffmpeg -sseof -0:10 -i input.mov output.mp4
+```
+
+- -sseof ：表示视频最末尾的开始时间
+
+  
+
+#### 视频画面编辑
+
+EX.画面缩放 1080p - 480p
+
+```
+ffmpeg -i input.mov -vf scale=853:480 -acodec aac -vcodec h264 out.mp4
+```
+
+- -vf : 用来指定视频滤镜
+  - Scale : 缩放比例 ex. 853:480 为了将视频高度变为480px， 则宽度计算为 = 1920*480 / 1080 = 853
+  - -acodec = 指定音频使用acc编码
+  - -vcodec h264 = 指定视频使用h264编码
+
+EX.剪裁视频画面
+
+假设目前input为1280*720的， 需要剪裁画面正中间640x640的部分则如下
+
+因为xy默认为视频正中间， 所以不需要设置
+
+```
+ffmpeg -i input.mov -strict -2 -vf crop=640:640:x:y out.mp4
+```
+
+- crop : 表示剪裁视频的画面， 格式为width:height: x:y, width:height表示剪裁后的尺寸， x:y表示剪裁区域的左上角坐标
