@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.3.5</p>
+<p align=right>update 2020.3.11</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -190,10 +190,28 @@ ps.使用时请千万谨慎
 
 <h3 id="8">8. 解压缩及打包</h4>
 
+
+
 - ```tar xvf file.tar -C /dir you want```
 - ```tar xvzf file.tgz -C /dir you want```
 - ```tar xvzf file.tar.gz -C /dir you want```
 - ```unzip file.zip -d /dir you want```
+
+#### unrar 解壓
+
+```
+unrar e test.rar 解压文件到当前目录
+
+unrar x test.rar /path/to/extract
+
+unrar l test.rar 查看rar中的文件
+
+unrar v test.rar 更详细
+
+unrar t test.rar 测试是否可以成功解压
+```
+
+
 
 #### zip 打包
 
@@ -1690,7 +1708,6 @@ ffmpeg -ss 0:0 -t 0:10 -i input.mov output.mp4
 ```
 
 - -ss : 表示视频开始时间
-
 - -t : 表示持续时间
 
 
@@ -1755,9 +1772,6 @@ ffmpeg -i input.avi -codec:v mpeg4 -r 30 -qscale:v 2 -codec:a copy C.avi
 ```
 
 - `-codec:v mpeg4` :  使用mpeg4的encoder
-
 - `-qscale:v n` : 或者`-q:v n`表示输出的video的quality， n从1~31， 1为最高级品质， 建议2~5为mp4
-
 - `-qscale:a  `: 或者 `-q:s ` 表示audio的quality， nn
-
-- `-codec:a copy` : 從input 複製audio 到output， 避免reencoding
+- `-codec:a copy` : 複製
