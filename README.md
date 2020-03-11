@@ -10,6 +10,8 @@
 
 ### 更新
 
+>update date 2020.3.11 新增unrar 解压缩指令
+
 >update date 2020.3.5 新增other下 ffmpeg基础使用
 
 >update date 2020.3.4 修正第8点解压缩
