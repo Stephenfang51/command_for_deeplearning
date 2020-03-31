@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.3.11</p>
+<p align=right>update 2020.3.31</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -21,6 +21,7 @@
 14. [确认本机IP位置及端口](#14)
 15. [其他](#15)
     1. Nm 目标文件格式分析
+    2. `su` 切换使用者命令
 
 ------
 
@@ -463,6 +464,24 @@ sudo vim /etc/fstab
 這樣會打印出全部內容， 可以用grep篩選 如
 
 `nm -D /path/to/xxxx.so | grep xxxx`
+
+
+
+#### su 切换使用者命令
+
+`su [-fmp] [-c command] [-s shell] [--help] [--version] [-] [USER [ARG]]`
+
+- 求换为root使用者: `su root`, 假如用户名为stephen则 `su stephen`
+
+- 显示当前用户：`whoami`
+
+  如果以上出现`su: Authentication failure`, 就需要为root设定pwd
+
+  `sudo passwd root`， 接着输入密码就好
+
+//TODO 待补充
+
+
 
 
 
