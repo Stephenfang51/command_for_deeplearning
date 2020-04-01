@@ -9,6 +9,8 @@
 
 
 ### 更新
+>update date 2020.4.1 新增g++/gcc 升降版本方法， 修正查看版本格式
+
 >update date 2020.3.31 新增Linux su指令
 
 >update date 2020.3.11 新增unrar 解压缩指令
