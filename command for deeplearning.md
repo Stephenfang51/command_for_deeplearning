@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.3.31</p>
+<p align=right>update 2020.4.1</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -36,7 +36,7 @@
     1. ale 語法檢查
     2. Vundle 插件管理器
     3. youcompleteme 代碼補全
-18. [g++相关](#18)
+18. [g++ / gcc 编译器相关](#18)
 
 ------
 
@@ -675,7 +675,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 
 ------
 
-<h3 id = "18">18.  g++ 相关</h3>
+<h3 id = "18">18.  g++ / gcc 编译器相关</h3>
 <h4>g++編譯/執行</h4>
 
 1. 使用g++ 編譯cpp文件：
@@ -702,6 +702,35 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 接着会生成out(这个out是可以指定名称的)
 
 然后执行 ```./out``` 就能运行文件
+
+
+
+#### gcc / g++生降版本
+
+以下用gcc举例， 记得gcc, g++需要同版本
+
+
+
+1. 当前版本为7.3，需要降到4.8
+
+`sudo apt-get install gcc-4.8` （如果是g++  `g++-4.8`)
+
+2. 装完后进入到/usr/bin目录下
+
+3. 输入`ls -l gcc*` 查看连接状况
+
+发现gcc链接到gcc-7.0, 需要将它改为链接到gcc-4.8，方法如下:
+
+```shell
+sudo mv gcc gcc.backup #备份
+sudo ln -s gcc-4.8 gcc #利用软连接重新链接
+```
+
+完成, 可以在用`ls -l gcc*`检查一下
+
+
+
+
 
 <h4 id = >g++ 其它</h4>
 
@@ -1648,21 +1677,14 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 #### 查看版本
 
-查看Ubuntu版本
-
-- 三个指令任选一 ： `lsb_release -a`  / `uname -a`  /  `cat /proc/version`
-
-查看Cmake版本
-
-- `cmake --version`
-
-查看OpenCV 版本 (Ubuntu下)
-
-- `pkg-config --modversion opencv`
-
-查看TensorRT 版本 （Ubuntu下）
-
-- `dpkg -l | grep TensorRT`
+| 程序      | Command                                                |
+| --------- | ------------------------------------------------------ |
+| Ubuntu    | `lsb_release -a`  / `uname -a`  /  `cat /proc/version` |
+| Cmake     | `cmake --version`                                      |
+| openCV    | `pkg-config --modversion opencv`                       |
+| TensorRT  | `dpkg -l grep TensorRT`                                |
+| protobuf  | `protoc --version`                                     |
+| g++ / gcc | `g++ --version`                                        |
 
 
 
