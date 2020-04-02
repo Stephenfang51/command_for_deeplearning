@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.4.1</p>
+<p align=right>update 2020.4.2</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -62,7 +62,13 @@
 28. onnx 模型相关
 29. PytorchToCaffe
 
+------
 
+> Linux 程序安装
+
+汇整所有需要apt-get 安装的程序安装方法
+
+1. Google Protocol buffer
 
 ------
 
@@ -684,6 +690,24 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 - ```g++ filename.cpp``` -c 生成文件名 : 自動生成指定的文件名
 
 2. ```./檔名``` ：執行文件
+
+
+
+#### 搭配参数
+
+`-I` : 表示依照指定的路径搜索头文件, Ex. `-I./include/` 表示将./include/目录作为第一个寻找头文件的目录，寻找的顺序是： ./include/ --> /usr/include --> /usr/local/include
+
+`-L` : 指定库文件的搜索路径 Ex. `-L/lib/ -lapple` 表示到/lib/目录下寻找libapple.so库文件， 可以连接多个
+
+`-l` :  小写L ， 指定要连接的库名称
+
+Ex. 输出compress 执行文件， 源文件compress.cpp 连接头文件在/home/include, -L连接库文件 libz.so, 
+
+```shell
+g++ -o compress  compress.cpp  -I/home/include/  -L/lib/  -lz
+```
+
+
 
 
 
@@ -1662,6 +1686,27 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 <h3 id="">29. PytorchToCaffe </h3>
 
 - [PytorchToCaffe](https://github.com/xxradon/PytorchToCaffe)
+
+------
+
+<h2 id="" align="center"> Linux 程序安装 </h2>
+
+#### google protocol buffer 
+
+安装参考 ： https://www.codetd.com/article/5545049
+
+PS. 注意3.0.0以上版本需要用autogen.sh, 不能直接./configure
+
+卸载 ： 
+
+```shell
+sudo apt-get remove libprotobuf-dev
+
+which protoc #找到路径
+rm -rf /path/to/protoc #删除路径下的protoc
+```
+
+
 
 
 
