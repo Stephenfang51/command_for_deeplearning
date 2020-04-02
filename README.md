@@ -9,6 +9,8 @@
 
 
 ### 更新
+>update date 2020.4.2 新增Linux 程序安装， g++/gcc 参数
+
 >update date 2020.4.1 新增g++/gcc 升降版本方法， 修正查看版本格式
 
 >update date 2020.3.31 新增Linux su指令
