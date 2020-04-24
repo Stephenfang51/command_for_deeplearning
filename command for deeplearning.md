@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.4.2</p>
+<p align=right>update 2020.4.24</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -22,6 +22,7 @@
 15. [其他](#15)
     1. Nm 目标文件格式分析
     2. `su` 切换使用者命令
+    3. Screen 后台执行程序
 
 ------
 
@@ -489,7 +490,29 @@ sudo vim /etc/fstab
 
 
 
+#### screen 后台执行程序
 
+ref https://blog.csdn.net/weixin_42331537/article/details/89962801?depth_1-utm_source=distribute.pc_relevant.none-task-blog-OPENSEARCH-2&utm_source=distribute.pc_relevant.none-task-blog-OPENSEARCH-2
+
+这个绝对是常用云服务器执行任务的利器， 将程序放在后台运行即使登出或者与本地断开连线还是在运行
+
+下面是几个常用的指令
+
+```shell
+screen -S session_name           # 新建一个叫session_name的session
+screen -ls（或者screen -list）    # 列出当前所有的session
+screen -r session_name           # 回到session_name这个session
+screen -d session_name           # 远程detach某个session
+screen -d -r session_name        # 结束当前session并回到session_name这个session
+```
+
+通常先用 `screen -S xxxxx`（任意取名）创建session 并且进入
+
+然后进入之后就可以执行需要在后台执行的程序， 比如开始训练模型
+
+接着`ctrl + A + D`可以退出当前的session， 但是只是离开并不影响程序继续运行
+
+如果想在进去观察的话可以`screen -r 你的session_name` 
 
 ------
 
@@ -740,7 +763,6 @@ g++ -o compress  compress.cpp  -I/home/include/  -L/lib/  -lz
 `sudo apt-get install gcc-4.8` （如果是g++  `g++-4.8`)
 
 2. 装完后进入到/usr/bin目录下
-
 3. 输入`ls -l gcc*` 查看连接状况
 
 发现gcc链接到gcc-7.0, 需要将它改为链接到gcc-4.8，方法如下:
@@ -1098,11 +1120,9 @@ git pull --rebase
 
 #### 问题解决
 
-1. error: failed to push some refs to
+**错误信息 ： error: failed to push some refs to**
 
 问题在于远程版本比本地的还要新， 需要先pull回来做更新才能重新push
-
-解决方式：
 
 先进行更新, 然後合併
 
@@ -1113,20 +1133,20 @@ git pull --rebase
 
 
 
-2. Changes not staged for commit:
+**错误信息 ： Changes not staged for commit:**
 
-   因為要提交的提交的档案尚未track， 需要对该档案 git add 档案名， 然后在重新执行commit, push等
+因為要提交的提交的档案尚未track， 需要对该档案 git add 档案名， 然后在重新执行commit, push等
 
-   
 
-3. Git修改密码后命令行push代码报“fatal: Authentication failed for 
 
-   ```shell
-   git config --system --unset credential.helper
-   git config --global credential.helper store
-   ```
+**错误信息 ： Git修改密码后命令行push代码报“fatal: Authentication failed for **
 
-   然后在git push 就会要求输入使用者的账号和密码
+```shell
+git config --system --unset credential.helper
+git config --global credential.helper store
+```
+
+然后在git push 就会要求输入使用者的账号和密码
 
 ------
 
@@ -1184,11 +1204,21 @@ git pull --rebase
 
 #### 清华源加速
 
-pip安装包之前， 命令行键入
+1. pip安装包之前， 命令行键入
 
 `pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
 
 在进行包的安装即可飞速
+
+2. 也可以找到pip.conf这个文件用vim修改源（用sudo find来找)
+
+
+
+PS.如果有些比较不知名的包在清华源无法下载， 可以用
+
+`pip install [module] -i https://pypi.org/simple`
+
+临时将链接替换回默认镜像
 
 
 
@@ -1691,9 +1721,40 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 <h2 id="" align="center"> Linux 程序安装 </h2>
 
+#### 通用
+
+ld转载器
+
+Linux 使用这个ld-linux.so*（虚拟机x86的ubuntu 是使用ld-linux.so2）中的来装载（其实这只是一个链接）其他库。所以这个库必须放在  linux中/lib下。对于其他，通常我们共享库放在/lib这个路径下，而且也是系统默认的搜索路径。
+
+Linux共享库的搜索路径先后顺序：
+1、编译目标代码时指定的动态库搜索路径：在编译的时候指定-Wl,-rpath=路径
+2、环境变量LD_LIBRARY_PATH指定的动态库搜索路径
+3、配置文件/etc/ld.so.conf中指定的动态库搜索路径
+4、默认的动态库搜索路径/lib
+5、默认的动态库搜索路径 /usr/lib
+
+
+
+安装完新的库之后， 要让程序搜寻库之前可以先
+
+```shell
+vim /etc/ld.so.conf  #进入
+/usr/local/lib #添加这行进去， 因为开源库安装后都会放到这个下面
+sudo ldconfig -v  #进行一下更新
+```
+
+
+
 #### google protocol buffer 
 
-安装参考 ： https://www.codetd.com/article/5545049
+1. 安装参考 ： https://www.codetd.com/article/5545049
+2. 去official github https://github.com/protocolbuffers/protobuf 从release中找到要的版本下载source code版本， zip 或者tar档案
+3. 注意安装3.8左右以上， 如果从源码安装， 需要额外下载googletest， 否则会报错
+   1. 参考· https://www.twblogs.net/a/5c9bf5e2bd9eee73ef4b1238
+   2. https://github.com/google/googletest/releases/tag/release-1.8.1
+   3. 将下载好的googletest解压缩之后， 在丢进protobuf里面的thirdparty文件夹中， 并且重新将googletest..xxxx 命名为googletest就好
+   4. `./autogen.sh` 重新开始接下来参考第一点安装参考继续就可以
 
 PS. 注意3.0.0以上版本需要用autogen.sh, 不能直接./configure
 
