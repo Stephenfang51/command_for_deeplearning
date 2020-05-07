@@ -1743,7 +1743,61 @@ wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
 
 接着pip 的源也默认变成清华的
 
+#### Ubuntu 安装chrome 
 
+对于64位版本可以使用如下链接下载：
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+然后 `sudo dpkg -i google-chrome-stable_current_amd64.deb`
+
+就安装好了
+
+
+
+#### 安装openCV
+
+先安装各种依赖
+
+```shell
+sudo apt-get install cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+sudo apt-get install libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff5-dev libdc1394-22-dev # 处理图像所需的包
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev liblapacke-dev
+
+sudo apt-get install libxvidcore-dev libx264-dev # 处理视频所需的包
+sudo apt-get install ffmpeg
+
+
+```
+
+clone github上的openCV 从源码编译安装
+
+git clone https://github.com/opencv/opencv.git
+
+
+
+接着
+
+```shell
+cd opencv //切换到目录下
+mkdir release //创建release文件夹
+cd release //切换到该文件夹
+//配置输出的参数
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/user/local ..
+sudo make //编译， 这一步会花比较长的时间
+sudo make install //安装
+sudo ldconfig //更新动态库
+```
+
+最终如果cmakelist中find_package(OpenCV REQUIRED)找不到opencv时候
+
+要以下
+
+```
+set(OpenCV_DIR /path/to/opencv-master/release) 
+```
+
+这里后面的路径取决于你clone openCV的路径， release 也有可能是build
 
 
 
