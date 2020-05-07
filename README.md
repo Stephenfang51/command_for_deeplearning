@@ -10,6 +10,8 @@
 
 ### 更新
 
+>update date 2020.5.7 新增Linux 安装openCV的方法
+
 >update date 2020.5.6 新增Linux OS安装方法连接
 
 >update date 2020.4.24 新增Linux 其他 screen后台执行程序
