@@ -1,5 +1,5 @@
 <h1 align=center>Linux, VIM C++, Anaconda3, git, Docker, Shell</h1>
-<p align=right>update 2020.5.6</p>
+<p align=right>update 2020.5.9</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -23,6 +23,7 @@
     1. Nm 目标文件格式分析
     2. `su` 切换使用者命令
     3. Screen 后台执行程序
+    4. 透过ssh上传文件or下载文件到服务器
 
 ------
 
@@ -519,6 +520,36 @@ screen -d -r session_name        # 结束当前session并回到session_name这�
 如果遇到任务没结束需要强制删除会话（比如占用显存的情况）
 
 `screen -S session_name -X quit`
+
+
+
+
+
+#### 透过ssh上传文件or下载文件到服务器
+
+上传文件到服务器 
+
+```
+scp -P 端口号 要传输的文件 用户名@主机ip:路径
+```
+
+Ex.
+
+```
+scp -P 22 darkent.zip root@123.45.2.345:/home/username/workplace
+```
+
+
+
+从服务器下载文件到本地
+
+```
+scp -P 端口号 用户名@主机ip:要下载文件的路径 空格 本地路径
+```
+
+
+
+如果要下载or上传整个目录 加上-r
 
 ------
 
@@ -1767,6 +1798,8 @@ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev li
 sudo apt-get install libxvidcore-dev libx264-dev # 处理视频所需的包
 sudo apt-get install ffmpeg
 
+sudo apt-get install libcanberra-gtk-module
+
 
 ```
 
@@ -1780,8 +1813,8 @@ git clone https://github.com/opencv/opencv.git
 
 ```shell
 cd opencv //切换到目录下
-mkdir release //创建release文件夹
-cd release //切换到该文件夹
+mkdir build 
+cd build //切换到该文件夹
 //配置输出的参数
 cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/user/local ..
 sudo make //编译， 这一步会花比较长的时间
@@ -1794,10 +1827,10 @@ sudo ldconfig //更新动态库
 要以下
 
 ```
-set(OpenCV_DIR /path/to/opencv-master/release) 
+set(OpenCV_DIR /path/to/opencv-master/build) 
 ```
 
-这里后面的路径取决于你clone openCV的路径， release 也有可能是build
+
 
 
 
