@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.5.16</p>
+<p align=right>update 2020.5.18</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -74,7 +74,6 @@
 1. 安装Ubuntu
 2. 安装openCV
 3. 安装cmake
-
 4. Google Protocol buffer
 
 ------
@@ -91,6 +90,7 @@
 > ### DeepLearning
 
 1. 数据集格式
+2. cuda安装
 
 ------
 
@@ -2170,3 +2170,101 @@ COCO
 
 ```
 
+
+
+
+
+
+
+
+
+#### CUDA / CUDNN 安装与移除
+
+#### CUDA安装
+
+到官网 developer.nvidia.com/cuda-toolkit-archive
+
+下载需要的版本，选择runfile格式
+
+依照官方给的指令进行下载及安装
+
+```shell
+wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+```
+
+过程会有一些协议需要accept
+
+然后记得显卡安装驱动的地方可以取消
+
+一般安装的路径位置会是在 /usr/local/cuda-10.x
+
+然后会生成symbolic link 在/usr/local/cuda
+
+
+
+然后在环境变量中设置路径
+
+```bash
+vim ~/.bashrc
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
+export PATH=$PATH:/usr/local/cuda/bin
+export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
+```
+
+
+
+
+
+#### CUDA共存版本
+
+假设又想装一个cuda10.2 版本
+
+一样记得驱动不要选择， 然后提示会跳出 已经有symbolic link, 就是原先已经有的/usr/local/cuda/
+
+如果选择Y， 则会覆盖之前旧版本的cuda， 如果选择N， 就不会覆盖， 只会装到/usr/local/cuda-10.2
+
+要看安装了哪些版本就到/usr/local 下
+
+要查看现在使用那一个版本的cuda可以查看
+
+```
+stat cuda #查看当前符号链接的位置
+
+File： 'cuda' -> 'usr/local/cuda-10.1'
+Size : xxxx
+.
+.
+etc
+```
+
+可以看到目前符号链接到 10.1的版本
+
+如果想切换到 10.2 可以
+
+```shell
+sudo rm -rf cuda #删除之前的连接
+sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
+```
+
+
+
+
+
+
+
+
+
+#### cudnn 安装
+
+Developer.nvidia.com/rdp/cudnn-download （应该需要登入）
+
+找到对应cuda的版本， 下载 cuDNN Library for Linux 这会是一个tgz包
+
+解压缩后得到cuda文件夹， 将里面的Include/ lib64/下的内容丢到/usr/local/cuda/下对应的文件夹下面就完成
+
+
+
+#### CUDA 移除
+
+直接删除/usr/local/下 cuda版本的文件夹就可以
