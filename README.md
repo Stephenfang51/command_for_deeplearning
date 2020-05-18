@@ -10,6 +10,8 @@
 
 ### 更新
 
+>update date 2020.5.18 新增CUDA / CUDNN 安装, 移除, 共存
+
 >update date 2020.5.16 新增Linux ldd命令
 
 >update date 2020.5.9 新增Linux 程序安装（Ubuntu, opencv cmake)
