@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.5.18</p>
+<p align=right>update 2020.6.1</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -25,6 +25,7 @@
     3. Screen 后台执行程序
     4. 透过ssh上传文件or下载文件到服务器
     5. ldd 指令查询程序或者依赖的共享库
+    6. Linux 查看装置
 
 ------
 
@@ -90,7 +91,7 @@
 > ### DeepLearning
 
 1. 数据集格式
-2. cuda安装
+2. CUDA, CUDNN 安装,移除, 共存
 
 ------
 
@@ -603,6 +604,32 @@ libtinfo.so.5 => /lib64/libtinfo.so.5 (0x00007f17a5704000)
 选项
 
 `-v` : 看更多资讯包含版本信息
+
+
+
+
+
+
+
+#### alias 环境变量设置别名
+
+在环境变量中添加
+
+```
+alias 快捷指令="终端指令"
+
+EX.
+alias wo="cd /home/workplace"
+则在终端输入wo， 就相当于 cd /home/workplace
+```
+
+
+
+#### Linux查询装置
+
+1. 查主机板 ：`sudo dmidecode | more` 
+
+
 
 
 
@@ -1859,6 +1886,18 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 
 
+#### Ubuntu 识别 移动硬盘 exFAT格式
+
+刚装好的ubuntu必须按照插件才能识别移动硬盘
+
+```
+sudo apt-get install exfat-utils
+```
+
+
+
+
+
 #### 安装openCV
 
 先安装各种依赖
@@ -1882,7 +1921,7 @@ git clone https://github.com/opencv/opencv.git
 
 
 
-接着
+接着键入以下指令， 记得在第五行的地方， 最后是库文件的安装位置， 也可以是usr/local 这是默认的位置
 
 ```shell
 cd opencv //切换到目录下
@@ -1897,13 +1936,43 @@ sudo ldconfig //更新动态库
 
 最终如果cmakelist中find_package(OpenCV REQUIRED)找不到opencv时候
 
-要以下
+要以下主动设置路径
 
 ```
 set(OpenCV_DIR /path/to/opencv-master/build) 
 ```
 
 
+
+移除opencv的方法
+
+去原先build的文件夹中， 执行sudo make uninstall, 就会自动删除系统路径下lib里面的库文件
+
+
+
+问题1 ：
+
+如果在cmake 的地方出现
+
+```
+ICV: Failed to download ICV package: ippicv_linux_20151201.tgz.
+```
+
+到链接: https://pan.baidu.com/s/1tUn4so6BZc8MdVz0FbtWLA 提取码: sktn 
+
+下载ippicv_linux_20151201.tgz
+
+并替换
+
+`./opencv-3.2.0/3rdparty/ippicv/downloads/linux-808b791a6eac9ed78d32a7666804320e`下的文件
+
+
+
+问题2:
+
+因为cuda9 不支持opencv3.2 所以参考以下做法
+
+https://blog.csdn.net/qq_39315153/article/details/103282762?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-1
 
 #### 安装Cmake
 
