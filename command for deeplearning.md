@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.6.1</p>
+<p align=right>update 2020.6.10</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -26,6 +26,7 @@
     4. 透过ssh上传文件or下载文件到服务器
     5. ldd 指令查询程序或者依赖的共享库
     6. Linux 查看装置
+    7. ldconfig 使用
 
 ------
 
@@ -630,6 +631,36 @@ alias wo="cd /home/workplace"
 1. 查主机板 ：`sudo dmidecode | more` 
 
 
+
+#### ldconfig
+
+ref https://www.cnblogs.com/schips/p/10183111.html
+
+ldconfig是一个动态链接库管理命令，其目的为了让动态链接库为系统所共享。
+
+ldconfig的主要用途：
+
+**默认搜寻/lilb和/usr/lib，以及配置文件/etc/ld.so.conf内所列的目录下的库文件。**
+
+搜索出可共享的动态链接库，库文件的格式为：lib***.so.**，进而创建出动态装入程序(ld.so)所需的连接和缓存文件。
+
+缓存文件默认为/etc/ld.so.cache，该文件保存已排好序的动态链接库名字列表
+
+ldconfig通常在系统启动时运行，而当用户安装了一个新的动态链接库时，就需要手工运行这个命令。
+
+ldconfig需要注意的地方：
+
+```
+1、往/lib和/usr/lib里面加东西，是不用修改/etc/ld.so.conf文件的，但是添加完后需要调用下ldconfig，不然添加的library会找不到。
+
+2、如果添加的library不在/lib和/usr/lib里面的话，就一定要修改/etc/ld.so.conf文件，往该文件追加library所在的路径，然后也需要重新调用下ldconfig命令。比如在安装[MySQL](http://lib.csdn.net/base/14)的时候，其库文件/usr/local/mysql/lib，就需要追加到/etc/ld.so.conf文件中。命令如下：
+
+\# echo "/usr/local/mysql/lib" >> /etc/ld.so.conf
+
+\# ldconfig -v | grep mysql
+
+3、如果添加的library不在/lib或/usr/lib下，但是却没有权限操作写/etc/ld.so.conf文件的话，这时就需要往export里写一个全局变量LD_LIBRARY_PATH，就可以了。
+```
 
 
 
@@ -2249,6 +2280,28 @@ COCO
 
 #### CUDA / CUDNN 安装与移除
 
+#### 显卡驱动安装
+
+- 测试平台 Ubuntu 18.04.4
+
+这边记录2080TI的显卡驱动安装最快速直接的方法
+
+```
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt-get update
+ubuntu-drivers devices
+sudo ubuntu-drivers autoinstall
+```
+
+上述执行完之后, 
+
+```
+sudo reboot //重启电脑
+nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
+```
+
+
+
 #### CUDA安装
 
 到官网 developer.nvidia.com/cuda-toolkit-archive
@@ -2257,6 +2310,8 @@ COCO
 
 依照官方给的指令进行下载及安装
 
+例如如下
+
 ```shell
 wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
 sudo sh cuda_10.1.243_418.87.00_linux.run
@@ -2264,7 +2319,19 @@ sudo sh cuda_10.1.243_418.87.00_linux.run
 
 过程会有一些协议需要accept
 
-然后记得显卡安装驱动的地方可以取消
+**然后记得显卡安装驱动的地方可以取消, 如果之前已经安装过的话**
+
+
+
+如果报错提示空间不足
+
+可以将tmpdir改成, 如下重新执行
+
+```
+sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
+```
+
+
 
 一般安装的路径位置会是在 /usr/local/cuda-10.x
 
@@ -2279,6 +2346,15 @@ vim ~/.bashrc
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
 export PATH=$PATH:/usr/local/cuda/bin
 export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
+
+
+source ~/.bashrc //最后更新一下
+```
+
+以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
+
+```
+bash : /usr/bin/nvcc: No such file or directory
 ```
 
 
@@ -2326,7 +2402,7 @@ sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
 
 #### cudnn 安装
 
-Developer.nvidia.com/rdp/cudnn-download （应该需要登入）
+到 Developer.nvidia.com/rdp/cudnn-download （应该需要登入）
 
 找到对应cuda的版本， 下载 cuDNN Library for Linux 这会是一个tgz包
 
@@ -2336,4 +2412,30 @@ Developer.nvidia.com/rdp/cudnn-download （应该需要登入）
 
 #### CUDA 移除
 
-直接删除/usr/local/下 cuda版本的文件夹就可以
+1. 找到cuda自动的卸除脚本， 通常在`/usr/local/cuda/bin/`下面， 并且执行
+
+```
+sudo find / -iname '*uninstall_cuda*'
+```
+
+2. 直接删除/usr/local/下 cuda版本的文件夹就可以
+
+
+
+
+
+如果使用sudo apt-get 安装的nvidia-cuda-toolkit
+
+可以
+
+```
+sudo apt-get autoremove nvidia-cuda-toolkit
+```
+
+
+
+
+
+其他参考链接
+
+https://www.jianshu.com/p/fd0f84f858f8
