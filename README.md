@@ -10,6 +10,8 @@
 
 ### 更新
 
+>update date 2020.6.25 修正Linux nm指令
+
 >update date 2020.6.10 修正CUDA安装
 
 >update date 2020.6.1 新增Opencv 配置处理问题
