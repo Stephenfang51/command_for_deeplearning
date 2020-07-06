@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.6.25</p>
+<p align=right>update 2020.7.6</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -21,7 +21,7 @@
 14. [确认本机IP位置及端口](#14)
 15. [其他](#15)
     1. Nm 目标文件格式分析
-    2. `su` 切换使用者命令
+    2. 使用者权限/创建删除用户
     3. Screen 后台执行程序
     4. 透过ssh上传文件or下载文件到服务器
     5. ldd 指令查询程序或者依赖的共享库
@@ -498,8 +498,7 @@ sudo vim /etc/fstab
 ------
 
 <h3 id="15">15. 其他</h4>
-
-#### 1. nm 目标文件格式分析
+1. nm 目标文件格式分析
 
 主要用于列出目标的符号清单， 对于每一个符号，nm列出其值(the symbol value)，类型（the symbol type）和其名字(the symbol name)
 
@@ -531,7 +530,77 @@ sudo vim /etc/fstab
 
 
 
-#### su 切换使用者命令
+#### 使用者权限/创建删除用户
+
+#### 创建用户
+
+参考https://blog.gtwang.org/linux/linux-useradd-command-tutorial-examples/
+
+```shell
+$ sudo useradd -m jason -s /bin/bash 
+$ sudo passwd jason
+$ sudo adduser jason sudo
+$ su jason
+```
+
+- 创建了可以登录的meow用户并使用/bin/bash作为shell。
+- 设置密码。
+- 为jason用户增加管理员权限。
+- 切换登录用户为jason。
+
+如果要让用户只能访问一个文件夹可以加上 -d
+
+```
+sudo useradd -m jason -s /bin/bash -d /home/jason
+```
+
+为用户指定id
+
+```
+sudo useradd -m jason -s /bin/bash -d /home/jason -u 999
+```
+
+为用户加入既有的group, 除了主要group 一位user能同时在不同的group中
+
+```
+sudo useradd -m jason -s /bin/bash -d /home/jason -g team
+```
+
+
+
+如果想为jason添加管理员权限可以
+
+```
+sudo vi /etc/sudoers
+```
+
+找到
+
+root ALL=(ALL:ALL) ALL 
+
+下面添加
+
+jason ALL=(ALL:ALL) ALL
+
+
+
+#### 删除用户
+
+```
+killall -u username
+```
+
+可以删除用户所有信息
+
+如果碰到用户进程还在的时候， 可以直接杀光用户进程
+
+```
+killall -u username
+```
+
+
+
+#### su 指令
 
 有些文件必须要root权限才能修改， 因此
 
@@ -547,7 +616,9 @@ sudo vim /etc/fstab
 
   `sudo passwd root`， 接着设定好密码
 
-//TODO 待补充
+- 退出当前用户 ： `exit` / `logout` / `ctrl + d`
+
+
 
 
 
@@ -734,6 +805,12 @@ ldconfig需要注意的地方：
   在要注釋掉的行首 加入`#if 0`
 
   在要注釋掉的行尾 加入`#endif`
+
+- `:X` : 大写的X主要是用来加密文件
+
+  - 输入之后， 会要求输入二次密码， 两次都需要一样
+  - 下次开启就需要输入密码才能打开文件， 密码务必要记住， 否则解不开
+  - 如果需要重新设置为无密码， 只要`:X`之后， 直接回车两次就行， 就设置为无密码了
 
 ------
 
@@ -1902,6 +1979,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 # ./configure --enable-optimizations
 # make
 # make install
+
 ```
 
 ------
@@ -1934,6 +2012,7 @@ https://blog.csdn.net/baidu_36602427/article/details/86548203?utm_medium=distrib
 
 ```shell
 wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
+
 ```
 
 下载完之后 python执行
@@ -1958,6 +2037,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 ```
 sudo apt-get install exfat-utils
+
 ```
 
 
@@ -1967,6 +2047,7 @@ sudo apt-get install exfat-utils
 ```shell
 sudo apt-get install python-pip
 sudo apt-get install python3-pip
+
 ```
 
 
@@ -1988,6 +2069,7 @@ sudo apt-get install ffmpeg
 sudo apt-get install libcanberra-gtk-module
 
 
+
 ```
 
 clone github上的openCV 从源码编译安装
@@ -2007,6 +2089,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/user/local ..
 sudo make //编译， 这一步会花比较长的时间
 sudo make install //安装
 sudo ldconfig //更新动态库
+
 ```
 
 最终如果cmakelist中find_package(OpenCV REQUIRED)找不到opencv时候
@@ -2015,6 +2098,7 @@ sudo ldconfig //更新动态库
 
 ```
 set(OpenCV_DIR /path/to/opencv-master/build) 
+
 ```
 
 
@@ -2031,6 +2115,7 @@ set(OpenCV_DIR /path/to/opencv-master/build)
 
 ```
 ICV: Failed to download ICV package: ippicv_linux_20151201.tgz.
+
 ```
 
 到链接: https://pan.baidu.com/s/1tUn4so6BZc8MdVz0FbtWLA 提取码: sktn 
@@ -2057,6 +2142,7 @@ https://blog.csdn.net/qq_39315153/article/details/103282762?utm_medium=distribut
 
 ```
 sudo apt-get isntall libssl-dev
+
 ```
 
 
@@ -2069,6 +2155,7 @@ cd cmake-3.15.3
 make
 sudo make install
 cmake --version
+
 ```
 
 
@@ -2094,6 +2181,7 @@ Linux共享库的搜索路径先后顺序：
 vim /etc/ld.so.conf  #进入
 /usr/local/lib #添加这行进去， 因为开源库安装后都会放到这个下面
 sudo ldconfig -v  #进行一下更新
+
 ```
 
 
@@ -2117,6 +2205,7 @@ sudo apt-get remove libprotobuf-dev
 
 which protoc #找到路径
 rm -rf /path/to/protoc #删除路径下的protoc
+
 ```
 
 
@@ -2158,6 +2247,7 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ```
 nvidia-smi
+
 ```
 
 如果想不间断持续监控可以使用watch 指令
@@ -2166,6 +2256,7 @@ nvidia-smi
 
 ```
 watch [options]  command
+
 ```
 
 最常用的参数是 -n， 后面指定是每多少秒来执行一次命令。
@@ -2174,6 +2265,7 @@ watch [options]  command
 
 ```
 watch -n 3 nvidia-smi
+
 ```
 
 
@@ -2192,6 +2284,7 @@ Ex. 将mov转换为mp4
 
 ```shell
 ffmpeg -i input.mov output.mp4
+
 ```
 
 - -i ：表示输入文件
@@ -2204,6 +2297,7 @@ Ex. 剪切前10秒
 
 ```
 ffmpeg -ss 0:0 -t 0:10 -i input.mov output.mp4
+
 ```
 
 - -ss : 表示视频开始时间
@@ -2215,6 +2309,7 @@ Ex. 裁剪视频最后10秒
 
 ```
 ffmpeg -sseof -0:10 -i input.mov output.mp4
+
 ```
 
 - -sseof ：表示视频最末尾的开始时间
@@ -2227,6 +2322,7 @@ EX.画面缩放 1080p - 480p
 
 ```
 ffmpeg -i input.mov -vf scale=853:480 -acodec aac -vcodec h264 out.mp4
+
 ```
 
 - -vf : 用来指定视频滤镜
@@ -2242,6 +2338,7 @@ EX.剪裁视频画面
 
 ```
 ffmpeg -i input.mov -strict -2 -vf crop=640:640:x:y out.mp4
+
 ```
 
 - crop : 表示剪裁视频的画面， 格式为width:height: x:y, width:height表示剪裁后的尺寸， x:y表示剪裁区域的左上角坐标
@@ -2254,6 +2351,7 @@ Ex.从视频中提取帧数, 每秒提取24幅图
 
 ```
 ffmpeg -i twice_v2.mp4 -ss 00:00 -r 24 -f image2 test/image-%05d.jpg
+
 ```
 
 - -r 指定抽取的帧率，即从视频中每秒钟抽取图片的数量。1代表每秒抽取一帧，５就表示一秒抽5张图
@@ -2268,6 +2366,7 @@ Ex. 設置視頻的幀率
 
 ```
 ffmpeg -i input.avi -codec:v mpeg4 -r 30 -qscale:v 2 -codec:a copy C.avi
+
 ```
 
 - `-codec:v mpeg4` :  使用mpeg4的encoder
@@ -2304,6 +2403,7 @@ VOC2007
 	| JPEGImages (存放图片， 按照顺序)
 	| SegementationClass
 	| SegementationObjects
+
 ```
 
 
@@ -2335,6 +2435,7 @@ sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt-get update
 ubuntu-drivers devices
 sudo ubuntu-drivers autoinstall
+
 ```
 
 上述执行完之后, 
@@ -2342,6 +2443,7 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo reboot //重启电脑
 nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
+
 ```
 
 
@@ -2359,6 +2461,7 @@ nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
 ```shell
 wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
 sudo sh cuda_10.1.243_418.87.00_linux.run
+
 ```
 
 过程会有一些协议需要accept
@@ -2373,6 +2476,7 @@ sudo sh cuda_10.1.243_418.87.00_linux.run
 
 ```
 sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
+
 ```
 
 
@@ -2393,12 +2497,14 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
 
 
 source ~/.bashrc //最后更新一下
+
 ```
 
 以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
 
 ```
 bash : /usr/bin/nvcc: No such file or directory
+
 ```
 
 
@@ -2425,6 +2531,7 @@ Size : xxxx
 .
 .
 etc
+
 ```
 
 可以看到目前符号链接到 10.1的版本
@@ -2434,6 +2541,7 @@ etc
 ```shell
 sudo rm -rf cuda #删除之前的连接
 sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
+
 ```
 
 
@@ -2460,6 +2568,7 @@ sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
 
 ```
 sudo find / -iname '*uninstall_cuda*'
+
 ```
 
 2. 直接删除/usr/local/下 cuda版本的文件夹就可以
@@ -2474,6 +2583,7 @@ sudo find / -iname '*uninstall_cuda*'
 
 ```
 sudo apt-get autoremove nvidia-cuda-toolkit
+
 ```
 
 
