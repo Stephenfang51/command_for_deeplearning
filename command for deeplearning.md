@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.7.6</p>
+<p align=right>update 2020.7.9</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -20,13 +20,14 @@
 13. [杀死用户进程 kill PID](#13)
 14. [确认本机IP位置及端口](#14)
 15. [其他](#15)
-    1. Nm 目标文件格式分析
-    2. 使用者权限/创建删除用户
-    3. Screen 后台执行程序
-    4. 透过ssh上传文件or下载文件到服务器
-    5. ldd 指令查询程序或者依赖的共享库
-    6. Linux 查看装置
-    7. ldconfig 使用
+    1. 查看Ubuntu系统版本
+    2. Nm 目标文件格式分析
+    3. 使用者权限/创建删除用户
+    4. Screen 后台执行程序
+    5. 透过ssh上传文件or下载文件到服务器
+    6. ldd 指令查询程序或者依赖的共享库
+    7. Linux 查看装置
+    8. ldconfig 使用
 
 ------
 
@@ -498,7 +499,16 @@ sudo vim /etc/fstab
 ------
 
 <h3 id="15">15. 其他</h4>
-1. nm 目标文件格式分析
+
+#### 查Ubuntu系统版本
+
+1. `cat /etc/issue （简单）`
+
+2. `cat /etc/lsb-release（具体）`
+
+3. `uname -a（内核）`
+
+#### nm 目标文件格式分析
 
 主要用于列出目标的符号清单， 对于每一个符号，nm列出其值(the symbol value)，类型（the symbol type）和其名字(the symbol name)
 
@@ -1979,7 +1989,6 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 # ./configure --enable-optimizations
 # make
 # make install
-
 ```
 
 ------
@@ -2012,7 +2021,6 @@ https://blog.csdn.net/baidu_36602427/article/details/86548203?utm_medium=distrib
 
 ```shell
 wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
-
 ```
 
 下载完之后 python执行
@@ -2037,7 +2045,6 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 ```
 sudo apt-get install exfat-utils
-
 ```
 
 
@@ -2047,7 +2054,6 @@ sudo apt-get install exfat-utils
 ```shell
 sudo apt-get install python-pip
 sudo apt-get install python3-pip
-
 ```
 
 
@@ -2069,7 +2075,6 @@ sudo apt-get install ffmpeg
 sudo apt-get install libcanberra-gtk-module
 
 
-
 ```
 
 clone github上的openCV 从源码编译安装
@@ -2089,7 +2094,6 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/user/local ..
 sudo make //编译， 这一步会花比较长的时间
 sudo make install //安装
 sudo ldconfig //更新动态库
-
 ```
 
 最终如果cmakelist中find_package(OpenCV REQUIRED)找不到opencv时候
@@ -2098,7 +2102,6 @@ sudo ldconfig //更新动态库
 
 ```
 set(OpenCV_DIR /path/to/opencv-master/build) 
-
 ```
 
 
@@ -2115,7 +2118,6 @@ set(OpenCV_DIR /path/to/opencv-master/build)
 
 ```
 ICV: Failed to download ICV package: ippicv_linux_20151201.tgz.
-
 ```
 
 到链接: https://pan.baidu.com/s/1tUn4so6BZc8MdVz0FbtWLA 提取码: sktn 
@@ -2142,7 +2144,6 @@ https://blog.csdn.net/qq_39315153/article/details/103282762?utm_medium=distribut
 
 ```
 sudo apt-get isntall libssl-dev
-
 ```
 
 
@@ -2155,7 +2156,6 @@ cd cmake-3.15.3
 make
 sudo make install
 cmake --version
-
 ```
 
 
@@ -2181,7 +2181,6 @@ Linux共享库的搜索路径先后顺序：
 vim /etc/ld.so.conf  #进入
 /usr/local/lib #添加这行进去， 因为开源库安装后都会放到这个下面
 sudo ldconfig -v  #进行一下更新
-
 ```
 
 
@@ -2205,7 +2204,6 @@ sudo apt-get remove libprotobuf-dev
 
 which protoc #找到路径
 rm -rf /path/to/protoc #删除路径下的protoc
-
 ```
 
 
