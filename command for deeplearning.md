@@ -28,6 +28,7 @@
     6. ldd 指令查询程序或者依赖的共享库
     7. Linux 查看装置
     8. ldconfig 使用
+    9. 在桌面建立快捷图示 desktop
 
 ------
 
@@ -777,6 +778,42 @@ ldconfig需要注意的地方：
 
 3、如果添加的library不在/lib或/usr/lib下，但是却没有权限操作写/etc/ld.so.conf文件的话，这时就需要往export里写一个全局变量LD_LIBRARY_PATH，就可以了。
 ```
+
+
+
+#### 桌面建立快捷图示
+
+比如ubuntu下安装clion, 解压缩之后， 只有文件夹， 要到bin下 `./clion.sh`启动程序， 我们可以在桌面建立一个clion.desktop， 连接到这个sh进行快捷启动
+
+
+
+```
+[Desktop Entry]
+
+Encoding=UTF-8
+
+Name=xxx
+
+//可执行文件
+
+Exec=sh  /路径/你前面生成的可执行的shell文件.sh       //.sh可执行文件的绝对路径, 前面的sh 命令不要丢哦
+
+Icon=/usr/local/share/icons/jesh.png  //软件的图标文件路径 ico也可
+
+Info="Spark"
+
+Categories=GTK;Network;message; //可写可不写
+
+Comment="Gtk+ based like QQ"  //提示性信息 ，可写可不写
+
+Terminal=false
+
+Type=Application
+
+StartupNotify=true
+```
+
+
 
 
 
@@ -1555,7 +1592,42 @@ sudo apt-get python3-matplotlib
 
 ------
 
-<h3 id="">25. Docker 指令 </h3>
+<h3 id="">25. Docker 安装及指令 </h3>
+
+#### 安装
+
+参考 https://segmentfault.com/a/1190000022374119
+
+安装如下需要的包
+
+```
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+
+利用deb的方式安装
+
+进入右侧网址 https://download.docker.com/linux/ubuntu/dists/
+
+进去之后点选Ubuntu版本， bionic 是ubuntu 18.04
+
+然后pool/stable/amd64，选择docker 19.03的版本 （可支持GPU）
+
+下载好之后安装
+
+```
+sudo dpkg -i dokcer-ce_19.03.9_3-0-ubuntu-bionic_amd64.deb
+```
+
+执行以下进行测试看安装成功了
+
+```
+sudo docker run hello-world
+```
+
+
+
+
 
 #### 使用指南
 
@@ -1578,6 +1650,8 @@ sudo apt-get python3-matplotlib
 
 
 ##### 镜像加速器
+
+主要从官方pull实在太慢, 所以需要其他厂商提供的加速镜像
 
 主要为服务商提供类似于Docker Hub
 
@@ -1605,27 +1679,35 @@ sudo apt-get python3-matplotlib
 
 
 
-2. Linux 添加加速器
+2. Linux 添加加速器（亲测有效）
 
-```
+推荐用阿里云镜像加速
+
+登入阿里云（用支付宝登入）-> 搜寻镜像服务器 -> 控制台->左侧找到镜像加速器， 会看到属于自己的镜像地址
+
+```shell
 cd /etc/docker
 vim daemon.json
 
 #添加下面内容, 文件必须符合json规范
 {
 	"registry-mirrors": [
-	"https://dockerhub.azk8s.cn",
-	"https://hub-mirror.c.163.com", 
-	"https://reg-mirror.qiniu.com"
+	"这边贴上阿里镜像加速器的地址"
 	]
 }
 
-#保存后离开， 重启docker
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker
+#然后wq保存
+
 ```
 
+reload一下docker
 
+```shell
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+然后在pull images 就会发现速度提升非常多
 
 **从Dockerfile 创造镜像image**
 
@@ -2245,7 +2327,6 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ```
 nvidia-smi
-
 ```
 
 如果想不间断持续监控可以使用watch 指令
@@ -2254,7 +2335,6 @@ nvidia-smi
 
 ```
 watch [options]  command
-
 ```
 
 最常用的参数是 -n， 后面指定是每多少秒来执行一次命令。
@@ -2263,7 +2343,6 @@ watch [options]  command
 
 ```
 watch -n 3 nvidia-smi
-
 ```
 
 
@@ -2282,7 +2361,6 @@ Ex. 将mov转换为mp4
 
 ```shell
 ffmpeg -i input.mov output.mp4
-
 ```
 
 - -i ：表示输入文件
@@ -2295,7 +2373,6 @@ Ex. 剪切前10秒
 
 ```
 ffmpeg -ss 0:0 -t 0:10 -i input.mov output.mp4
-
 ```
 
 - -ss : 表示视频开始时间
@@ -2307,7 +2384,6 @@ Ex. 裁剪视频最后10秒
 
 ```
 ffmpeg -sseof -0:10 -i input.mov output.mp4
-
 ```
 
 - -sseof ：表示视频最末尾的开始时间
@@ -2320,7 +2396,6 @@ EX.画面缩放 1080p - 480p
 
 ```
 ffmpeg -i input.mov -vf scale=853:480 -acodec aac -vcodec h264 out.mp4
-
 ```
 
 - -vf : 用来指定视频滤镜
@@ -2336,7 +2411,6 @@ EX.剪裁视频画面
 
 ```
 ffmpeg -i input.mov -strict -2 -vf crop=640:640:x:y out.mp4
-
 ```
 
 - crop : 表示剪裁视频的画面， 格式为width:height: x:y, width:height表示剪裁后的尺寸， x:y表示剪裁区域的左上角坐标
@@ -2349,7 +2423,6 @@ Ex.从视频中提取帧数, 每秒提取24幅图
 
 ```
 ffmpeg -i twice_v2.mp4 -ss 00:00 -r 24 -f image2 test/image-%05d.jpg
-
 ```
 
 - -r 指定抽取的帧率，即从视频中每秒钟抽取图片的数量。1代表每秒抽取一帧，５就表示一秒抽5张图
@@ -2364,7 +2437,6 @@ Ex. 設置視頻的幀率
 
 ```
 ffmpeg -i input.avi -codec:v mpeg4 -r 30 -qscale:v 2 -codec:a copy C.avi
-
 ```
 
 - `-codec:v mpeg4` :  使用mpeg4的encoder
@@ -2401,7 +2473,6 @@ VOC2007
 	| JPEGImages (存放图片， 按照顺序)
 	| SegementationClass
 	| SegementationObjects
-
 ```
 
 
@@ -2433,7 +2504,6 @@ sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt-get update
 ubuntu-drivers devices
 sudo ubuntu-drivers autoinstall
-
 ```
 
 上述执行完之后, 
@@ -2441,7 +2511,6 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo reboot //重启电脑
 nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
-
 ```
 
 
@@ -2459,7 +2528,6 @@ nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
 ```shell
 wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
 sudo sh cuda_10.1.243_418.87.00_linux.run
-
 ```
 
 过程会有一些协议需要accept
@@ -2474,7 +2542,6 @@ sudo sh cuda_10.1.243_418.87.00_linux.run
 
 ```
 sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
-
 ```
 
 
@@ -2495,14 +2562,12 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
 
 
 source ~/.bashrc //最后更新一下
-
 ```
 
 以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
 
 ```
 bash : /usr/bin/nvcc: No such file or directory
-
 ```
 
 
@@ -2529,7 +2594,6 @@ Size : xxxx
 .
 .
 etc
-
 ```
 
 可以看到目前符号链接到 10.1的版本
@@ -2539,7 +2603,6 @@ etc
 ```shell
 sudo rm -rf cuda #删除之前的连接
 sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
-
 ```
 
 
@@ -2566,7 +2629,6 @@ sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
 
 ```
 sudo find / -iname '*uninstall_cuda*'
-
 ```
 
 2. 直接删除/usr/local/下 cuda版本的文件夹就可以
@@ -2581,7 +2643,6 @@ sudo find / -iname '*uninstall_cuda*'
 
 ```
 sudo apt-get autoremove nvidia-cuda-toolkit
-
 ```
 
 
