@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.7.9</p>
+<p align=right>update 2020.7.10</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -1818,15 +1818,15 @@ bvlc/caffe          cpu                 0b577b836386        18 months ago       
 
 
 
-**重新启动终止状态的容器** 
+**重新进入跳出的容器** 
 
-`docker container start <container ID>` ： 一样ID只需要输入前三位就可以
+跳出容器之后， 容器会是exit的状态， 需要重新启动start
 
+启动的方式
 
+`docker start <container ID>` : 启动停止的容器
 
-**进入容器** 
-
-确保容器不是终止的状态
+接着进入容器
 
 `docker attach <container ID>` ：进入容器， 离开后会终止
 
@@ -2108,6 +2108,61 @@ wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
 下载完之后 python执行
 
 接着pip 的源也默认变成清华的
+
+
+
+#### 将apt源换成阿里源
+
+如果不用清华源， 可以如下方式改成阿里
+
+参考https://blog.csdn.net/u012308586/article/details/102953882
+
+1. 备份原始源文件source.list
+
+```shell
+sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
+```
+
+2. 修改源文件sources.list
+
+```
+sudo  chmod  777  /etc/apt/sources.list   #更改文件权限使其可编辑
+sudo  vim  /etc/apt/sources.list #记得先安装vim
+```
+
+```shell
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+```
+
+
+
+3. 然后更新一下源
+
+   ```shell
+   sudo apt update
+   ```
+
+   
+
+
 
 #### Ubuntu 安装chrome 
 
