@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.7.10</p>
+<p align=right>update 2020.7.13</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -60,14 +60,13 @@
 ------
 
 21. [cuda使用](#21)
-22. [pycharm SSH访问远程服务器](#22)
-23. [python pip 包安装及管理](#23)
-24. Jupyter-notebook SSH远程连接 （待完成）
-25. Docker指令 ( 镜像, 容器操作 )
-26. Shell 脚本(Shell script) 语法与执行 
-27. python 安装 基于Linux
-28. onnx 模型相关
-29. PytorchToCaffe
+22. [python pip 包安装及管理](#23)
+23. Jupyter-notebook SSH远程连接 （待完成）
+24. Docker指令 ( 镜像, 容器操作 )
+25. Shell 脚本(Shell script) 语法与执行 
+26. python 安装 基于Linux
+27. onnx 模型相关
+28. PytorchToCaffe
 
 ------
 
@@ -98,6 +97,12 @@
 2. CUDA, CUDNN 安装,移除, 共存
 
 ------
+
+> ## IDE 使用技巧（Pycharm, CLion…)
+
+1. SSH 连接方式
+
+
 
 <h2 align=center>目录结束<h2>
 
@@ -1479,37 +1484,11 @@ git config --global credential.helper store
 
 [https://developer.nvidia.com/rdp/cudnn-download](https://developer.nvidia.com/rdp/cudnn-download)
 
-------
 
-<h3  id="22"> 22. pycharm SSH访问远程服务器 </h3>
-
-1. #### 将pycharm IDE SSH连线到远程服务器段
-
-   - 服务器需要提供host ip地址，port端口号， host name(root)， 登入密码
-     - 例如远程服务器的为 test@192.168.3.2， test为hostname, 192.168.3.2为host 地址
-   - Pycharm setting中的project interpreter中可以新增服务器上的python解释器，找到SSH Interpreter地方， 输入以上服务器提供的资料进行连接
-
-
-
-2. #### 实现资料互传
-
-   - Pycharm>tools > deployment>configuation 的mapping可以设置映射
-     - Local path是本地项目的路径
-     - Deplotment path是服务器的路径
-
-   
-
-   - Pycharm>tools > deployment>Brose remote host 可以访问远程的资料夹
-
-   
-
-3. #### 开启服务器的终端
-
-   Pycharm > tools > start SSH session 可以在pycharm下方开启远程终端
 
 ------
 
-<h3 id="23">23. python pip 安装及管理 </h3>
+<h3 id="22">22. python pip 安装及管理 </h3>
 
 #### pip 包管理升级
 
@@ -1585,14 +1564,14 @@ sudo apt-get python3-matplotlib
 
 ------
 
-<h3 id="24">24. Jupyter notebook SSH 远程连接 </h3>
+<h3 id="23">23. Jupyter notebook SSH 远程连接 </h3>
 
 1. 首先确保本机与远程主机都已经安装且可以正常使用jupyter notebook
 2. 待完成。。。
 
 ------
 
-<h3 id="">25. Docker 安装及指令 </h3>
+<h3 id="">24. Docker 安装及指令 </h3>
 
 #### 安装
 
@@ -1651,7 +1630,7 @@ sudo docker run hello-world
 
 ##### 镜像加速器
 
-主要从官方pull实在太慢, 所以需要其他厂商提供的加速镜像
+主要从官方的Docker hub pull镜像下来实在太慢, 所以需要其他厂商提供的加速镜像
 
 主要为服务商提供类似于Docker Hub
 
@@ -1787,7 +1766,7 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 
 
-**查看本机装的镜像images**
+#### 镜像images操作篇
 
 `docker image ls` 查看目前本机有的images
 
@@ -1798,11 +1777,11 @@ bvlc/caffe          cpu                 0b577b836386        18 months ago       
 
 `docker image ls -a` 可以看到中间层镜像， 也就是无标签镜像， 不需要删除
 
+`docker image rm xxxxx/xxxxxx` : 删除不需要的镜像
 
+`docker commit containerID newname` : 每次在容器中想要保存目前的内容，创建成新的镜像，  可以使用， newname可以自己定义
 
 #### container  容器常用指令 
-
-
 
 **查看容器container**
 
@@ -1857,6 +1836,18 @@ Images_name.tar 可以自定义
 容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状
 态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入
 时可以重新指定标签等元数据信息。
+
+
+
+#### 本机传输文件到容器
+
+```
+sudo docker cp 本地文件路径 容器ID:容器路径
+```
+
+
+
+
 
 
 
@@ -1978,7 +1969,7 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 
 ------
 
-<h3 id="">26. Shell 脚本语法与执行 </h3>
+<h3 id="25">25. Shell 脚本语法与执行 </h3>
 
 - 编写脚本时 第一行指定解释器 `#! /bin/bash`
 - `chmod +x  xxxxx.sh ` 加上x 表示为sh文件添加可执行（excute） 权限, 否则无法执行
@@ -2062,7 +2053,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 ------
 
-<h3 id="">27. python 安装基于Linux </h3>
+<h3 id="26">26. python 安装基于Linux </h3>
 
 ```cbash
 # wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz 
@@ -2073,9 +2064,15 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 # make install
 ```
 
+
+
+基于Ubuntu安装， 参考[这里](https://blog.csdn.net/u014775723/article/details/85213793?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase)
+
+
+
 ------
 
-<h3 id="">28. onnx (Open Neural Network Exchange) 模型相关 </h3>
+<h3 id="27">27. onnx (Open Neural Network Exchange) 模型相关 </h3>
 
 - Netron 
   - 在线导入onnx模型可视化 [lutzroeder](https://lutzroeder.github.io/netron/)
@@ -2085,7 +2082,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 ------
 
-<h3 id="">29. PytorchToCaffe </h3>
+<h3 id="">28. PytorchToCaffe </h3>
 
 - [PytorchToCaffe](https://github.com/xxradon/PytorchToCaffe)
 
@@ -2154,7 +2151,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 
 
 
-3. 然后更新一下源
+3. 最后更新一下源
 
    ```shell
    sudo apt update
@@ -2707,3 +2704,46 @@ sudo apt-get autoremove nvidia-cuda-toolkit
 其他参考链接
 
 https://www.jianshu.com/p/fd0f84f858f8
+
+
+
+
+
+------
+
+# IDE 使用技巧（Pycharm, CLion…)
+
+#### SSH 使用技巧
+
+以下技巧pycharm clion都使用
+
+1. 将pycharm IDE SSH连线到远程服务器段
+
+- ​	服务器需要提供host ip地址，port端口号， host name(root)， 登入密码
+  - 例如远程服务器的为 test@192.168.3.2， test为hostname, 192.168.3.2为host 地址
+  - Pycharm setting中的project interpreter中可以新增服务器上的python解释器，找到SSH Interpreter地方， 输入以上服务器提供的资料进行连接
+
+
+
+2. 实现资料互传
+
+- ​	Pycharm>tools > deployment>configuation 的mapping可以设置映射
+  - Local path是本地项目的路径
+  - Deplotment path是服务器的路径
+  - Pycharm>tools > deployment>Brose remote host 可以访问远程的资料夹
+
+3. 开启服务器的终端
+
+   Pycharm > tools > start SSH session 可以在pycharm下方开启远程终端
+
+
+
+**问题记录**
+
+如果遇到
+
+Unable to save settings, restart Pycharm
+
+**解决**
+
+问题发生通常是因为对project文件没有权限， 所以将权限改变一下就行
