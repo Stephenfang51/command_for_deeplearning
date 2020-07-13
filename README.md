@@ -10,6 +10,8 @@
 
 ### 更新
 
+>update date 2020.7.13 将IDE重新拉出设置为独立篇章
+
 >update date 2020.7.10 修正docker安装, 进入容器方法， 加速源更改
 
 >update date 2020.7.6 添加vim :X 文件加密指令
