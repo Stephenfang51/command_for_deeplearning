@@ -10,6 +10,8 @@
 
 ### 更新
 
+>update date 2020.7.23 新增NVIDIA驱动安装， Ubuntu下安装v2ray翻墙
+
 >update date 2020.7.13 将IDE重新拉出设置为独立篇章
 
 >update date 2020.7.10 修正docker安装, 进入容器方法， 加速源更改
