@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.7.13</p>
+<p align=right>update 2020.7.23</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -29,6 +29,7 @@
     7. Linux 查看装置
     8. ldconfig 使用
     9. 在桌面建立快捷图示 desktop
+    10. Ubuntu 下翻墙 安装v2ray
 
 ------
 
@@ -98,7 +99,9 @@
 
 ------
 
-> ## IDE 使用技巧（Pycharm, CLion…)
+
+
+> #### IDE 使用技巧（Pycharm, CLion…)
 
 1. SSH 连接方式
 
@@ -509,9 +512,7 @@ sudo vim /etc/fstab
 #### 查Ubuntu系统版本
 
 1. `cat /etc/issue （简单）`
-
 2. `cat /etc/lsb-release（具体）`
-
 3. `uname -a（内核）`
 
 #### nm 目标文件格式分析
@@ -801,15 +802,15 @@ Name=xxx
 
 //可执行文件
 
-Exec=sh  /路径/你前面生成的可执行的shell文件.sh       //.sh可执行文件的绝对路径, 前面的sh 命令不要丢哦
+Exec=sh  /路径/你前面生成的可执行的shell文件.sh       //.sh可执行文件的绝对路径, 前面的sh 命令不要丢哦
 
-Icon=/usr/local/share/icons/jesh.png  //软件的图标文件路径 ico也可
+Icon=/usr/local/share/icons/jesh.png  //软件的图标文件路径 ico也可
 
 Info="Spark"
 
 Categories=GTK;Network;message; //可写可不写
 
-Comment="Gtk+ based like QQ"  //提示性信息 ，可写可不写
+Comment="Gtk+ based like QQ"  //提示性信息 ，可写可不写
 
 Terminal=false
 
@@ -819,6 +820,93 @@ StartupNotify=true
 ```
 
 
+
+
+
+#### apt-file 寻找依赖
+
+首先安装
+
+```
+apt-get update
+apt-get install apt-file
+apt-file update
+```
+
+
+
+
+
+使用方法： 
+
+如果在运行过程中报错例如缺少 xxxx.so
+
+则利用寻找文件
+
+```
+apt-file search xxxx.so
+```
+
+接着就会先找这个文件在哪？
+
+如果没有， 就会找这个库文件是属于哪个包的
+
+
+
+如果想看这个包中有哪些文件可以
+
+```
+apt-file list opencv-python
+```
+
+
+
+#### Ubuntu 翻墙 安装 v2ray
+
+参考 https://mahongfei.com/1776.html
+
+1. 下载`V2ray`客户端，这里以最简单的`AppImage`文件为例,下载链接：
+
+https://github.com/Qv2ray/Qv2ray/releases/download/v1.99.6/Qv2ray-refs.tags.v1.99.6-linux.AppImage
+
+
+
+2. 下载核心文件，下载链接：
+
+   https://github.com/v2ray/v2ray-core/releases/download/v4.22.1/v2ray-linux-64.zip
+
+3. 3:进入v2ray下载的根目录，执行以下命令：
+
+   ```
+   sudo chmod +x ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
+   ```
+
+4. 仍然在v2ray根目录下打开终端，输入以下命令， 会启动软件
+
+```
+sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
+```
+
+执行4后会出现主界面，点击`首选项` preferences
+
+然后在V2ray Settings 
+
+​	-> Core Executable Path 设定核心文件中的v2ray
+
+​	-> V2ray Assets Directory 设定 核心文件路径 
+
+设置好之后按OK
+
+
+
+5. 接着在订阅（subscription)
+   1. 左下角新增
+      1. 输入服务商名字
+      2. 输入订阅url
+      3. 然后update subscription Data
+6. 首选项（preference）中， 入站设置（Inbound Settings)
+   1. 勾选 Set system Proxy
+7. 点击**连接 connect** ， 开始上网
 
 
 
@@ -1496,11 +1584,23 @@ git config --global credential.helper store
 pip install --upgrade pip
 ```
 
-#### 清华源加速
+#### 换源加速 （清华或者阿里）
 
-1. pip安装包之前， 命令行键入
+推荐使用阿里源， 速度飞快
+
+1. 清华源
 
 `pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
+
+2. 阿里源
+
+```
+pip config set global.index-url http://mirrors.aliyun.com/pypi/simple
+```
+
+
+
+
 
 在进行包的安装即可飞速
 
@@ -2719,7 +2819,7 @@ https://www.jianshu.com/p/fd0f84f858f8
 
 1. 将pycharm IDE SSH连线到远程服务器段
 
-- ​	服务器需要提供host ip地址，port端口号， host name(root)， 登入密码
+- 服务器需要提供host ip地址，port端口号， host name(root)， 登入密码
   - 例如远程服务器的为 test@192.168.3.2， test为hostname, 192.168.3.2为host 地址
   - Pycharm setting中的project interpreter中可以新增服务器上的python解释器，找到SSH Interpreter地方， 输入以上服务器提供的资料进行连接
 
@@ -2727,7 +2827,7 @@ https://www.jianshu.com/p/fd0f84f858f8
 
 2. 实现资料互传
 
-- ​	Pycharm>tools > deployment>configuation 的mapping可以设置映射
+- Pycharm>tools > deployment>configuation 的mapping可以设置映射
   - Local path是本地项目的路径
   - Deplotment path是服务器的路径
   - Pycharm>tools > deployment>Brose remote host 可以访问远程的资料夹
