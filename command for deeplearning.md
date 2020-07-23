@@ -5,31 +5,58 @@
 > ### Linux
 
 1. [移动到指定目录 cd](#1)
+
 2. [查看文件下的资料 ls](#2)
+
 3. [創建文件夾 mkdir or rmdir](#3)
+
 4. [创建文件夹 touch](#4)
+
 5. [搜寻文件or文件夹](#5)
+
 6. [查看当前目录下的文件数](#6)
+
 7. [remove 所有资料 rm](#7)
+
 8. [解压缩及打包](#8)
+
 9. [移動文件及复制文件移动, 修改文件名mv](#9)
+
 10. [建立资料连接, 软连接  In](#10)
+
 11. [chmod 添加文件或目录权限](#11)
+
 12. [查看CPU，内存占用率, 磁盘占用](#12)
+
     - swapfile 增加虚拟内存
+
 13. [杀死用户进程 kill PID](#13)
+
 14. [确认本机IP位置及端口](#14)
+
 15. [其他](#15)
+
     1. 查看Ubuntu系统版本
+
     2. Nm 目标文件格式分析
+
     3. 使用者权限/创建删除用户
+
     4. Screen 后台执行程序
+
     5. 透过ssh上传文件or下载文件到服务器
+
     6. ldd 指令查询程序或者依赖的共享库
+
     7. Linux 查看装置
+
     8. ldconfig 使用
+
     9. 在桌面建立快捷图示 desktop
+
     10. Ubuntu 下翻墙 安装v2ray
+
+        
 
 ------
 
@@ -95,7 +122,7 @@
 > ### DeepLearning
 
 1. 数据集格式
-2. CUDA, CUDNN 安装,移除, 共存
+2. NVIDIA 驱动 / CUDA, CUDNN 安装,移除, 共存
 
 ------
 
@@ -2645,16 +2672,38 @@ COCO
 
 #### CUDA / CUDNN 安装与移除
 
+cuda版本需要与 Nvidia 显卡驱动匹配才能
+
+参考 `docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html`
+
+
+
 #### 显卡驱动安装
 
 - 测试平台 Ubuntu 18.04.4
 
-这边记录2080TI的显卡驱动安装最快速直接的方法
+利用ppa 安装显卡驱动
 
-```
-sudo add-apt-repository ppa:graphics-drivers/ppa
-sudo apt-get update
-ubuntu-drivers devices
+```shell
+sudo add-apt-repository ppa:graphics-drivers/ppa #添加入ppa
+sudo apt-get update #更新一下
+ubuntu-drivers devices #这会显示出哪些驱动可以安装
+
+#比如看到
+driver : nvidia-driver-440 
+#
+sudo apt install nvidia-driver-440
+#如果出现软件包有未满足的依赖关系
+sudo apt-get install libnvidia-compute-440
+
+#然后重新再一次
+sudo apt install nvidia-driver-440
+#装完nvidia-smi测试一下， 出现以下属于正常， 重启电脑就行了
+Failed to initilize NVML:Driver/library version mismatch
+
+
+
+
 sudo ubuntu-drivers autoinstall
 ```
 
