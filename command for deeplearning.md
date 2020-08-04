@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.7.23</p>
+<p align=right>update 2020.8.4</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -56,7 +56,11 @@
 
     10. Ubuntu 下翻墙 安装v2ray
 
-        
+    11. `/etc/crontab` 设定定时执行
+
+    12. Ubuntu 清楚缓存脚本
+
+          
 
 ------
 
@@ -122,7 +126,7 @@
 > ### DeepLearning
 
 1. 数据集格式
-2. NVIDIA 驱动 / CUDA, CUDNN 安装,移除, 共存
+2. CUDA, CUDNN 安装,移除, 共存
 
 ------
 
@@ -937,6 +941,49 @@ sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
 
 
 
+
+
+#### /etc/crontab
+
+设置定时执行程序
+
+```
+vim /etc/crontab
+```
+
+比如每隔3分钟执行一次xxx.sh脚本
+
+```shell
+#打开文件后在最下面添加
+
+#依序是min hour day month dayofwork user command
+#这里只列出每隔几分钟执行的方法
+
+*/3 *   * * * root sh /home/path/to/xxx.sh
+```
+
+参考 https://blog.csdn.net/lxz978161079/article/details/80662346?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
+
+
+
+
+
+
+
+#### Ubuntu 清除缓存脚本
+
+以下内容复制到sh文件， 可以搭配crontab 定时使用
+
+```shell
+#!/bin/bash
+sync; echo 1 > /proc/sys/vm/drop_caches
+sync; echo 2 > /proc/sys/vm/drop_caches
+sync; echo 3 > /proc/sys/vm/drop_caches
+swapoff -a && swapon -a
+```
+
+
+
 ------
 
 <h3 id="16">16. VIM 编辑器常用操作</h4>
@@ -1684,6 +1731,12 @@ sudo python3 setup.py install
 ```
 sudo apt-get python3-matplotlib 
 ```
+
+
+
+
+
+
 
 
 
