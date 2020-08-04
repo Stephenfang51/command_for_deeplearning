@@ -1,3 +1,5 @@
+update 20200804
+
 #### 注意 ！ 本文档推荐使用typora 阅读
 
 测试环境 ：
@@ -11,10 +13,10 @@
 
 ### 注意 ！1~7全部配置完在看 ！
 
-启动容器的方式
+启动容器的方式, 假设容器叫做nv_xxx
 
 ```
-sudo docker run --gpus all -itd -p 23:22 nv_cbt:latest
+sudo docker run --gpus all -itd -p 23:22 nv_xxx:latest
 ```
 
 每次启动ssh需要重新开启, 这样才能远程连接
@@ -23,11 +25,11 @@ sudo docker run --gpus all -itd -p 23:22 nv_cbt:latest
 sudo /etc/init.d/ssh start
 ```
 
-每次启动都要激活miniconda3
+如果要使用conda环境， 每次启动都要激活
 
 ```
 cd /root/miniconda3/bin
-. ./activate
+. ./activate #注意这边的确是两个点
 ```
 
 
@@ -235,11 +237,10 @@ sudo /etc/init.d/ssh start
 
 
 
-在container中安装好ssh之后， 下次启动的时候， 用如下
+在container中安装好ssh之后， 下次启动容器的时候， 用如下指令
 
 ```
-sudo docker run -itd -p 16022:22 cbt::latest
-
+sudo docker run -itd -p 16022:22 xxx::latest
 ```
 
 也就是设置端口号
@@ -257,17 +258,16 @@ ssh root@127.0.0.1 -p 16022
 
 ```
 
-然后输入密码就能登入
+然后输入使用者密码就能登入
 
 
 
-第二种 外面电脑远程连接本地docker
+第二种 局部网电脑远程（wifi）连接本地docker
 
 在本机利用
 
 ```
 ifconfig -a
-
 ```
 
 查看enp3s0下的
