@@ -10,6 +10,8 @@
 
 ### 更新
 
+>update date 2020.8.4 加入新markdown文件 Docker深度学习配置， 添加crontab定时， 缓存清除脚本
+
 >update date 2020.7.23 新增NVIDIA驱动安装， Ubuntu下安装v2ray翻墙
 
 >update date 2020.7.13 将IDE重新拉出设置为独立篇章
