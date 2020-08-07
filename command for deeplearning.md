@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.8.4</p>
+<p align=right>update 2020.8.7</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -1672,13 +1672,13 @@ pip install --upgrade pip
 pip config set global.index-url http://mirrors.aliyun.com/pypi/simple
 ```
 
-
-
-
-
 在进行包的安装即可飞速
 
-2. 也可以找到pip.conf这个文件用vim修改源（用sudo find来找)
+如果出现 找不到config 这个command ， 说明pip的版本太旧了， 利用`pip install --upgrade pip` 来升级
+
+2. 也可以找到pip.conf这个文件用vim修改源
+
+   Pip.conf这个文件通常在 /home/yourname/.config/pip/pip.conf
 
 
 
