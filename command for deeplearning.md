@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.8.7</p>
+<p align=right>update 2020.8.10</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -2577,7 +2577,21 @@ watch [options]  command
 watch -n 3 nvidia-smi
 ```
 
+如果想释放显存 如下步骤
 
+1. 先找到占用GPU的进程
+
+   ```
+   fuser -v /dev/nvidia*
+   ```
+
+2. 然后找到以后 比如是PID 12345
+
+   ```
+   kill -9 12345
+   ```
+
+   
 
 ### ffmpeg 使用
 
