@@ -10,6 +10,8 @@
 
 ### 更新
 
+>udpate date 2020.8.14 增加Ubuntu 安装Kolourpain4 
+
 >update date 2020.8.7 修改pip 修改源的部分
 
 >update date 2020.8.4 加入新markdown文件 Docker深度学习配置， 添加crontab定时， 缓存清除脚本
