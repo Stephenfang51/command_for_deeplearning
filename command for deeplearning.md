@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.8.12</p>
+<p align=right>update 2020.8.14</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -59,6 +59,8 @@
     11. `/etc/crontab` 设定定时执行
 
     12. Ubuntu 清楚缓存脚本
+
+    13. Ubuntu 安装类似win 绘图paint的软件
 
         ​    
 
@@ -589,7 +591,6 @@ $ sudo useradd -m jason -s /bin/bash
 $ sudo passwd jason
 $ sudo adduser jason sudo
 $ su jason
-
 ```
 
 - 创建了可以登录的meow用户并使用/bin/bash作为shell。
@@ -601,21 +602,18 @@ $ su jason
 
 ```
 sudo useradd -m jason -s /bin/bash -d /home/jason
-
 ```
 
 为用户指定id
 
 ```
 sudo useradd -m jason -s /bin/bash -d /home/jason -u 999
-
 ```
 
 为用户加入既有的group, 除了主要group 一位user能同时在不同的group中
 
 ```
 sudo useradd -m jason -s /bin/bash -d /home/jason -g team
-
 ```
 
 
@@ -624,7 +622,6 @@ sudo useradd -m jason -s /bin/bash -d /home/jason -g team
 
 ```
 sudo vi /etc/sudoers
-
 ```
 
 找到
@@ -641,7 +638,6 @@ jason ALL=(ALL:ALL) ALL
 
 ```
 killall -u username
-
 ```
 
 可以删除用户所有信息
@@ -650,7 +646,6 @@ killall -u username
 
 ```
 killall -u username
-
 ```
 
 
@@ -719,14 +714,12 @@ screen -d -r session_name        # 结束当前session并回到session_name这�
 
 ```
 scp -P 端口号 要传输的文件 用户名@主机ip:路径
-
 ```
 
 Ex.
 
 ```
 scp -P 22 darkent.zip root@123.45.2.345:/home/username/workplace
-
 ```
 
 
@@ -735,7 +728,6 @@ scp -P 22 darkent.zip root@123.45.2.345:/home/username/workplace
 
 ```
 scp -P 端口号 用户名@主机ip:要下载文件的路径 空格 本地路径
-
 ```
 
 
@@ -764,7 +756,6 @@ linux-vdso.so.1 =>  (0x00007ffe3dbc1000)
 libm.so.6 => /lib64/libm.so.6 (0x00007f17a5b55000)
 libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f17a592e000)
 libtinfo.so.5 => /lib64/libtinfo.so.5 (0x00007f17a5704000)
-
 ```
 
 选项
@@ -787,7 +778,6 @@ alias 快捷指令="终端指令"
 EX.
 alias wo="cd /home/workplace"
 则在终端输入wo， 就相当于 cd /home/workplace
-
 ```
 
 
@@ -826,7 +816,6 @@ ldconfig需要注意的地方：
 \# ldconfig -v | grep mysql
 
 3、如果添加的library不在/lib或/usr/lib下，但是却没有权限操作写/etc/ld.so.conf文件的话，这时就需要往export里写一个全局变量LD_LIBRARY_PATH，就可以了。
-
 ```
 
 
@@ -861,7 +850,6 @@ Terminal=false
 Type=Application
 
 StartupNotify=true
-
 ```
 
 
@@ -876,7 +864,6 @@ StartupNotify=true
 apt-get update
 apt-get install apt-file
 apt-file update
-
 ```
 
 
@@ -891,7 +878,6 @@ apt-file update
 
 ```
 apt-file search xxxx.so
-
 ```
 
 接着就会先找这个文件在哪？
@@ -904,7 +890,6 @@ apt-file search xxxx.so
 
 ```
 apt-file list opencv-python
-
 ```
 
 
@@ -927,14 +912,12 @@ https://github.com/Qv2ray/Qv2ray/releases/download/v1.99.6/Qv2ray-refs.tags.v1.9
 
    ```
    sudo chmod +x ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
-   
    ```
 
 4. 仍然在v2ray根目录下打开终端，输入以下命令， 会启动软件
 
 ```
 sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
-
 ```
 
 执行4后会出现主界面，点击`首选项` preferences
@@ -945,7 +928,6 @@ sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
 -> Core Executable Path 设定核心文件中的v2ray
 
 -> V2ray Assets Directory 设定 核心文件路径 
-
 ```
 
 设置好之后按OK
@@ -971,7 +953,6 @@ sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
 
 ```
 vim /etc/crontab
-
 ```
 
 比如每隔3分钟执行一次xxx.sh脚本
@@ -983,7 +964,6 @@ vim /etc/crontab
 #这里只列出每隔几分钟执行的方法
 
 */3 *   * * * root sh /home/path/to/xxx.sh
-
 ```
 
 参考 https://blog.csdn.net/lxz978161079/article/details/80662346?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
@@ -1004,8 +984,21 @@ sync; echo 1 > /proc/sys/vm/drop_caches
 sync; echo 2 > /proc/sys/vm/drop_caches
 sync; echo 3 > /proc/sys/vm/drop_caches
 swapoff -a && swapon -a
+```
+
+
+
+
+
+#### Ubuntu 安装类似win 绘图paint的软件
+
+如下安装
 
 ```
+sudo apt-get install kolourpaint4
+```
+
+然后在左下角Show Applications中可以找到KolourPaint的图示
 
 
 
@@ -1106,7 +1099,6 @@ func! CompileRunGcc()
 	endif
 endfunc
 
-
 ```
 
 添加后保存，Fn+F5可一鍵編譯運行
@@ -1198,7 +1190,6 @@ filetype plugin indent on      "加载vim自带和插件相应的语法和文件
 
 ```
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
-
 ```
 
 注意网上还有很多估计是旧版本的插件， 所以.ycm_extra_conf.py的档案位置不同, 新版本的路径请依照上面
@@ -1231,7 +1222,6 @@ Ex. 输出compress 执行文件， 源文件compress.cpp 连接头文件在/home
 
 ```shell
 g++ -o compress  compress.cpp  -I/home/include/  -L/lib/  -lz
-
 ```
 
 
@@ -1274,7 +1264,6 @@ g++ -o compress  compress.cpp  -I/home/include/  -L/lib/  -lz
 ```shell
 sudo mv gcc gcc.backup #备份
 sudo ln -s gcc-4.8 gcc #利用软连接重新链接
-
 ```
 
 完成, 可以在用`ls -l gcc*`检查一下
@@ -1354,7 +1343,6 @@ conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch
 
 # CPU Only
 conda install pytorch-cpu==1.0.1 torchvision-cpu==0.2.2 cpuonly -c pytorch
-
 ```
 
 参考Pytorch官方 [https://pytorch.org/get-started/previous-versions/](https://pytorch.org/get-started/previous-versions/)
@@ -1397,7 +1385,6 @@ ssl_verify: true
 
 
 #以上三个源， 泽一即可
-
 ```
 
 经过实际测验， 以下速度飞快， 推荐使用
@@ -1453,14 +1440,12 @@ cd 指定路径
 mkdir myprogram
 cd myprogram
 mkdir example #这就是一个repo存在myprogram中
-
 ```
 
 接着在example文件夹下执行git init 初始化本地仓库 就可成功创建repo仓库
 
 ```
 git init
-
 ```
 
 然后将要存放的文件放进example资料夹中, 例如放了一个test.txt文件进去
@@ -1469,21 +1454,18 @@ git init
 
 ```git ad
 git add test.txt
-
 ```
 
 如果上传文件较多， 可以直接追踪全部
 
 ```
 git add --all
-
 ```
 
 确认没有问题， 就可以commit到repo中， 例如”update the file“
 
 ```
 git commit -m "updata the file"
-
 ```
 
 
@@ -1502,14 +1484,12 @@ git commit -m "updata the file"
 
 ```
 git push origin master #依照branch可替换名称
-
 ```
 
 检查repo状态, 可以查看当前的状态
 
 ```
 git status
-
 ```
 
 
@@ -1520,7 +1500,6 @@ git status
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
-
 ```
 
 
@@ -1529,7 +1508,6 @@ git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
 
 ```
 git clone -b <version_name> --single-branch
-
 ```
 
 
@@ -1538,7 +1516,6 @@ git clone -b <version_name> --single-branch
 
 ```
 git clone --recursive-submodule http://xxxxxxxxxxxxxx.git
-
 ```
 
 
@@ -1551,7 +1528,6 @@ cd到repo的文件夹后， 一般的删除本地以及远程文件的方式
 
 ```
 git rm 文件名
-
 ```
 
 
@@ -1560,7 +1536,6 @@ git rm 文件名
 
 ```
 git rm -r --cached 文件名
-
 ```
 
 
@@ -1615,14 +1590,12 @@ git rm -r --cached 文件名
 
 ```
 git fetch
-
 ```
 
 既然`origin/master`是从`master`分支出去且更新， 如果想要master更新`origin/master`， 就需要merge
 
 ```
 git merge origin/master
-
 ```
 
 执行之后就会将master 来回到跟`origin/master`同个位置
@@ -1633,7 +1606,6 @@ git merge origin/master
 
 ```
 git pull --rebase
-
 ```
 
 
@@ -1666,7 +1638,6 @@ git pull --rebase
 ```shell
 git config --system --unset credential.helper
 git config --global credential.helper store
-
 ```
 
 然后在git push 就会要求输入使用者的账号和密码
@@ -1703,7 +1674,6 @@ git config --global credential.helper store
 
 ```
 pip install --upgrade pip
-
 ```
 
 #### 换源加速 （清华或者阿里）
@@ -1718,7 +1688,6 @@ pip install --upgrade pip
 
 ```
 pip config set global.index-url http://mirrors.aliyun.com/pypi/simple
-
 ```
 
 在进行包的安装即可飞速
@@ -1779,7 +1748,6 @@ sudo python3 setup.py install
 
 ```
 sudo apt-get python3-matplotlib 
-
 ```
 
 
@@ -1812,7 +1780,6 @@ sudo apt-get python3-matplotlib
 ```
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
-
 ```
 
 利用deb的方式安装
@@ -1827,14 +1794,12 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
 sudo dpkg -i dokcer-ce_19.03.9_3-0-ubuntu-bionic_amd64.deb
-
 ```
 
 执行以下进行测试看安装成功了
 
 ```
 sudo docker run hello-world
-
 ```
 
 
@@ -1881,7 +1846,6 @@ sudo docker run hello-world
 	"https://reg-mirror.qiniu.com"
 	]
 }
-
 ```
 
 
@@ -1911,7 +1875,6 @@ vim daemon.json
 
 #然后wq保存
 
-
 ```
 
 reload一下docker
@@ -1919,7 +1882,6 @@ reload一下docker
 ```shell
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-
 ```
 
 然后在pull images 就会发现速度提升非常多
@@ -1933,7 +1895,6 @@ Ex. 例如建造onnx-tensorrt的镜像, 就先clone下项目的repo， 然后确
 ```
 #务必加上sudo
 sudo docker build -t ubuntu/onnx2trt:v5.0
-
 ```
 
 接着就会如下开始build
@@ -1952,7 +1913,6 @@ f81888eb6932: Pull complete
 19dbd9dd59d6: Pull complete 
 e07d92c8415d: Extracting [======================>                            ]  276.3MB/615.8MB
 aa4c26baf056: Download complete 
-
 ```
 
 
@@ -1961,7 +1921,6 @@ aa4c26baf056: Download complete
 
 ```
 docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
-
 ```
 
 假设从Docker hub pull一个ubuntu的镜像 则`docker pull ubuntu:18.04`
@@ -1982,7 +1941,6 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 ```
 docker run -it bvlc/caffe:cpu
-
 ```
 
 
@@ -1991,7 +1949,6 @@ docker run -it bvlc/caffe:cpu
 
 ```
 docker run -it bvlc/caffe:cpu ipython
-
 ```
 
 
@@ -2014,7 +1971,6 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 bvlc/caffe          cpu                 0b577b836386        18 months ago       1.64GB
-
 ```
 
 `docker image ls -a` 可以看到中间层镜像， 也就是无标签镜像， 不需要删除
@@ -2169,7 +2125,6 @@ Deepo:
 
    ```py
    jupyter notebook --ip 0.0.0.0 --port 8888 --no-browser --allow-root
-   
    ```
 
     终端会显示例如下面地址
@@ -2189,7 +2144,6 @@ ps.参考[https://medium.com/@jihung.mycena/docker-%E5%BB%BA%E7%AB%8B-jupyter-co
 ```
 ImportError: cannot import name 'create_prompt_application'
 #注意该报错会显示在终端， jupyter notebook的服务器无法成功连接
-
 ```
 
 表示 ipython 和 prompt-toolkit 版本匹配有问题
@@ -2201,14 +2155,12 @@ ImportError: cannot import name 'create_prompt_application'
 ```
 sudo pip3 uninstall ipython
 sudo pip3 install ipython
-
 ```
 
 2. 重新强制安装prompt-toolkit
 
 ```
 sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
-
 ```
 
 3. 执行完毕后记得存储镜像
@@ -2241,7 +2193,6 @@ then
 	...
 	commandN 
 fi
-
 ```
 
 ##### if else
@@ -2256,7 +2207,6 @@ then
 else
 	comand
 fi
-
 ```
 
 ##### 整数之间判断
@@ -2275,7 +2225,6 @@ example:
 if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
     echo "Usage: $0 <Install Folder>"
     exit
-
 ```
 
 
@@ -2349,7 +2298,6 @@ https://blog.csdn.net/baidu_36602427/article/details/86548203?utm_medium=distrib
 
 ```shell
 wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
-
 ```
 
 下载完之后 python执行
@@ -2368,7 +2316,6 @@ wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
 
 ```shell
 sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
-
 ```
 
 2. 修改源文件sources.list
@@ -2376,7 +2323,6 @@ sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
 ```
 sudo  chmod  777  /etc/apt/sources.list   #更改文件权限使其可编辑
 sudo  vim  /etc/apt/sources.list #记得先安装vim
-
 ```
 
 ```shell
@@ -2399,7 +2345,6 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted univers
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
 
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-
 ```
 
 
@@ -2408,7 +2353,6 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 
    ```shell
    sudo apt update
-   
    ```
 
    
@@ -2463,7 +2407,6 @@ sudo apt-get install ffmpeg
 sudo apt-get install libcanberra-gtk-module
 
 
-
 ```
 
 clone github上的openCV 从源码编译安装
@@ -2483,7 +2426,6 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/user/local ..
 sudo make //编译， 这一步会花比较长的时间
 sudo make install //安装
 sudo ldconfig //更新动态库
-
 ```
 
 最终如果cmakelist中find_package(OpenCV REQUIRED)找不到opencv时候
@@ -2492,7 +2434,6 @@ sudo ldconfig //更新动态库
 
 ```
 set(OpenCV_DIR /path/to/opencv-master/build) 
-
 ```
 
 
@@ -2509,7 +2450,6 @@ set(OpenCV_DIR /path/to/opencv-master/build)
 
 ```
 ICV: Failed to download ICV package: ippicv_linux_20151201.tgz.
-
 ```
 
 到链接: https://pan.baidu.com/s/1tUn4so6BZc8MdVz0FbtWLA 提取码: sktn 
@@ -2536,7 +2476,6 @@ https://blog.csdn.net/qq_39315153/article/details/103282762?utm_medium=distribut
 
 ```
 sudo apt-get isntall libssl-dev
-
 ```
 
 
@@ -2549,7 +2488,6 @@ cd cmake-3.15.3
 make
 sudo make install
 cmake --version
-
 ```
 
 
@@ -2639,7 +2577,6 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ```
 nvidia-smi
-
 ```
 
 如果想不间断持续监控可以使用watch 指令
@@ -2648,7 +2585,6 @@ nvidia-smi
 
 ```
 watch [options]  command
-
 ```
 
 最常用的参数是 -n， 后面指定是每多少秒来执行一次命令。
