@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.8.14</p>
+<p align=right>update 2020.11.09</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -34,7 +34,9 @@
 
 14. [确认本机IP位置及端口](#14)
 
-15. [其他](#15)
+15. dd 拷贝文件， 刻录iso
+
+16. [其他](#15)
 
     1. 查看Ubuntu系统版本
 
@@ -83,7 +85,7 @@
 
 > ### Anaconda3
 
-19. [anaconda3 / mini-conda 使用](#19)
+19. [anaconda3 / mini-conda 安装/使用](#19)
 
 ------
 
@@ -540,7 +542,15 @@ sudo vim /etc/fstab
 
 ------
 
-<h3 id="15">15. 其他</h4>
+<h3 id="15">15. dd 拷贝文件， 刻录iso </h4>
+
+参考 https://www.cnblogs.com/linuxde/p/8719253.html
+
+
+
+------
+
+<h3 id="16">15. 其他</h4>
 
 #### 查Ubuntu系统版本
 
@@ -1286,13 +1296,43 @@ sudo ln -s gcc-4.8 gcc #利用软连接重新链接
 
 ------
 
-<h3 id="19">19. anaconda3/ Mini-Conda 使用 </h3>
+<h3 id="19">19. anaconda3/ Mini-Conda 安装/使用 </h3>
+
+#### 安装miniconda3
+
+下载  https://conda.io/en/latest/miniconda.html 下载完会是sh脚本
+
+安装之后 如果选择不开机自动激活
+
+则需要去 /home/yourusername/miniconda3/bin/下 source activate激活一下之后就可以使用
+
+
+
+
+
+
 
 #### 虚拟环境
 
 查看当前所有环境 ： `conda info --env` or `conda env list`
 
 创建虚拟环境 virtualEnv : `conda create -n 环境名 python=3.6 -y`
+
+如果无法创建出现NotWritableError : The current user does not have write permissions to a required path.
+
+
+
+可以改变目录owner
+
+```shell
+sudo chown -R 你的用户名 miniconda3/
+//或者
+sudo chown -R 你的用户名 anaconda3
+```
+
+
+
+
 
 启动环境 ：`source activate 环境名`
 
