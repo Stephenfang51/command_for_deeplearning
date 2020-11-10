@@ -10,6 +10,8 @@
 
 ### 更新
 
+>update date 2020.11.9 修改conda 加入安装教学/ Linux dd指令参考
+
 >udpate date 2020.8.14 增加Ubuntu 安装Kolourpain4 
 
 >update date 2020.8.7 修改pip 修改源的部分
