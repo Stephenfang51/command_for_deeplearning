@@ -10,6 +10,9 @@
 
 ### 更新
 
+
+>update date 2020.11.27 增加tensorboard 安装
+
 >update date 2020.11.12 修正Ubuntu 安装python
 
 >update date 2020.11.9 修改conda 加入安装教学/ Linux dd指令参考
