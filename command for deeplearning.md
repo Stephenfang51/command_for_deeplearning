@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.11.27</p>
+<p align=right>update 2020.12.1</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -38,9 +38,13 @@
 
 16. dpkg 安装包指令
 
-17. Ubuntu快捷键（16.04）
+17. lsof 查询行程开启的文件列表
 
-18. [其他](#15)
+18. grep 筛选
+
+19. Ubuntu快捷键（16.04）
+
+20. [其他](#15)
 
     1. 查看Ubuntu系统版本
 
@@ -583,11 +587,108 @@ sudo vim /etc/fstab
 
 dpkg 是Debian package的简写，为”Debian“ 操作系统 专门开发的套件管理系统，用于软件的安装，更新和移除。 所有源自"Debian"的Linux的发行版都使用 dpkg,   例如"Ubuntu"
 
+------
+
+<h3 id="17">17. lsof 查询行程开启的文件列表</h4>
+
+参考 https://blog.gtwang.org/linux/linux-lsof-command-list-open-files-tutorial-examples/
+
+列出一位user或者多位 所开启的文件
+
+```
+lsof -u user1, user2, user3
+```
+
+列出指定程式所开启的文件
+
+```
+lsof -c xxxx
+```
+
+根据PID列出开启的文件
+
+```
+lsof -p 14662,14678,14979
+```
+
+列出所以程序开启的文件列表
+
+```
+lsof
+```
+
+依照上面， 可以用grep筛选 xxxx 关键字的文件
+
+```
+lsof | grep xxxxx
+```
+
+------
+
+<h3 id="18">18. grep 筛选</h4>
+
+参考https://blog.gtwang.org/linux/linux-grep-command-tutorial-examples/
+
+再指定的文件汇总搜寻关键字
+
+```
+grep 搜寻关键字 文件1 文件2
+```
+
+ex
+
+```shell
+# 在 /etc/os-release 檔案中搜尋 Ubuntu 關鍵字
+grep Ubuntu /etc/os-release
+```
+
+```shell
+# 在 /etc/*.conf 中搜尋 network 關鍵字
+grep network /etc/*.con
+```
+
+```shell
+# 篩選含有 network 關鍵字的檔案名稱
+ls /etc/ | grep network
+```
+
+
+
+不分大小写 -i
+
+```shell
+# 不分大小寫
+grep -i Ubuntu /etc/os-release
+```
+
+标示出行数 -n
+
+```shell
+# 標示行號
+grep -n Ubuntu /etc/os-release
+```
+
+排除关键字 -v
+
+```shell
+# 顯示不包含 Ubuntu 關鍵字的行
+grep -v Ubuntu /etc/os-release
+```
+
+递归搜寻 -r
+
+```shell
+# 在 /etc/ 下所有檔案中搜尋 ubuntu
+grep -r ubuntu /etc/
+```
+
+更多用法查阅参考链接
+
 
 
 ------
 
-<h3 id="16">17. Ubuntu快捷键</h4>
+<h3 id="19">19. Ubuntu快捷键</h4>
 
 #### 版本16.04
 
@@ -2420,6 +2521,8 @@ sudo apt-get install --reinstall zlibc zlib1g zlib1g-dev sudo apt-get install li
 
 <h3 id="">29. TensorboardX使用</h3>
 
+参考 https://stackoverflow.com/questions/37987839/how-can-i-run-tensorboard-on-a-remote-server
+
 这边具体如何使用看官方文档
 
 只教安装
@@ -2432,14 +2535,22 @@ pip3 install tensorflow-gpu
 如果要查看, terminal 输入
 
 ```
-tensorboard --logdirs "这边输入记录的路径"
+tensorboard --logdir "这边输入记录的路径"
 ```
 
-如果要在服务器上使用，在服务器上启动tensorboardX 并在本地显示
+如果要在服务器上使用，在服务器上启动tensorboardX 并在本地显示的话
+
+在本地用以下指令链接服务器
 
 ```shell
-ssh -L 6006:127.0.0.1:6006 username@hot -p 端口
+ssh -L 16006:127.0.0.1:6006 username@hot -p 端口
 #(ssh -L 本地端口:本地IP:远程端口 远程服务器用户名@远程服务器ip -p 服务器端口)
+```
+
+然后在本地浏览器打开, 就能显示tensorboard界面
+
+```
+http://localhost:16006
 ```
 
 
