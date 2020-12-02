@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.12.1</p>
+<p align=right>update 2020.12.2</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -16,7 +16,7 @@
 
 6. [查看当前目录下的文件数](#6)
 
-7. [remove 所有资料 rm](#7)
+7. [rm 删除指令](#7)
 
 8. [解压缩及打包](#8)
 
@@ -267,11 +267,37 @@ $ ls -lR | grep "^d" | wc -l
 
 ------
 
-<h3 id="7">7. Remove 所有资料</h4>
+<h3 id="7">7. rm 删除指令</h4>
 
-此方法是强制删除所有目录下文件:rm -rf /path
+rm + 要删除的文件 一个也可以多个
+
+```
+rm file1 file2
+```
+
+rm -f 表示强制删除
+
+rm -r 表示递归删除， 可以删除包含文件夹下面的所有文件
+
+```
+rm -rf path/
+```
 
 ps.使用时请千万谨慎
+
+
+
+如果想在某个文件夹下， 保留特定文件不删除， 其他删除
+
+参考 https://www.cnblogs.com/wjoyxt/p/10408423.html
+
+```shell
+rm -rf !(file1 | file2) #删除除了file1, file2的文件
+rm -rf !(*jpg)  #删除文件名不以jpg结尾的文件
+rm -rf *@(jpg|png) #删除文件名以jpg或png结尾的文件, 千万记得 | 中间不要有空格
+```
+
+
 
 <h3 id="8">8. 解压缩及打包</h4>
 
