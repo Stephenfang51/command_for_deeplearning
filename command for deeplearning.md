@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.12.2</p>
+<p align=right>update 2020.12.4</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -42,9 +42,11 @@
 
 18. grep 筛选
 
-19. Ubuntu快捷键（16.04）
+19. rename 修改文件名, 后缀
 
-20. [其他](#15)
+20. Ubuntu快捷键（16.04）
+
+21. [其他](#15)
 
     1. 查看Ubuntu系统版本
 
@@ -710,11 +712,64 @@ grep -r ubuntu /etc/
 
 更多用法查阅参考链接
 
+------
+
+<h3 id="19">19. rename 修改文件名, 后缀</h4>
+
+参考http://einverne.github.io/post/2018/01/rename-files-batch.html
+
+rename 可以用来批量重新命名
+
+命令组成如下
+
+```
+rename [options] "s/oldname/newname/" file
+```
+
+看选项options 部分，`rename` 支持以下的选项：
+
+- `-v` 将重命名的内容都打印到标准输出，v 可以看成 verbose
+- `-n` 测试会重命名的内容，将结果都打印，但是并不真正执行重命名的过程
+- `-f` force 会覆盖本地已经存在的文件
+- `-h` `-m` `-V` 分别为帮助，帮助，版本
+- `-e` 比较复杂，可以通过该选项，写一些脚本来做一些复杂的事情
+
+
+
+当命令中最后 file 为 `*` 时表示，匹配当前文件夹下所有文件，如果为 `?` 时则匹配只有一个字符的文件名
+
+
+
+修改文件名中特定的字段
+
+```
+rename "s/AA/aa/" *  # 把文件名中的AA替换成aa
+```
+
+修改文件后缀名
+
+```
+rename "s/.html/.php/" *     # 把.html 后缀的改成 .php后缀
+rename "s/.png/.jpg/" *      # 将 png 改为 jpg
+```
+
+批量添加文件后缀
+
+```
+rename "s/$/.txt/" *     # 把所有的文件名都以txt结尾
+```
+
+批量删除文件名
+
+```
+rename "s/.txt//" *      # 把所有以.txt结尾的文件名的.txt删掉
+```
+
 
 
 ------
 
-<h3 id="19">19. Ubuntu快捷键</h4>
+<h3 id="20">20. Ubuntu快捷键</h4>
 
 #### 版本16.04
 
@@ -1868,7 +1923,7 @@ git config --system --unset credential.helper
 git config --global credential.helper store
 ```
 
-然后在git push 就会要求输入使用者的账号和密码
+然后在 git push 就会要求输入使用者的账号和密码
 
 ------
 
