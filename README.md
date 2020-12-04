@@ -8,6 +8,8 @@
 
 #### 更新
 
+update date 2020.12.4 添加rename指令
+
 update date 2020.12.2 修改rm指令
 
 update date 2020.12.1 增加grep 筛选 / lsof 指令
