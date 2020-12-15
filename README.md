@@ -8,6 +8,8 @@
 
 #### 更新
 
+update date 2020.12.15 修改ffmpeg 指令
+
 update date 2020.12.9 添加conda clone 指令
 
 update date 2020.12.4 添加rename指令
