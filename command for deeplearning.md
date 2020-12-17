@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.12.15</p>
+<p align=right>update 2020.12.17</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -857,21 +857,18 @@ $ su jason
 
 ```
 sudo useradd -m jason -s /bin/bash -d /home/jason
-
 ```
 
 为用户指定id
 
 ```
 sudo useradd -m jason -s /bin/bash -d /home/jason -u 999
-
 ```
 
 为用户加入既有的group, 除了主要group 一位user能同时在不同的group中
 
 ```
 sudo useradd -m jason -s /bin/bash -d /home/jason -g team
-
 ```
 
 
@@ -944,7 +941,6 @@ screen -ls（或者screen -list）    # 列出当前所有的session
 screen -r session_name           # 回到session_name这个session
 screen -d session_name           # 远程detach某个session
 screen -d -r session_name        # 结束当前session并回到session_name这个session
-
 ```
 
 通常先用 `screen -S xxxxx`（任意取名）创建session 并且进入
@@ -1075,7 +1071,6 @@ ldconfig需要注意的地方：
 \# ldconfig -v | grep mysql
 
 3、如果添加的library不在/lib或/usr/lib下，但是却没有权限操作写/etc/ld.so.conf文件的话，这时就需要往export里写一个全局变量LD_LIBRARY_PATH，就可以了。
-
 ```
 
 
@@ -1124,7 +1119,6 @@ StartupNotify=true
 apt-get update
 apt-get install apt-file
 apt-file update
-
 ```
 
 
@@ -1173,14 +1167,12 @@ https://github.com/Qv2ray/Qv2ray/releases/download/v1.99.6/Qv2ray-refs.tags.v1.9
 
    ```
    sudo chmod +x ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
-   
    ```
 
 4. 仍然在v2ray根目录下打开终端，输入以下命令， 会启动软件
 
 ```
 sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
-
 ```
 
 执行4后会出现主界面，点击`首选项` preferences
@@ -1191,7 +1183,6 @@ sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
 -> Core Executable Path 设定核心文件中的v2ray
 
 -> V2ray Assets Directory 设定 核心文件路径 
-
 ```
 
 设置好之后按OK
@@ -1217,7 +1208,6 @@ sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
 
 ```
 vim /etc/crontab
-
 ```
 
 比如每隔3分钟执行一次xxx.sh脚本
@@ -1392,7 +1382,6 @@ install
 ```
 mkdir -p ~/.vim/pack/git-plugins/start
 git clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/start/ale
-
 ```
 
 #### vundle 插件管理器
@@ -1401,7 +1390,6 @@ git clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/star
 
 ```
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
 ```
 
 2. 配置.vimrc
@@ -1489,7 +1477,6 @@ Ex. 输出compress 执行文件， 源文件compress.cpp 连接头文件在/home
 
 ```shell
 g++ -o compress  compress.cpp  -I/home/include/  -L/lib/  -lz
-
 ```
 
 
@@ -1586,7 +1573,6 @@ sudo sh 安装之后 如果选择不开机自动激活
 sudo chown -R 你的用户名 miniconda3/
 //或者
 sudo chown -R 你的用户名 anaconda3
-
 ```
 
 
@@ -1654,7 +1640,6 @@ conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch
 
 # CPU Only
 conda install pytorch-cpu==1.0.1 torchvision-cpu==0.2.2 cpuonly -c pytorch
-
 ```
 
 参考Pytorch官方 [https://pytorch.org/get-started/previous-versions/](https://pytorch.org/get-started/previous-versions/)
@@ -1725,7 +1710,6 @@ show_channel_urls: true
 ```
 git config --global user.name Your Name
 git config --global user.email email@example.com
-
 ```
 
 git config命令的–global参数，用了这个参数，表示你这台机器上所有的 Git 仓库都会使用这个配置
@@ -1736,7 +1720,6 @@ git config命令的–global参数，用了这个参数，表示你这台机器�
 
 ```
 ssh-keygen -t rsa -C email@example.com
-
 ```
 
 
@@ -1754,14 +1737,12 @@ cd 指定路径
 mkdir myprogram
 cd myprogram
 mkdir example #这就是一个repo存在myprogram中
-
 ```
 
 接着在example文件夹下执行git init 初始化本地仓库 就可成功创建repo仓库
 
 ```
 git init
-
 ```
 
 然后将要存放的文件放进example资料夹中, 例如放了一个test.txt文件进去
@@ -1816,7 +1797,6 @@ git status
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
-
 ```
 
 
@@ -1825,7 +1805,6 @@ git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
 
 ```
 git clone -b <version_name> --single-branch
-
 ```
 
 
@@ -1834,7 +1813,6 @@ git clone -b <version_name> --single-branch
 
 ```
 git clone --recursive-submodule http://xxxxxxxxxxxxxx.git
-
 ```
 
 
@@ -1909,14 +1887,12 @@ git rm -r --cached 文件名
 
 ```
 git fetch
-
 ```
 
 既然`origin/master`是从`master`分支出去且更新， 如果想要master更新`origin/master`， 就需要merge
 
 ```
 git merge origin/master
-
 ```
 
 执行之后就会将master 来回到跟`origin/master`同个位置
@@ -1995,14 +1971,12 @@ git config --global credential.helper store
 
 ```
 pip install --upgrade pip
-
 ```
 
 如果是升级pip3 
 
 ```
 pip3 install --upgrade pip
-
 ```
 
 #### 换源加速 （清华或者阿里）
@@ -2017,7 +1991,6 @@ pip3 install --upgrade pip
 
 ```
 pip config set global.index-url http://mirrors.aliyun.com/pypi/simple
-
 ```
 
 在进行包的安装即可飞速
@@ -2078,7 +2051,6 @@ sudo python3 setup.py install
 
 ```
 sudo apt-get python3-matplotlib 
-
 ```
 
 
@@ -2177,7 +2149,6 @@ sudo docker run hello-world
 	"https://reg-mirror.qiniu.com"
 	]
 }
-
 ```
 
 
@@ -2214,7 +2185,6 @@ reload一下docker
 ```shell
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-
 ```
 
 然后在pull images 就会发现速度提升非常多
@@ -2228,7 +2198,6 @@ Ex. 例如建造onnx-tensorrt的镜像, 就先clone下项目的repo， 然后确
 ```
 #务必加上sudo
 sudo docker build -t ubuntu/onnx2trt:v5.0
-
 ```
 
 接着就会如下开始build
@@ -2275,7 +2244,6 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 ```
 docker run -it bvlc/caffe:cpu
-
 ```
 
 
@@ -2284,7 +2252,6 @@ docker run -it bvlc/caffe:cpu
 
 ```
 docker run -it bvlc/caffe:cpu ipython
-
 ```
 
 
@@ -2307,7 +2274,6 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 bvlc/caffe          cpu                 0b577b836386        18 months ago       1.64GB
-
 ```
 
 `docker image ls -a` 可以看到中间层镜像， 也就是无标签镜像， 不需要删除
@@ -2530,7 +2496,6 @@ then
 	...
 	commandN 
 fi
-
 ```
 
 ##### if else
@@ -2658,14 +2623,12 @@ sudo apt-get install --reinstall zlibc zlib1g zlib1g-dev sudo apt-get install li
 ```
 pip3 install tensorboardX
 pip3 install tensorflow-gpu
-
 ```
 
 如果要查看, terminal 输入
 
 ```
 tensorboard --logdir "这边输入记录的路径"
-
 ```
 
 如果要在服务器上使用，在服务器上启动tensorboardX 并在本地显示的话
@@ -2675,14 +2638,12 @@ tensorboard --logdir "这边输入记录的路径"
 ```shell
 ssh -L 16006:127.0.0.1:6006 username@hot -p 端口
 #(ssh -L 本地端口:本地IP:远程端口 远程服务器用户名@远程服务器ip -p 服务器端口)
-
 ```
 
 然后在本地浏览器打开, 就能显示tensorboard界面
 
 ```
 http://localhost:16006
-
 ```
 
 
@@ -2726,7 +2687,6 @@ sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
 ```
 sudo  chmod  777  /etc/apt/sources.list   #更改文件权限使其可编辑
 sudo  vim  /etc/apt/sources.list #记得先安装vim
-
 ```
 
 ```shell
@@ -2917,7 +2877,6 @@ Linux共享库的搜索路径先后顺序：
 vim /etc/ld.so.conf  #进入
 /usr/local/lib #添加这行进去， 因为开源库安装后都会放到这个下面
 sudo ldconfig -v  #进行一下更新
-
 ```
 
 
@@ -3041,11 +3000,12 @@ ffmpeg -i input.mov output.mp4
 Ex. 剪切前10秒
 
 ```
-ffmpeg -ss 0:0 -t 0:10 -i input.mov output.mp4
+ffmpeg -ss 0:0 -t 0:10 -i input.mov -c copy output.mp4
 ```
 
 - -ss : 表示视频开始时间
 - -t : 表示持续时间
+- -c : 表示复制出一份剪切好的视频
 
 
 
@@ -3099,6 +3059,24 @@ ffmpeg -i twice_v2.mp4 -ss 00:00 -to 00:00 -q:v 1 -r 24 -f image2 test/image-%05
 - -f 指定保存图像的格式
 - image-%05d.jpg ：表示存取的图像名称 05d表示00000的格式计数， 前面可以添加路劲
 - -to : 表示抽帧的结束时间 跟-ss搭配
+
+
+
+#### 视频合成
+
+参考 https://blog.csdn.net/u011636440/article/details/78031734?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control
+
+Ex.从抽出的帧 重新合成视频
+
+```
+ffmpeg -i path/to/%d.jpg -vcodec libx264c -r 帧率 output.mp4
+```
+
+因为ffmpeg 默认图片编号从0开始， 如果图片第一张不是0开始， 则可pyhton脚本修改或者是添加 
+
+-start_number
+
+
 
 
 
@@ -3204,7 +3182,6 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo reboot //重启电脑
 nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
-
 ```
 
 
@@ -3222,7 +3199,6 @@ nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
 ```shell
 wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
 sudo sh cuda_10.1.243_418.87.00_linux.run
-
 ```
 
 过程会有一些协议需要accept
@@ -3237,7 +3213,6 @@ sudo sh cuda_10.1.243_418.87.00_linux.run
 
 ```
 sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
-
 ```
 
 
@@ -3258,14 +3233,12 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
 
 
 source ~/.bashrc //最后更新一下
-
 ```
 
 以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
 
 ```
 bash : /usr/bin/nvcc: No such file or directory
-
 ```
 
 
@@ -3292,7 +3265,6 @@ Size : xxxx
 .
 .
 etc
-
 ```
 
 可以看到目前符号链接到 10.1的版本
@@ -3302,7 +3274,6 @@ etc
 ```shell
 sudo rm -rf cuda #删除之前的连接
 sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
-
 ```
 
 
@@ -3329,7 +3300,6 @@ sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
 
 ```
 sudo find / -iname '*uninstall_cuda*'
-
 ```
 
 2. 直接删除/usr/local/下 cuda版本的文件夹就可以
@@ -3344,7 +3314,6 @@ sudo find / -iname '*uninstall_cuda*'
 
 ```
 sudo apt-get autoremove nvidia-cuda-toolkit
-
 ```
 
 
