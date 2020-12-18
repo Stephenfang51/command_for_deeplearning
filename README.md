@@ -7,6 +7,7 @@
 查询指令时爱用 Ctrl + F 或者从目录中找
 
 #### 更新
+udpate date 2020.12.18 修改 ffmpeg 剪切指令
 update date 2020.12.17 ffmpeg 添加合成帧指令
 
 update date 2020.12.15 修改ffmpeg 指令
