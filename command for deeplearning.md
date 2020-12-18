@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.12.17</p>
+<p align=right>update 2020.12.18</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -2662,6 +2662,7 @@ https://blog.csdn.net/baidu_36602427/article/details/86548203?utm_medium=distrib
 
 ```shell
 wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
+
 ```
 
 下载完之后 python执行
@@ -2717,6 +2718,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 
    ```shell
    sudo apt update
+   
    ```
 
    
@@ -2741,6 +2743,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 ```
 sudo apt-get install exfat-utils
+
 ```
 
 
@@ -2814,6 +2817,7 @@ set(OpenCV_DIR /path/to/opencv-master/build)
 
 ```
 ICV: Failed to download ICV package: ippicv_linux_20151201.tgz.
+
 ```
 
 到链接: https://pan.baidu.com/s/1tUn4so6BZc8MdVz0FbtWLA 提取码: sktn 
@@ -2840,6 +2844,7 @@ https://blog.csdn.net/qq_39315153/article/details/103282762?utm_medium=distribut
 
 ```
 sudo apt-get isntall libssl-dev
+
 ```
 
 
@@ -2900,6 +2905,7 @@ sudo apt-get remove libprotobuf-dev
 
 which protoc #找到路径
 rm -rf /path/to/protoc #删除路径下的protoc
+
 ```
 
 
@@ -3019,6 +3025,18 @@ ffmpeg -sseof -0:10 -i input.mov output.mp4
 
   
 
+  
+
+Ex. 剪切视频中 6分15秒到7分23秒
+
+```
+ffmpeg -i xxx.mp4 -ss 06:15 -to 07:23 -strict -2 output.mp4
+```
+
+- strict -2 是为了防止报错`the encoder 'aac' is experimental but experimental codecs are not enabled`
+
+
+
 #### 视频画面编辑
 
 EX.画面缩放 1080p - 480p
@@ -3122,6 +3140,7 @@ VOC2007
 	| JPEGImages (存放图片， 按照顺序)
 	| SegementationClass
 	| SegementationObjects
+
 ```
 
 
@@ -3175,6 +3194,7 @@ Failed to initilize NVML:Driver/library version mismatch
 
 
 sudo ubuntu-drivers autoinstall
+
 ```
 
 上述执行完之后, 
@@ -3182,6 +3202,7 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo reboot //重启电脑
 nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
+
 ```
 
 
@@ -3199,6 +3220,7 @@ nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
 ```shell
 wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
 sudo sh cuda_10.1.243_418.87.00_linux.run
+
 ```
 
 过程会有一些协议需要accept
@@ -3213,6 +3235,7 @@ sudo sh cuda_10.1.243_418.87.00_linux.run
 
 ```
 sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
+
 ```
 
 
@@ -3233,12 +3256,14 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
 
 
 source ~/.bashrc //最后更新一下
+
 ```
 
 以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
 
 ```
 bash : /usr/bin/nvcc: No such file or directory
+
 ```
 
 
@@ -3265,6 +3290,7 @@ Size : xxxx
 .
 .
 etc
+
 ```
 
 可以看到目前符号链接到 10.1的版本
@@ -3274,6 +3300,7 @@ etc
 ```shell
 sudo rm -rf cuda #删除之前的连接
 sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
+
 ```
 
 
@@ -3300,6 +3327,7 @@ sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
 
 ```
 sudo find / -iname '*uninstall_cuda*'
+
 ```
 
 2. 直接删除/usr/local/下 cuda版本的文件夹就可以
@@ -3314,6 +3342,7 @@ sudo find / -iname '*uninstall_cuda*'
 
 ```
 sudo apt-get autoremove nvidia-cuda-toolkit
+
 ```
 
 
