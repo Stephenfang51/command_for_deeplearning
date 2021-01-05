@@ -1789,6 +1789,24 @@ git commit -m "updata the file"
 
 
 
+#### 把untracked file 删除
+
+删除未追踪的文件
+
+```
+git clean -f
+```
+
+删除未追踪的文件跟文件夹
+
+```
+git clean -df
+```
+
+
+
+
+
 #### 在github上创建仓库repo
 
 建立好远程仓库之后， 就可以进行远程 - 本地连接
