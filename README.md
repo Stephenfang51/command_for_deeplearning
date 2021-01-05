@@ -7,7 +7,7 @@
 查询指令时爱用 Ctrl + F 或者从目录中找
 
 #### 更新
-update date 2021.1.5 单独拉出ssh 
+update date 2021.1.5 单独拉出ssh 项目， git增加指令
 
 udpate date 2020.12.18 修改 ffmpeg 剪切指令
 
