@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2020.12.18</p>
+<p align=right>update 2021.1.5</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -46,7 +46,9 @@
 
 20. Ubuntu快捷键（16.04）
 
-21. [其他](#15)
+21. SSH 使用方式
+
+22. [其他](#15)
 
     1. 查看Ubuntu系统版本
 
@@ -56,23 +58,21 @@
 
     4. Screen 后台执行程序
 
-    5. 透过ssh上传文件or下载文件到服务器
+    5. ldd 指令查询程序或者依赖的共享库
 
-    6. ldd 指令查询程序或者依赖的共享库
+    6. Linux 查看装置
 
-    7. Linux 查看装置
+    7. ldconfig 使用
 
-    8. ldconfig 使用
+    8. 在桌面建立快捷图示 desktop
 
-    9. 在桌面建立快捷图示 desktop
+    9. Ubuntu 下翻墙 安装v2ray
 
-    10. Ubuntu 下翻墙 安装v2ray
+    10. `/etc/crontab` 设定定时执行
 
-    11. `/etc/crontab` 设定定时执行
+    11. Ubuntu 清楚缓存脚本
 
-    12. Ubuntu 清楚缓存脚本
-
-    13. Ubuntu 安装类似win 绘图paint的软件
+    12. Ubuntu 安装类似win 绘图paint的软件
 
         ​    
 
@@ -789,11 +789,57 @@ Alt + 1 or 2 ： 就是可以开启第几个终端
 Ctrl + d 关闭当前终端
 ```
 
+------
 
+<h3 id="16">21. SSH 使用方式</h4>
+
+#### 端口映射
+
+例如将本地地址映射到服务器上， 假设服务器节点为g01n02, port为22
+
+```shell
+ssh -NfL 127.0.0.1:2222:g01n02:22 username@host
+```
+
+映射完之后， 可以直接
+
+```
+ssh username@127.0.0.1 -p 2222
+```
+
+就能够访问g01n02 服务器节点
+
+
+
+
+
+#### 透过ssh上传文件or下载文件到服务器
+
+上传文件到服务器 
+
+```
+scp -P 端口号 要传输的文件 用户名@主机ip:路径
+```
+
+Ex.
+
+```
+scp -P 22 darkent.zip root@123.45.2.345:/home/username/workplace
+```
+
+
+
+从服务器下载文件到本地
+
+```
+scp -P 端口号 用户名@主机ip:要下载文件的路径 空格 本地路径
+```
+
+如果要下载or上传整个目录 加上-r
 
 ------
 
-<h3 id="16">17. 其他</h4>
+<h3 id="16">22. 其他</h4>
 
 
 
@@ -963,31 +1009,7 @@ screen -d -r session_name        # 结束当前session并回到session_name这�
 
 
 
-#### 透过ssh上传文件or下载文件到服务器
 
-上传文件到服务器 
-
-```
-scp -P 端口号 要传输的文件 用户名@主机ip:路径
-```
-
-Ex.
-
-```
-scp -P 22 darkent.zip root@123.45.2.345:/home/username/workplace
-```
-
-
-
-从服务器下载文件到本地
-
-```
-scp -P 端口号 用户名@主机ip:要下载文件的路径 空格 本地路径
-```
-
-
-
-如果要下载or上传整个目录 加上-r
 
 
 
@@ -2662,7 +2684,6 @@ https://blog.csdn.net/baidu_36602427/article/details/86548203?utm_medium=distrib
 
 ```shell
 wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
-
 ```
 
 下载完之后 python执行
@@ -2718,7 +2739,6 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 
    ```shell
    sudo apt update
-   
    ```
 
    
@@ -2743,7 +2763,6 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 ```
 sudo apt-get install exfat-utils
-
 ```
 
 
@@ -2817,7 +2836,6 @@ set(OpenCV_DIR /path/to/opencv-master/build)
 
 ```
 ICV: Failed to download ICV package: ippicv_linux_20151201.tgz.
-
 ```
 
 到链接: https://pan.baidu.com/s/1tUn4so6BZc8MdVz0FbtWLA 提取码: sktn 
@@ -2844,7 +2862,6 @@ https://blog.csdn.net/qq_39315153/article/details/103282762?utm_medium=distribut
 
 ```
 sudo apt-get isntall libssl-dev
-
 ```
 
 
@@ -2905,7 +2922,6 @@ sudo apt-get remove libprotobuf-dev
 
 which protoc #找到路径
 rm -rf /path/to/protoc #删除路径下的protoc
-
 ```
 
 
@@ -3140,7 +3156,6 @@ VOC2007
 	| JPEGImages (存放图片， 按照顺序)
 	| SegementationClass
 	| SegementationObjects
-
 ```
 
 
@@ -3194,7 +3209,6 @@ Failed to initilize NVML:Driver/library version mismatch
 
 
 sudo ubuntu-drivers autoinstall
-
 ```
 
 上述执行完之后, 
@@ -3202,7 +3216,6 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo reboot //重启电脑
 nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
-
 ```
 
 
@@ -3220,7 +3233,6 @@ nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
 ```shell
 wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
 sudo sh cuda_10.1.243_418.87.00_linux.run
-
 ```
 
 过程会有一些协议需要accept
@@ -3235,7 +3247,6 @@ sudo sh cuda_10.1.243_418.87.00_linux.run
 
 ```
 sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
-
 ```
 
 
@@ -3256,14 +3267,12 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
 
 
 source ~/.bashrc //最后更新一下
-
 ```
 
 以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
 
 ```
 bash : /usr/bin/nvcc: No such file or directory
-
 ```
 
 
@@ -3290,7 +3299,6 @@ Size : xxxx
 .
 .
 etc
-
 ```
 
 可以看到目前符号链接到 10.1的版本
@@ -3300,7 +3308,6 @@ etc
 ```shell
 sudo rm -rf cuda #删除之前的连接
 sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
-
 ```
 
 
@@ -3327,7 +3334,6 @@ sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
 
 ```
 sudo find / -iname '*uninstall_cuda*'
-
 ```
 
 2. 直接删除/usr/local/下 cuda版本的文件夹就可以
@@ -3342,7 +3348,6 @@ sudo find / -iname '*uninstall_cuda*'
 
 ```
 sudo apt-get autoremove nvidia-cuda-toolkit
-
 ```
 
 
