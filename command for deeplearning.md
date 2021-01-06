@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.1.5</p>
+<p align=right>update 2021.1.6</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -1621,7 +1621,18 @@ sudo chown -R 你的用户名 anaconda3
 conda create -n BBB --clone AAA
 ```
 
+#### 导出现在的环境为yaml文件
 
+在想要导出的环境下
+
+conda导出已有环境：
+`conda env export > environment.yaml`
+
+环境会被保存在 environment.yaml文件中。当我们想再次创建该环境，或根据别人提供的.yaml文件复现环境时，可以：
+
+`conda env create -f environment.yaml`
+
+就可以复现安装环境。移植过来的环境只是安装了你原来环境里用conda install等命令直接安装的包，你用pip之类装的东西没有移植过来，需要你重新安装。
 
 
 
