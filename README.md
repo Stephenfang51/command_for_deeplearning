@@ -8,6 +8,8 @@
 
 #### 更新
 
+update date 2021.1.11 修改Ubuntu 终端快捷键
+
 update date 2021.1.6 conda修改
 
 update date 2021.1.5 单独拉出ssh 项目， git增加指令
