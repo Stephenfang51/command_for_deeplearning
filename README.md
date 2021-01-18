@@ -8,6 +8,8 @@
 
 #### 更新
 
+update date 2021.1.18 修改ssh 
+
 update date 2021.1.11 修改Ubuntu 终端快捷键
 
 update date 2021.1.6 conda修改
