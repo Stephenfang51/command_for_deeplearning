@@ -1,12 +1,12 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.1.18</p>
+<p align=right>update 2021.1.26</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
 
 1. [移动到指定目录 cd](#1)
 
-2. [查看文件下的资料 ls](#2)
+2. [查看文件下的资料 ls, du显示目录或文件大小 ](#2)
 
 3. [創建文件夾 mkdir or rmdir](#3)
 
@@ -48,7 +48,9 @@
 
 21. SSH 使用方式
 
-22. [其他](#15)
+22. sftp 使用方式
+
+23. [其他](#15)
 
     1. 查看Ubuntu系统版本
 
@@ -175,13 +177,49 @@
 
 5. `pwd`获取当前绝对路径
 
-<h3 id="2">2. 查看文件下的资料</h4>
+<h3 id="2">2. ls查看文件下的资料、du显示目录或文件大小, df 磁盘大小</h4>
 
 - `ls -a` 列出文件夹下所有文件
 
 - `ls -lah` 列出文件下的文件 以及 效果信息例如文件大小
 
   
+
+  
+
+du  表示 disk usage
+
+Linux du命令也是查看使用空间的，但是与df命令不同的是Linux du命令是对文件和目录磁盘使用的空间的查看，还是和df命令有一些区别的
+
+```
+du [选项][文件]
+```
+
+查看一个目录下， 各个文件or文件夹的大小, -s表示 --summarize  仅显示总计，只列出最后加总的值。
+
+-h或--human-readable  以K，M，G为单位，提高信息的可读性。
+
+```
+du -sh *
+```
+
+
+
+Df 表示 disk free
+
+```shell
+# df -h 
+Filesystem      Size  Used   Avail Use% Mounted on 
+/dev/sda6       29G   4.2G   23G   16%     / 
+udev            1.5G  4.0K   1.5G   1%     /dev 
+tmpfs           604M  892K   603M   1%     /run 
+none            5.0M     0   5.0M   0%     /run/lock 
+none            1.5G  156K   1.5G   1%     /run/shm 
+```
+
+
+
+
 
 ------
 
@@ -229,6 +267,16 @@
 `find / -iname "档案" -type f`
 
 `find / -iname '*.log' -type f ` : 找副档名为log, 可以依照需求自己改
+
+
+
+**查找大文件**
+
+参考 https://www.jb51.net/article/109696.htm
+
+```
+find . -type f -size +800M
+```
 
 
 
@@ -524,7 +572,7 @@ chown -R runoob:runoobgroup *
 
 ------
 
-<h3 id="12">12. 查看CPU、内存占用率, 磁盘占用 </h3>
+<h3 id="12">12. 查看CPU、内存占用率 </h3>
 
 键入```top``` : 
 
@@ -542,7 +590,7 @@ chown -R runoob:runoobgroup *
 
 
 
-`df -h` ： 查看磁盘占用情况
+
 
 #### swapfile 設置 增加虛擬內存
 
@@ -920,11 +968,28 @@ scp -P 端口号 用户名@主机ip:要下载文件的路径 空格 本地路径
    ps -ef | grep pid
    ```
 
-   
+------
+
+<h3 id="16">22. sftp使用</h4>
+
+通常可以用来从服务器上下载数据
+
+例如 `get`
+
+```
+sftp username@host #先登入
+
+然后可以cd到需要的地方下载比如 下载xxx文件
+get xxxx.后缀
+```
+
+下载可以用`put`
 
 ------
 
-<h3 id="16">22. 其他</h4>
+<h3 id="16">23. 其他</h4>
+
+
 
 
 
@@ -1927,6 +1992,16 @@ git status
 
 
 
+查看本地链接到远程哪一个仓库地址
+
+```
+git remote show origin
+```
+
+
+
+
+
 #### 克隆 clone
 
 克隆可以将网上的开源库给download到自己的本地仓中例如向下面这样， 后面加上网址
@@ -1970,6 +2045,14 @@ git rm 文件名
 ```
 git rm -r --cached 文件名
 ```
+
+
+
+#### 删除commit
+
+参考https://www.cnblogs.com/lwcode6/p/11809973.html
+
+
 
 
 
