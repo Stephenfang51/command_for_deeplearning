@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.1.26</p>
+<p align=right>update 2021.2.2</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -76,6 +76,8 @@
 
     12. Ubuntu 安装类似win 绘图paint的软件
 
+    13. zsh 终端美化
+
         ​    
 
 ------
@@ -137,6 +139,7 @@
 2. 推荐好用
 3. Nvidia 查看GPU使用率
 4. ffmpeg 使用
+5. pdb debug模式
 
 ------
 
@@ -152,6 +155,16 @@
 > #### IDE 使用技巧（Pycharm, CLion…)
 
 1. SSH 连接方式
+
+------
+
+> ### Socket 网路编程
+
+1. 实现服务端与客户端webcam 实时传输图像
+
+
+
+
 
 
 
@@ -178,6 +191,8 @@
 5. `pwd`获取当前绝对路径
 
 <h3 id="2">2. ls查看文件下的资料、du显示目录或文件大小, df 磁盘大小</h4>
+
+
 
 - `ls -a` 列出文件夹下所有文件
 
@@ -286,34 +301,27 @@ find . -type f -size +800M
 
 <h3 id="6">6. 查看当前目录下的文件数</h4>
 
-- 统计当前目录下文件的个数（不包括目录）
-
 ```
-$ ls -l | grep "^-" | wc -l
+ls path |wc -l
 ```
 
-- 统计当前目录下文件的个数（包括子目录）
+统计path directories下的文件个数
+
+wc表示wordcount
+
+以上指令相当于先用ls将文件每行print出， 然后wc计算多少列
+
+
 
 ```
-$ ls -lR| grep "^-" | wc -l
+find path/ -type f |wc -l
 ```
 
-- 查看某目录下文件夹(目录)的个数（包括子目录）
+列出path下所有文件总共的数目
 
-```
-$ ls -lR | grep "^d" | wc -l
-```
 
-**命令解析：**
 
-- `ls -l`
 
-长列表输出该目录下文件信息(注意这里的文件是指目录、链接、设备文件等)，每一行对应一个文件或目录，`ls -lR`是列出所有文件，包括子目录。
-
-- `grep "^-"`
-  过滤`ls`的输出信息，只保留一般文件，只保留目录是`grep "^d"`。
-- `wc -l`
-  统计输出信息的行数，统计结果就是输出信息的行数，一行信息对应一个文件，所以就是文件的个数。
 
 ------
 
@@ -645,11 +653,23 @@ sudo vim /etc/fstab
 
 ------
 
-<h3 id="14">14. 确认本机IP及端口 </h3>
+<h3 id="14">14. IP 内网及外网地址及端口 </h3>
 
-```ifconfig -a``` : 确认IP位置，如果是连接wifi 请看wlan0底下inet的位置
+```ifconfig -a``` : 确认内网IP位置，如果是连接wifi 请看wlan0底下inet的位置
 
 ```netstat -anptl``` : 确认端口
+
+`curl ifconfig.me` : 确认外网ip地址
+
+
+
+
+
+
+
+
+
+
 
 ------
 
@@ -1429,6 +1449,40 @@ sudo apt-get install kolourpaint4
 
 
 
+
+
+#### Zsh 终端美化插件
+
+项目地址 ：https://github.com/ohmyzsh/ohmyzsh
+
+1. Ubuntu安装步骤
+
+```shell
+sudo apt install zsh
+
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#如果该步骤遇到ssl 无法建立问题， 尝试
+sh -c "$(wget -O- https://gitee.com/mcornella/ohmyzsh/raw/master/tools/install.sh)"
+
+#参考 https://github.com/ohmyzsh/ohmyzsh/issues/9528
+```
+
+2. 当前terminal 简单切换
+
+```shell
+exec bash或者 exec zsh
+```
+
+3. 设置default的shell样式， 设置完之后restart terminal就可以
+
+```shell
+chsh -s /bin/bash
+或者
+chsh -s /bin/zsh
+```
+
+
+
 ------
 
 <h3 id="16">16. VIM 编辑器常用操作</h4>
@@ -2027,6 +2081,8 @@ git clone --recursive-submodule http://xxxxxxxxxxxxxx.git
 ```
 
 
+
+#### fork 原作者仓库后 如何更新
 
 
 
@@ -3349,6 +3405,29 @@ ffmpeg -i input.avi -codec:v mpeg4 -r 30 -qscale:v 2 -codec:a copy C.avi
 
 
 
+#### 视频流录制
+
+```
+ffmpeg -i rstp://user:password@ipaddress/Streams/Channels/101 -acodec copy -vcodec copy output/path/xxx.mp4
+```
+
+
+
+### Pdb debug 模式
+
+```python
+import pdb #import 这个包
+在需要断点的地方 set_trace()
+```
+
+快捷键如下
+
+`n`: next step 下一步
+
+`step` : step in 进入
+
+`q`: quit debug
+
 ------
 
 # DeepLearning
@@ -3620,3 +3699,146 @@ https://www.jianshu.com/p/fd0f84f858f8
 
 1. 问题发生通常是因为对project文件没有权限， 所以将权限改变一下就行
 2. 开启project需要用File->New CMake Project from Sources, 才会自动的找变量的定义
+
+
+
+------
+
+<h2 id="" align="center"> Socket 网路编程 </h2>
+
+#### 1. 实现服务端与客户端webcam 实时传输图像
+
+参考 https://gist.github.com/kittinan/e7ecefddda5616eab2765fdb2affed1b
+
+为实现两段进行connect， 需要知道host 以及 port端口
+
+客户端例子如下
+
+```python
+import cv2
+import io
+import socket
+import struct
+import time
+import pickle
+import zlib
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('192.168.1.124', 8485))
+connection = client_socket.makefile('wb')
+
+cam = cv2.VideoCapture(0)
+
+cam.set(3, 320);
+cam.set(4, 240);
+
+img_counter = 0
+
+encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
+
+while True:
+    ret, frame = cam.read()
+    result, frame = cv2.imencode('.jpg', frame, encode_param)
+#    data = zlib.compress(pickle.dumps(frame, 0))
+    data = pickle.dumps(frame, 0)
+    size = len(data)
+
+
+    print("{}: {}".format(img_counter, size))
+    client_socket.sendall(struct.pack(">L", size) + data)
+    img_counter += 1
+
+cam.release()
+```
+
+
+
+服务端例子如下
+
+```python
+import socket
+import sys
+import cv2
+import pickle
+import numpy as np
+import struct ## new
+import zlib
+
+HOST=''
+PORT=8485
+
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+print('Socket created')
+
+s.bind((HOST,PORT))
+print('Socket bind complete')
+s.listen(10)
+print('Socket now listening')
+
+conn,addr=s.accept()
+
+data = b""
+payload_size = struct.calcsize(">L")
+print("payload_size: {}".format(payload_size))
+while True:
+    while len(data) < payload_size:
+        print("Recv: {}".format(len(data)))
+        data += conn.recv(4096)
+
+    print("Done Recv: {}".format(len(data)))
+    packed_msg_size = data[:payload_size]
+    data = data[payload_size:]
+    msg_size = struct.unpack(">L", packed_msg_size)[0]
+    print("msg_size: {}".format(msg_size))
+    while len(data) < msg_size:
+        data += conn.recv(4096)
+    frame_data = data[:msg_size]
+    data = data[msg_size:]
+
+    frame=pickle.loads(frame_data, fix_imports=True, encoding="bytes")
+    frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
+    cv2.imshow('ImageWindow',frame)
+    cv2.waitKey(1)
+```
+
+
+
+#### 2. 服务端与客户端之间信息通信
+
+python3中必须先将要send 的信息encode, 然后接收信息的一段需要decode才能得到接收的信息
+
+参考https://stackoverflow.com/questions/33003498/typeerror-a-bytes-like-object-is-required-not-str
+
+```python
+Client Side:
+>>> host='127.0.0.1'
+>>> port=1337
+>>> import socket
+>>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+>>> s.connect((host,port))
+>>> st='connection done'
+>>> byt=st.encode()
+>>> s.send(byt)
+15
+>>>
+Server Side:
+
+>>> host=''
+>>> port=1337
+>>> import socket
+>>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+>>> s.bind((host,port))
+>>> s.listen(1)
+>>> conn ,addr=s.accept()
+>>> data=conn.recv(2000)
+>>> data.decode()
+'connection done'
+>>>
+```
+
+如果要传送dict可以用json包的dump
+
+```
+
+```
+
