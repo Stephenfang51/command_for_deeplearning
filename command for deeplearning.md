@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.2.2</p>
+<p align=right>update 2021.2.19</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -77,6 +77,8 @@
     12. Ubuntu 安装类似win 绘图paint的软件
 
     13. zsh 终端美化
+
+    14. 好用的rgb值提取插件 colour-pick
 
         ​    
 
@@ -169,6 +171,8 @@
 
 
 <h2 align=center>目录结束<h2>
+
+
 
 # Linux
 
@@ -300,7 +304,6 @@ find . -type f -size +800M
 ------
 
 <h3 id="6">6. 查看当前目录下的文件数</h4>
-
 ```
 ls path |wc -l
 ```
@@ -1341,7 +1344,7 @@ apt-file list opencv-python
 
 
 
-#### Ubuntu 翻墙 安装 v2ray
+#### Ubuntu 下翻墙 安装 v2ray
 
 参考 https://mahongfei.com/1776.html
 
@@ -1483,6 +1486,18 @@ chsh -s /bin/zsh
 
 
 
+#### 好用的rbg 值提取插件 colour pick
+
+项目参考 github.com/sturatlangridge/ColourPicker
+
+ubuntu下安装
+
+```shell
+sudo snap install pick-colour-picker
+```
+
+
+
 ------
 
 <h3 id="16">16. VIM 编辑器常用操作</h4>
@@ -1511,7 +1526,11 @@ chsh -s /bin/zsh
 
 - `y`：鼠标框起复制
 
+- `yy`: 快速复制当前行
+
 - `p`:贴上
+
+- `pp` : 快速黏贴上yy复制的内容
 
 - 多行注釋
 
@@ -1676,6 +1695,14 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.y
 注意网上还有很多估计是旧版本的插件， 所以.ycm_extra_conf.py的档案位置不同, 新版本的路径请依照上面
 
 8. 打开cpp档案， 补全功能正常运行
+
+
+
+#### vimplus
+
+项目链接 https://github.com/chxuan/vimplus
+
+安装介绍 https://www.cnblogs.com/highway-9/p/5984285.html
 
 ------
 
@@ -1957,6 +1984,7 @@ git config命令的–global参数，用了这个参数，表示你这台机器�
 
 ```
 ssh-keygen -t rsa -C email@example.com
+
 ```
 
 
@@ -1974,12 +2002,14 @@ cd 指定路径
 mkdir myprogram
 cd myprogram
 mkdir example #这就是一个repo存在myprogram中
+
 ```
 
 接着在example文件夹下执行git init 初始化本地仓库 就可成功创建repo仓库
 
 ```
 git init
+
 ```
 
 然后将要存放的文件放进example资料夹中, 例如放了一个test.txt文件进去
@@ -1988,18 +2018,21 @@ git init
 
 ```git ad
 git add test.txt
+
 ```
 
 如果上传文件较多， 可以直接追踪全部
 
 ```
 git add --all
+
 ```
 
 确认没有问题， 就可以commit到repo中， 例如”update the file“
 
 ```
 git commit -m "updata the file"
+
 ```
 
 
@@ -2010,12 +2043,14 @@ git commit -m "updata the file"
 
 ```
 git clean -f
+
 ```
 
 删除未追踪的文件跟文件夹
 
 ```
 git clean -df
+
 ```
 
 
@@ -2036,12 +2071,14 @@ git clean -df
 
 ```
 git push origin master #依照branch可替换名称
+
 ```
 
 检查repo状态, 可以查看当前的状态
 
 ```
 git status
+
 ```
 
 
@@ -2050,6 +2087,7 @@ git status
 
 ```
 git remote show origin
+
 ```
 
 
@@ -2062,6 +2100,7 @@ git remote show origin
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
+
 ```
 
 
@@ -2070,6 +2109,7 @@ git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
 
 ```
 git clone -b <version_name> --single-branch
+
 ```
 
 
@@ -2078,6 +2118,7 @@ git clone -b <version_name> --single-branch
 
 ```
 git clone --recursive-submodule http://xxxxxxxxxxxxxx.git
+
 ```
 
 
@@ -2092,6 +2133,7 @@ cd到repo的文件夹后， 一般的删除本地以及远程文件的方式
 
 ```
 git rm 文件名
+
 ```
 
 
@@ -2100,6 +2142,7 @@ git rm 文件名
 
 ```
 git rm -r --cached 文件名
+
 ```
 
 
@@ -2162,12 +2205,14 @@ git rm -r --cached 文件名
 
 ```
 git fetch
+
 ```
 
 既然`origin/master`是从`master`分支出去且更新， 如果想要master更新`origin/master`， 就需要merge
 
 ```
 git merge origin/master
+
 ```
 
 执行之后就会将master 来回到跟`origin/master`同个位置
@@ -2178,6 +2223,7 @@ git merge origin/master
 
 ```
 git pull --rebase
+
 ```
 
 
@@ -2210,6 +2256,7 @@ git pull --rebase
 ```shell
 git config --system --unset credential.helper
 git config --global credential.helper store
+
 ```
 
 然后在 git push 就会要求输入使用者的账号和密码
@@ -2246,12 +2293,14 @@ git config --global credential.helper store
 
 ```
 pip install --upgrade pip
+
 ```
 
 如果是升级pip3 
 
 ```
 pip3 install --upgrade pip
+
 ```
 
 #### 换源加速 （清华或者阿里）
@@ -2266,6 +2315,7 @@ pip3 install --upgrade pip
 
 ```
 pip config set global.index-url http://mirrors.aliyun.com/pypi/simple
+
 ```
 
 在进行包的安装即可飞速
@@ -2292,6 +2342,7 @@ PS.如果有些比较不知名的包在清华源无法下载， 可以用
 
 ```
 pip install torch==1.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+
 ```
 
 
@@ -2306,6 +2357,7 @@ pip install torch==1.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host m
 
 ```
 sudo pip3 install xxxxx.whl
+
 ```
 
 或者是将压缩包解压缩后进行安装
@@ -2314,6 +2366,7 @@ sudo pip3 install xxxxx.whl
 tar -xvzf xxxxx.tar.gz
 cd xxxxxx
 sudo python3 setup.py install
+
 ```
 
 即可完成安装
@@ -2326,6 +2379,7 @@ sudo python3 setup.py install
 
 ```
 sudo apt-get python3-matplotlib 
+
 ```
 
 
@@ -2358,6 +2412,7 @@ sudo apt-get python3-matplotlib
 ```
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
+
 ```
 
 利用deb的方式安装
@@ -2372,12 +2427,14 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
 sudo dpkg -i dokcer-ce_19.03.9_3-0-ubuntu-bionic_amd64.deb
+
 ```
 
 执行以下进行测试看安装成功了
 
 ```
 sudo docker run hello-world
+
 ```
 
 
@@ -2424,6 +2481,7 @@ sudo docker run hello-world
 	"https://reg-mirror.qiniu.com"
 	]
 }
+
 ```
 
 
@@ -2453,6 +2511,7 @@ vim daemon.json
 
 #然后wq保存
 
+
 ```
 
 reload一下docker
@@ -2460,6 +2519,7 @@ reload一下docker
 ```shell
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+
 ```
 
 然后在pull images 就会发现速度提升非常多
@@ -2473,6 +2533,7 @@ Ex. 例如建造onnx-tensorrt的镜像, 就先clone下项目的repo， 然后确
 ```
 #务必加上sudo
 sudo docker build -t ubuntu/onnx2trt:v5.0
+
 ```
 
 接着就会如下开始build
@@ -2491,6 +2552,7 @@ f81888eb6932: Pull complete
 19dbd9dd59d6: Pull complete 
 e07d92c8415d: Extracting [======================>                            ]  276.3MB/615.8MB
 aa4c26baf056: Download complete 
+
 ```
 
 
@@ -2499,6 +2561,7 @@ aa4c26baf056: Download complete
 
 ```
 docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
+
 ```
 
 假设从Docker hub pull一个ubuntu的镜像 则`docker pull ubuntu:18.04`
@@ -2519,6 +2582,7 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 ```
 docker run -it bvlc/caffe:cpu
+
 ```
 
 
@@ -2527,6 +2591,7 @@ docker run -it bvlc/caffe:cpu
 
 ```
 docker run -it bvlc/caffe:cpu ipython
+
 ```
 
 
@@ -2549,6 +2614,7 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 bvlc/caffe          cpu                 0b577b836386        18 months ago       1.64GB
+
 ```
 
 `docker image ls -a` 可以看到中间层镜像， 也就是无标签镜像， 不需要删除
@@ -2619,6 +2685,7 @@ Images_name.tar 可以自定义
 
 ```
 sudo docker cp 本地文件路径 容器ID:容器路径
+
 ```
 
 
@@ -2703,6 +2770,7 @@ Deepo:
 
    ```py
    jupyter notebook --ip 0.0.0.0 --port 8888 --no-browser --allow-root
+   
    ```
 
     终端会显示例如下面地址
@@ -2722,6 +2790,7 @@ ps.参考[https://medium.com/@jihung.mycena/docker-%E5%BB%BA%E7%AB%8B-jupyter-co
 ```
 ImportError: cannot import name 'create_prompt_application'
 #注意该报错会显示在终端， jupyter notebook的服务器无法成功连接
+
 ```
 
 表示 ipython 和 prompt-toolkit 版本匹配有问题
@@ -2733,12 +2802,14 @@ ImportError: cannot import name 'create_prompt_application'
 ```
 sudo pip3 uninstall ipython
 sudo pip3 install ipython
+
 ```
 
 2. 重新强制安装prompt-toolkit
 
 ```
 sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
+
 ```
 
 3. 执行完毕后记得存储镜像
@@ -2771,6 +2842,7 @@ then
 	...
 	commandN 
 fi
+
 ```
 
 ##### if else
@@ -2785,6 +2857,7 @@ then
 else
 	comand
 fi
+
 ```
 
 ##### 整数之间判断
@@ -2803,6 +2876,7 @@ example:
 if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
     echo "Usage: $0 <Install Folder>"
     exit
+
 ```
 
 
@@ -2840,6 +2914,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 # ./configure --enable-optimizations
 # make
 # make install
+
 ```
 
 
@@ -2852,6 +2927,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 ```shell
 sudo apt-get install zlib*
+
 ```
 
 接着可能遇到
@@ -2859,12 +2935,14 @@ sudo apt-get install zlib*
 ```
 ModuleNotFoundError: No module named '_ctypes'
 make: *** [install] Error 1
+
 ```
 
 可以
 
 ```
 sudo apt-get install --reinstall zlibc zlib1g zlib1g-dev sudo apt-get install libffi-dev libssl-dev libreadline-dev -y
+
 ```
 
 然后重新configure, 编译
@@ -2898,12 +2976,14 @@ sudo apt-get install --reinstall zlibc zlib1g zlib1g-dev sudo apt-get install li
 ```
 pip3 install tensorboardX
 pip3 install tensorflow-gpu
+
 ```
 
 如果要查看, terminal 输入
 
 ```
 tensorboard --logdir "这边输入记录的路径"
+
 ```
 
 如果要在服务器上使用，在服务器上启动tensorboardX 并在本地显示的话
@@ -2913,12 +2993,14 @@ tensorboard --logdir "这边输入记录的路径"
 ```shell
 ssh -L 16006:127.0.0.1:6006 username@hot -p 端口
 #(ssh -L 本地端口:本地IP:远程端口 远程服务器用户名@远程服务器ip -p 服务器端口)
+
 ```
 
 然后在本地浏览器打开, 就能显示tensorboard界面
 
 ```
 http://localhost:16006
+
 ```
 
 
@@ -2937,6 +3019,7 @@ https://blog.csdn.net/baidu_36602427/article/details/86548203?utm_medium=distrib
 
 ```shell
 wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
+
 ```
 
 下载完之后 python执行
@@ -2955,6 +3038,7 @@ wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
 
 ```shell
 sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
+
 ```
 
 2. 修改源文件sources.list
@@ -2962,6 +3046,7 @@ sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
 ```
 sudo  chmod  777  /etc/apt/sources.list   #更改文件权限使其可编辑
 sudo  vim  /etc/apt/sources.list #记得先安装vim
+
 ```
 
 ```shell
@@ -2984,6 +3069,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted univers
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
 
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+
 ```
 
 
@@ -2992,6 +3078,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 
    ```shell
    sudo apt update
+   
    ```
 
    
@@ -3065,6 +3152,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/user/local ..
 sudo make //编译， 这一步会花比较长的时间
 sudo make install //安装
 sudo ldconfig //更新动态库
+
 ```
 
 最终如果cmakelist中find_package(OpenCV REQUIRED)找不到opencv时候
@@ -3073,6 +3161,7 @@ sudo ldconfig //更新动态库
 
 ```
 set(OpenCV_DIR /path/to/opencv-master/build) 
+
 ```
 
 
@@ -3089,6 +3178,7 @@ set(OpenCV_DIR /path/to/opencv-master/build)
 
 ```
 ICV: Failed to download ICV package: ippicv_linux_20151201.tgz.
+
 ```
 
 到链接: https://pan.baidu.com/s/1tUn4so6BZc8MdVz0FbtWLA 提取码: sktn 
@@ -3115,6 +3205,7 @@ https://blog.csdn.net/qq_39315153/article/details/103282762?utm_medium=distribut
 
 ```
 sudo apt-get isntall libssl-dev
+
 ```
 
 
@@ -3127,6 +3218,7 @@ cd cmake-3.15.3
 make
 sudo make install
 cmake --version
+
 ```
 
 
@@ -3152,6 +3244,7 @@ Linux共享库的搜索路径先后顺序：
 vim /etc/ld.so.conf  #进入
 /usr/local/lib #添加这行进去， 因为开源库安装后都会放到这个下面
 sudo ldconfig -v  #进行一下更新
+
 ```
 
 
@@ -3175,6 +3268,7 @@ sudo apt-get remove libprotobuf-dev
 
 which protoc #找到路径
 rm -rf /path/to/protoc #删除路径下的protoc
+
 ```
 
 
@@ -3216,6 +3310,7 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ```
 nvidia-smi
+
 ```
 
 如果想不间断持续监控可以使用watch 指令
@@ -3409,6 +3504,7 @@ ffmpeg -i input.avi -codec:v mpeg4 -r 30 -qscale:v 2 -codec:a copy C.avi
 
 ```
 ffmpeg -i rstp://user:password@ipaddress/Streams/Channels/101 -acodec copy -vcodec copy output/path/xxx.mp4
+
 ```
 
 
@@ -3418,6 +3514,7 @@ ffmpeg -i rstp://user:password@ipaddress/Streams/Channels/101 -acodec copy -vcod
 ```python
 import pdb #import 这个包
 在需要断点的地方 set_trace()
+
 ```
 
 快捷键如下
@@ -3453,6 +3550,7 @@ VOC2007
 	| JPEGImages (存放图片， 按照顺序)
 	| SegementationClass
 	| SegementationObjects
+
 ```
 
 
@@ -3506,6 +3604,7 @@ Failed to initilize NVML:Driver/library version mismatch
 
 
 sudo ubuntu-drivers autoinstall
+
 ```
 
 上述执行完之后, 
@@ -3513,6 +3612,7 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo reboot //重启电脑
 nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
+
 ```
 
 
@@ -3530,6 +3630,7 @@ nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
 ```shell
 wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
 sudo sh cuda_10.1.243_418.87.00_linux.run
+
 ```
 
 过程会有一些协议需要accept
@@ -3544,6 +3645,7 @@ sudo sh cuda_10.1.243_418.87.00_linux.run
 
 ```
 sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
+
 ```
 
 
@@ -3564,12 +3666,14 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
 
 
 source ~/.bashrc //最后更新一下
+
 ```
 
 以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
 
 ```
 bash : /usr/bin/nvcc: No such file or directory
+
 ```
 
 
@@ -3596,6 +3700,7 @@ Size : xxxx
 .
 .
 etc
+
 ```
 
 可以看到目前符号链接到 10.1的版本
@@ -3605,6 +3710,7 @@ etc
 ```shell
 sudo rm -rf cuda #删除之前的连接
 sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
+
 ```
 
 
@@ -3631,6 +3737,7 @@ sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
 
 ```
 sudo find / -iname '*uninstall_cuda*'
+
 ```
 
 2. 直接删除/usr/local/下 cuda版本的文件夹就可以
@@ -3645,6 +3752,7 @@ sudo find / -iname '*uninstall_cuda*'
 
 ```
 sudo apt-get autoremove nvidia-cuda-toolkit
+
 ```
 
 
@@ -3749,6 +3857,7 @@ while True:
     img_counter += 1
 
 cam.release()
+
 ```
 
 
@@ -3799,6 +3908,7 @@ while True:
     frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
     cv2.imshow('ImageWindow',frame)
     cv2.waitKey(1)
+
 ```
 
 
@@ -3834,6 +3944,7 @@ Server Side:
 >>> data.decode()
 'connection done'
 >>>
+
 ```
 
 如果要传送dict可以用json包的dump
