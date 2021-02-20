@@ -8,6 +8,8 @@
 
 #### 更新
 
+update date 2021.2.19 修改vim 指令
+
 update date 2021.2.2 新增socket client 和server端 传送webcam图像配置
 
 update date 2021.1.18 修改ssh 
