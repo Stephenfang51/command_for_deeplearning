@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.2.19</p>
+<p align=right>update 2021.2.24</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -50,7 +50,9 @@
 
 22. sftp 使用方式
 
-23. [其他](#15)
+23. Tmux 终端会话插件
+
+24. [其他](#15)
 
     1. 查看Ubuntu系统版本
 
@@ -1010,7 +1012,42 @@ get xxxx.后缀
 
 ------
 
-<h3 id="16">23. 其他</h4>
+<h3 id="16">23. Tmux 终端会话插件</h4>
+
+启动会话 删除等操作
+
+```
+tmux new-session -s "name" 启动会话
+tmux at -t "name" 回复会话
+tmux ls 列出会话
+tmux kill-session -t 'name' 删除会话
+```
+
+启动控制台进行操作
+
+```
+ctrl + B 启动控制台
+p ： previous bash 
+n : next bash
+shift + & : close current bash
+```
+
+在一个窗格中进行分割
+
+```
+% 垂直分割
+" 水平分割
+x : 关闭窗格
+[ : 在窗口中上下滚动, 支持直接按page up or page down上下, 因为在窗口中无法正常shift+up查看终端信息， 按q 可以退出模式
+```
+
+
+
+
+
+------
+
+<h3 id="16">24. 其他</h4>
 
 
 
@@ -1957,6 +1994,7 @@ channels:
   - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/
   - defaults
 show_channel_urls: true
+
 ```
 
 
@@ -1974,6 +2012,7 @@ show_channel_urls: true
 ```
 git config --global user.name Your Name
 git config --global user.email email@example.com
+
 ```
 
 git config命令的–global参数，用了这个参数，表示你这台机器上所有的 Git 仓库都会使用这个配置
@@ -2481,7 +2520,6 @@ sudo docker run hello-world
 	"https://reg-mirror.qiniu.com"
 	]
 }
-
 ```
 
 
@@ -2511,7 +2549,6 @@ vim daemon.json
 
 #然后wq保存
 
-
 ```
 
 reload一下docker
@@ -2519,7 +2556,6 @@ reload一下docker
 ```shell
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-
 ```
 
 然后在pull images 就会发现速度提升非常多
@@ -2533,7 +2569,6 @@ Ex. 例如建造onnx-tensorrt的镜像, 就先clone下项目的repo， 然后确
 ```
 #务必加上sudo
 sudo docker build -t ubuntu/onnx2trt:v5.0
-
 ```
 
 接着就会如下开始build
@@ -2552,7 +2587,6 @@ f81888eb6932: Pull complete
 19dbd9dd59d6: Pull complete 
 e07d92c8415d: Extracting [======================>                            ]  276.3MB/615.8MB
 aa4c26baf056: Download complete 
-
 ```
 
 
@@ -2561,7 +2595,6 @@ aa4c26baf056: Download complete
 
 ```
 docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
-
 ```
 
 假设从Docker hub pull一个ubuntu的镜像 则`docker pull ubuntu:18.04`
@@ -2582,7 +2615,6 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 ```
 docker run -it bvlc/caffe:cpu
-
 ```
 
 
@@ -2591,7 +2623,6 @@ docker run -it bvlc/caffe:cpu
 
 ```
 docker run -it bvlc/caffe:cpu ipython
-
 ```
 
 
@@ -2842,7 +2873,6 @@ then
 	...
 	commandN 
 fi
-
 ```
 
 ##### if else
@@ -2857,7 +2887,6 @@ then
 else
 	comand
 fi
-
 ```
 
 ##### 整数之间判断
@@ -2876,7 +2905,6 @@ example:
 if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
     echo "Usage: $0 <Install Folder>"
     exit
-
 ```
 
 
@@ -2976,14 +3004,12 @@ sudo apt-get install --reinstall zlibc zlib1g zlib1g-dev sudo apt-get install li
 ```
 pip3 install tensorboardX
 pip3 install tensorflow-gpu
-
 ```
 
 如果要查看, terminal 输入
 
 ```
 tensorboard --logdir "这边输入记录的路径"
-
 ```
 
 如果要在服务器上使用，在服务器上启动tensorboardX 并在本地显示的话
@@ -3019,7 +3045,6 @@ https://blog.csdn.net/baidu_36602427/article/details/86548203?utm_medium=distrib
 
 ```shell
 wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
-
 ```
 
 下载完之后 python执行
@@ -3038,7 +3063,6 @@ wget https://tuna.moe/oh-my-tuna/oh-my-tuna.py
 
 ```shell
 sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
-
 ```
 
 2. 修改源文件sources.list
@@ -3046,7 +3070,6 @@ sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
 ```
 sudo  chmod  777  /etc/apt/sources.list   #更改文件权限使其可编辑
 sudo  vim  /etc/apt/sources.list #记得先安装vim
-
 ```
 
 ```shell
@@ -3069,7 +3092,6 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted univers
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
 
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-
 ```
 
 
@@ -3078,7 +3100,6 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 
    ```shell
    sudo apt update
-   
    ```
 
    
@@ -3152,7 +3173,6 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/user/local ..
 sudo make //编译， 这一步会花比较长的时间
 sudo make install //安装
 sudo ldconfig //更新动态库
-
 ```
 
 最终如果cmakelist中find_package(OpenCV REQUIRED)找不到opencv时候
@@ -3161,7 +3181,6 @@ sudo ldconfig //更新动态库
 
 ```
 set(OpenCV_DIR /path/to/opencv-master/build) 
-
 ```
 
 
@@ -3205,7 +3224,6 @@ https://blog.csdn.net/qq_39315153/article/details/103282762?utm_medium=distribut
 
 ```
 sudo apt-get isntall libssl-dev
-
 ```
 
 
@@ -3218,7 +3236,6 @@ cd cmake-3.15.3
 make
 sudo make install
 cmake --version
-
 ```
 
 
@@ -3268,7 +3285,6 @@ sudo apt-get remove libprotobuf-dev
 
 which protoc #找到路径
 rm -rf /path/to/protoc #删除路径下的protoc
-
 ```
 
 
@@ -3452,6 +3468,7 @@ Ex.从抽出的帧 重新合成视频
 
 ```
 ffmpeg -i path/to/%d.jpg -vcodec libx264c -r 帧率 output.mp4
+
 ```
 
 因为ffmpeg 默认图片编号从0开始， 如果图片第一张不是0开始， 则可pyhton脚本修改或者是添加 
@@ -3469,6 +3486,7 @@ ffmpeg -i path/to/%d.jpg -vcodec libx264c -r 帧率 output.mp4
 ```
 file '1.mp4'
 file '2.mp4'
+
 ```
 
 注意必须单引号
@@ -3477,6 +3495,7 @@ file '2.mp4'
 
 ```
 ffmpeg -f concat -safe 0 -i files.txt -c copy output.mp4
+
 ```
 
 注意：这一行指令使用了-c copy，说明他只适用于视频切割产生的分段，被合并的视频必须是相同的参数！！如果你需要合并参数不同的视频，把-c copy去掉或者自己写压制参数，参考参数：-c:v libx264 -crf 23 -profile:v high -level 5 -c:a aac -b:a 240k
@@ -3504,7 +3523,6 @@ ffmpeg -i input.avi -codec:v mpeg4 -r 30 -qscale:v 2 -codec:a copy C.avi
 
 ```
 ffmpeg -i rstp://user:password@ipaddress/Streams/Channels/101 -acodec copy -vcodec copy output/path/xxx.mp4
-
 ```
 
 
@@ -3514,7 +3532,6 @@ ffmpeg -i rstp://user:password@ipaddress/Streams/Channels/101 -acodec copy -vcod
 ```python
 import pdb #import 这个包
 在需要断点的地方 set_trace()
-
 ```
 
 快捷键如下
@@ -3550,7 +3567,6 @@ VOC2007
 	| JPEGImages (存放图片， 按照顺序)
 	| SegementationClass
 	| SegementationObjects
-
 ```
 
 
