@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.2.24</p>
+<p align=right>update 2021.3.3</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -1021,6 +1021,7 @@ tmux new-session -s "name" 启动会话
 tmux at -t "name" 回复会话
 tmux ls 列出会话
 tmux kill-session -t 'name' 删除会话
+crtl + B + D离开会话
 ```
 
 启动控制台进行操作
@@ -1542,44 +1543,30 @@ sudo snap install pick-colour-picker
 <h4 #="16-1">編寫文件常用指令</h4>
 
 - `w` 向下行移動
-
 - `b` 向上行移動
-
 - ```i``` ：insert 用來鍵入
-
 - `d` : delete 删除所选的区域
-
 - ```x``` : 游標的地方delete
-
 - ```u``` : 返回上一步
-
 - `ctrl + r`: 撤銷上一步
-
 - ```：q!``` : 不保存強制退出
-
 - ```:w ``` : 写入保存不退出
-
 - ```：wq！```：写入保存后退出
-
 - `y`：鼠标框起复制
-
 - `yy`: 快速复制当前行
-
 - `p`:贴上
-
 - `pp` : 快速黏贴上yy复制的内容
-
-- 多行注釋
-
-  在要注釋掉的行首 加入`#if 0`
-
-  在要注釋掉的行尾 加入`#endif`
-
 - `:X` : 大写的X主要是用来加密文件
-
   - 输入之后， 会要求输入二次密码， 两次都需要一样
   - 下次开启就需要输入密码才能打开文件， 密码务必要记住， 否则解不开
   - 如果需要重新设置为无密码， 只要`:X`之后， 直接回车两次就行， 就设置为无密码了
+
+- 多行注释的步骤
+  - 首先Ctrl + V 进行visual block模式 然后上下选择需要注释的行， 然后shift + i(insert)， 之后输入注释符号 # or // 在按esc， 就能发现多行已经注释了， 如果解除注释一样多行选择要删去的注释地方， 然后按 `d` , 就能删除注释符号
+- 搜索功能 
+  - 首先：进行模式，然后输入`/` 然后在输入要搜索的名test
+  - 例如 `/test`, 就会搜索test这个字符
+  - `n` 表示搜索下一个
 
 ------
 
@@ -1994,7 +1981,6 @@ channels:
   - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/
   - defaults
 show_channel_urls: true
-
 ```
 
 
@@ -2012,7 +1998,6 @@ show_channel_urls: true
 ```
 git config --global user.name Your Name
 git config --global user.email email@example.com
-
 ```
 
 git config命令的–global参数，用了这个参数，表示你这台机器上所有的 Git 仓库都会使用这个配置
@@ -2023,7 +2008,6 @@ git config命令的–global参数，用了这个参数，表示你这台机器�
 
 ```
 ssh-keygen -t rsa -C email@example.com
-
 ```
 
 
@@ -2041,14 +2025,12 @@ cd 指定路径
 mkdir myprogram
 cd myprogram
 mkdir example #这就是一个repo存在myprogram中
-
 ```
 
 接着在example文件夹下执行git init 初始化本地仓库 就可成功创建repo仓库
 
 ```
 git init
-
 ```
 
 然后将要存放的文件放进example资料夹中, 例如放了一个test.txt文件进去
@@ -2057,21 +2039,18 @@ git init
 
 ```git ad
 git add test.txt
-
 ```
 
 如果上传文件较多， 可以直接追踪全部
 
 ```
 git add --all
-
 ```
 
 确认没有问题， 就可以commit到repo中， 例如”update the file“
 
 ```
 git commit -m "updata the file"
-
 ```
 
 
@@ -2082,14 +2061,12 @@ git commit -m "updata the file"
 
 ```
 git clean -f
-
 ```
 
 删除未追踪的文件跟文件夹
 
 ```
 git clean -df
-
 ```
 
 
@@ -2110,14 +2087,12 @@ git clean -df
 
 ```
 git push origin master #依照branch可替换名称
-
 ```
 
 检查repo状态, 可以查看当前的状态
 
 ```
 git status
-
 ```
 
 
@@ -2126,7 +2101,6 @@ git status
 
 ```
 git remote show origin
-
 ```
 
 
@@ -2139,7 +2113,6 @@ git remote show origin
 
 ```
 git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
-
 ```
 
 
@@ -2148,7 +2121,6 @@ git clone https://github.com/Stephenfang51/Grad_CAM_Pytorch-1.01
 
 ```
 git clone -b <version_name> --single-branch
-
 ```
 
 
@@ -2157,7 +2129,6 @@ git clone -b <version_name> --single-branch
 
 ```
 git clone --recursive-submodule http://xxxxxxxxxxxxxx.git
-
 ```
 
 
@@ -2172,7 +2143,6 @@ cd到repo的文件夹后， 一般的删除本地以及远程文件的方式
 
 ```
 git rm 文件名
-
 ```
 
 
@@ -2181,7 +2151,6 @@ git rm 文件名
 
 ```
 git rm -r --cached 文件名
-
 ```
 
 
@@ -2244,14 +2213,12 @@ git rm -r --cached 文件名
 
 ```
 git fetch
-
 ```
 
 既然`origin/master`是从`master`分支出去且更新， 如果想要master更新`origin/master`， 就需要merge
 
 ```
 git merge origin/master
-
 ```
 
 执行之后就会将master 来回到跟`origin/master`同个位置
@@ -2262,7 +2229,6 @@ git merge origin/master
 
 ```
 git pull --rebase
-
 ```
 
 
@@ -2295,7 +2261,6 @@ git pull --rebase
 ```shell
 git config --system --unset credential.helper
 git config --global credential.helper store
-
 ```
 
 然后在 git push 就会要求输入使用者的账号和密码
@@ -2332,14 +2297,12 @@ git config --global credential.helper store
 
 ```
 pip install --upgrade pip
-
 ```
 
 如果是升级pip3 
 
 ```
 pip3 install --upgrade pip
-
 ```
 
 #### 换源加速 （清华或者阿里）
@@ -2354,7 +2317,6 @@ pip3 install --upgrade pip
 
 ```
 pip config set global.index-url http://mirrors.aliyun.com/pypi/simple
-
 ```
 
 在进行包的安装即可飞速
@@ -2381,7 +2343,6 @@ PS.如果有些比较不知名的包在清华源无法下载， 可以用
 
 ```
 pip install torch==1.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
-
 ```
 
 
@@ -2396,7 +2357,6 @@ pip install torch==1.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host m
 
 ```
 sudo pip3 install xxxxx.whl
-
 ```
 
 或者是将压缩包解压缩后进行安装
@@ -2405,7 +2365,6 @@ sudo pip3 install xxxxx.whl
 tar -xvzf xxxxx.tar.gz
 cd xxxxxx
 sudo python3 setup.py install
-
 ```
 
 即可完成安装
@@ -2418,7 +2377,6 @@ sudo python3 setup.py install
 
 ```
 sudo apt-get python3-matplotlib 
-
 ```
 
 
@@ -2451,7 +2409,6 @@ sudo apt-get python3-matplotlib
 ```
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
-
 ```
 
 利用deb的方式安装
@@ -2466,14 +2423,12 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
 sudo dpkg -i dokcer-ce_19.03.9_3-0-ubuntu-bionic_amd64.deb
-
 ```
 
 执行以下进行测试看安装成功了
 
 ```
 sudo docker run hello-world
-
 ```
 
 
@@ -2645,7 +2600,6 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 bvlc/caffe          cpu                 0b577b836386        18 months ago       1.64GB
-
 ```
 
 `docker image ls -a` 可以看到中间层镜像， 也就是无标签镜像， 不需要删除
@@ -2716,7 +2670,6 @@ Images_name.tar 可以自定义
 
 ```
 sudo docker cp 本地文件路径 容器ID:容器路径
-
 ```
 
 
@@ -2801,7 +2754,6 @@ Deepo:
 
    ```py
    jupyter notebook --ip 0.0.0.0 --port 8888 --no-browser --allow-root
-   
    ```
 
     终端会显示例如下面地址
@@ -2821,7 +2773,6 @@ ps.参考[https://medium.com/@jihung.mycena/docker-%E5%BB%BA%E7%AB%8B-jupyter-co
 ```
 ImportError: cannot import name 'create_prompt_application'
 #注意该报错会显示在终端， jupyter notebook的服务器无法成功连接
-
 ```
 
 表示 ipython 和 prompt-toolkit 版本匹配有问题
@@ -2833,14 +2784,12 @@ ImportError: cannot import name 'create_prompt_application'
 ```
 sudo pip3 uninstall ipython
 sudo pip3 install ipython
-
 ```
 
 2. 重新强制安装prompt-toolkit
 
 ```
 sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
-
 ```
 
 3. 执行完毕后记得存储镜像
@@ -2942,7 +2891,6 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 # ./configure --enable-optimizations
 # make
 # make install
-
 ```
 
 
@@ -2955,7 +2903,6 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 
 ```shell
 sudo apt-get install zlib*
-
 ```
 
 接着可能遇到
@@ -2963,14 +2910,12 @@ sudo apt-get install zlib*
 ```
 ModuleNotFoundError: No module named '_ctypes'
 make: *** [install] Error 1
-
 ```
 
 可以
 
 ```
 sudo apt-get install --reinstall zlibc zlib1g zlib1g-dev sudo apt-get install libffi-dev libssl-dev libreadline-dev -y
-
 ```
 
 然后重新configure, 编译
@@ -3019,14 +2964,12 @@ tensorboard --logdir "这边输入记录的路径"
 ```shell
 ssh -L 16006:127.0.0.1:6006 username@hot -p 端口
 #(ssh -L 本地端口:本地IP:远程端口 远程服务器用户名@远程服务器ip -p 服务器端口)
-
 ```
 
 然后在本地浏览器打开, 就能显示tensorboard界面
 
 ```
 http://localhost:16006
-
 ```
 
 
@@ -3197,7 +3140,6 @@ set(OpenCV_DIR /path/to/opencv-master/build)
 
 ```
 ICV: Failed to download ICV package: ippicv_linux_20151201.tgz.
-
 ```
 
 到链接: https://pan.baidu.com/s/1tUn4so6BZc8MdVz0FbtWLA 提取码: sktn 
@@ -3261,7 +3203,6 @@ Linux共享库的搜索路径先后顺序：
 vim /etc/ld.so.conf  #进入
 /usr/local/lib #添加这行进去， 因为开源库安装后都会放到这个下面
 sudo ldconfig -v  #进行一下更新
-
 ```
 
 
@@ -3326,7 +3267,6 @@ Nvidia自带了一个nvidia-smi的命令行工具，会显示显存使用情况
 
 ```
 nvidia-smi
-
 ```
 
 如果想不间断持续监控可以使用watch 指令
@@ -3467,8 +3407,7 @@ ffmpeg -i twice_v2.mp4 -ss 00:00 -to 00:00 -q:v 1 -r 24 -f image2 test/image-%05
 Ex.从抽出的帧 重新合成视频
 
 ```
-ffmpeg -i path/to/%d.jpg -vcodec libx264c -r 帧率 output.mp4
-
+ffmpeg -i path/to/%d.jpg -vcodec libx264 -r 帧率 output.mp4
 ```
 
 因为ffmpeg 默认图片编号从0开始， 如果图片第一张不是0开始， 则可pyhton脚本修改或者是添加 
@@ -3486,7 +3425,6 @@ ffmpeg -i path/to/%d.jpg -vcodec libx264c -r 帧率 output.mp4
 ```
 file '1.mp4'
 file '2.mp4'
-
 ```
 
 注意必须单引号
@@ -3495,7 +3433,6 @@ file '2.mp4'
 
 ```
 ffmpeg -f concat -safe 0 -i files.txt -c copy output.mp4
-
 ```
 
 注意：这一行指令使用了-c copy，说明他只适用于视频切割产生的分段，被合并的视频必须是相同的参数！！如果你需要合并参数不同的视频，把-c copy去掉或者自己写压制参数，参考参数：-c:v libx264 -crf 23 -profile:v high -level 5 -c:a aac -b:a 240k
@@ -3537,6 +3474,10 @@ import pdb #import 这个包
 快捷键如下
 
 `n`: next step 下一步
+
+`c` : 执行下一个断点
+
+`l` : 查看当前代码段
 
 `step` : step in 进入
 
@@ -3620,7 +3561,6 @@ Failed to initilize NVML:Driver/library version mismatch
 
 
 sudo ubuntu-drivers autoinstall
-
 ```
 
 上述执行完之后, 
@@ -3628,7 +3568,6 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo reboot //重启电脑
 nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
-
 ```
 
 
@@ -3646,7 +3585,6 @@ nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
 ```shell
 wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
 sudo sh cuda_10.1.243_418.87.00_linux.run
-
 ```
 
 过程会有一些协议需要accept
@@ -3661,7 +3599,6 @@ sudo sh cuda_10.1.243_418.87.00_linux.run
 
 ```
 sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
-
 ```
 
 
@@ -3682,14 +3619,12 @@ export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
 
 
 source ~/.bashrc //最后更新一下
-
 ```
 
 以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
 
 ```
 bash : /usr/bin/nvcc: No such file or directory
-
 ```
 
 
@@ -3716,7 +3651,6 @@ Size : xxxx
 .
 .
 etc
-
 ```
 
 可以看到目前符号链接到 10.1的版本
@@ -3726,7 +3660,6 @@ etc
 ```shell
 sudo rm -rf cuda #删除之前的连接
 sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
-
 ```
 
 
@@ -3753,7 +3686,6 @@ sudo In -s /usr/local/cuda-10.2 /usr/local/cuda # 也就是将10.2链接到cuda
 
 ```
 sudo find / -iname '*uninstall_cuda*'
-
 ```
 
 2. 直接删除/usr/local/下 cuda版本的文件夹就可以
@@ -3768,7 +3700,6 @@ sudo find / -iname '*uninstall_cuda*'
 
 ```
 sudo apt-get autoremove nvidia-cuda-toolkit
-
 ```
 
 
@@ -3873,7 +3804,6 @@ while True:
     img_counter += 1
 
 cam.release()
-
 ```
 
 
@@ -3924,7 +3854,6 @@ while True:
     frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
     cv2.imshow('ImageWindow',frame)
     cv2.waitKey(1)
-
 ```
 
 
@@ -3960,7 +3889,6 @@ Server Side:
 >>> data.decode()
 'connection done'
 >>>
-
 ```
 
 如果要传送dict可以用json包的dump
