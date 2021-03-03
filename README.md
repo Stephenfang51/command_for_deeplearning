@@ -8,6 +8,8 @@
 
 #### 更新
 
+update date 2021.3.3 修改vim 新增搜索指令， 多行注释
+
 update date 2021.2.24 新增tmux终端插件指令
 
 update date 2021.2.19 修改vim 指令
