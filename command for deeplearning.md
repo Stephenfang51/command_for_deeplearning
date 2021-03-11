@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.3.3</p>
+<p align=right>update 2021.3.11</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -268,6 +268,16 @@ none            1.5G  156K   1.5G   1%     /run/shm
 参考 https://blog.miniasp.com/post/2010/08/27/Linux-find-command-tips-and-notice
 
 注意以下都是用 `/` 表示搜索所有路径， 也可以依照需求改变路径
+
+
+
+一般最简单的方式可以用, 直接用grep过滤打印出来的文件
+
+```
+find / |grep "name"
+```
+
+
 
 依照文件名找
 
@@ -3389,14 +3399,17 @@ ffmpeg -i input.mov -strict -2 -vf crop=640:640:x:y out.mp4
 Ex.从视频中提取帧数, 每秒提取24幅图
 
 ```
-ffmpeg -i twice_v2.mp4 -ss 00:00 -to 00:00 -q:v 1 -r 24 -f image2 test/image-%05d.jpg
+ffmpeg -i twice_v2.mp4 -ss 00:00 -to 00:00 -q:v 1 -r 24 test/image-%05d.jpg
 ```
 
 - -q : v * : 表示抽取的图片质量， * 为1~5, 1通常是最高质量
 - -r 指定抽取的帧率，即从视频中每秒钟抽取图片的数量。1代表每秒抽取一帧，５就表示一秒抽5张图
-- -f 指定保存图像的格式
 - image-%05d.jpg ：表示存取的图像名称 05d表示00000的格式计数， 前面可以添加路劲
 - -to : 表示抽帧的结束时间 跟-ss搭配
+
+
+
+搭配`-start_number` 可以指定特定的开始数字， 比如设置
 
 
 
@@ -3464,6 +3477,20 @@ ffmpeg -i rstp://user:password@ipaddress/Streams/Channels/101 -acodec copy -vcod
 
 
 
+#### 视频转换格式
+
+Dav2mp4 (通常只有大华摄像头才是dav格式)
+
+```
+ffmpeg -i video.dav -c:v libx264 -crf 24 output.mp4
+```
+
+
+
+
+
+
+
 ### Pdb debug 模式
 
 ```python
@@ -3483,6 +3510,8 @@ import pdb #import 这个包
 
 `q`: quit debug
 
+`dir(类)` : 利用dir可以查看类的所有属性
+
 ------
 
 # DeepLearning
@@ -3491,7 +3520,7 @@ import pdb #import 这个包
 
 Labellmg （https://github.com/tzutalin/labelImg）
 
-
+Labelme (https://github.com/wkentaro/labelme#ubuntu)
 
 #### 自定义数据集格式 //TODO
 
@@ -3512,15 +3541,29 @@ VOC2007
 
 
 
-COCO
 
+
+#### Segmentation 
+
+多边形分割标注推荐使用labelme, labelme 自带将json文件转换成png
+
+
+
+Labelme_json_to_dataset 可以处理单个文件， 编辑以下脚本可以批量处理多个json
+
+在json目录下生成sh文件， 将以下内容复制进入， 然后保存执行就能批量产出png
+
+```shell
+#！/bin/bash
+let i=1
+path=./
+cd ${path}
+for file in *.json
+do
+     labelme_json_to_dataset ${file}
+     let i=i+1
+ done
 ```
-
-```
-
-
-
-
 
 
 
