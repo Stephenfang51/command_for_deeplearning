@@ -8,6 +8,8 @@
 
 #### 更新
 
+update date 2021.4.6 conda 打包方法新增
+
 update date 2021.3.17 新增vim shift 多行移动
 
 update date 2021.3.11 修改许多地方
