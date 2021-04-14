@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.4.6</p>
+<p align=right>update 2021.4.14</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -3577,6 +3577,16 @@ ffmpeg -i input.avi -codec:v mpeg4 -r 30 -qscale:v 2 -codec:a copy C.avi
 
 
 
+#### 调整视频比特率
+
+可以用来压缩视频大小, 将视频压缩到约2500kbps左右
+
+```
+ffmpeg -i input.mp4 -b:v 2500k -b:a 2500k output.mp4
+```
+
+
+
 
 
 #### 视频流录制
@@ -3930,11 +3940,21 @@ File -> Invalidate Caches / Restart #可以删除移除之前的cache然后重�
 
    并且选择远程python解释器的时候相当简单（前提先安装好python extension)， 在最下方一条蓝色的地方可以选择python 解释器， 而且插件已经自动的帮你找到远程解释器的位置
 
-2. python extension 
+   
+
+2. 远程python解释器
+
+   在服务器上装python extension ， 可以现在vscode中插件市场找到python, 然后右键copy 到浏览器贴上， 保留地址后面link的部分， 就能跳转到下载插件包的网站， 右侧找到download的地方把包下载下来丢到服务器，然后打开vscode 里面的终端 输入如下指令进行安装
+
+   ```
+   code --install-extension /path/to/extension.vsix
+   ```
+
+3. python extension 
 
    在extension 中搜索 python 并安装， 就能让IDE支持 快速查看函数定义等功能
 
-3. 打开快捷键一览表
+4. 打开快捷键一览表
 
    ```
    ctrl K + ctrl S
@@ -3947,7 +3967,7 @@ File -> Invalidate Caches / Restart #可以删除移除之前的cache然后重�
    shift + Alt + up/down 可实现多行列选择
    ```
 
-4. 安装智能补全插件 Kite
+5. 安装智能补全插件 Kite
 
    ```
    Kite AutoComplete Al Code
@@ -3955,7 +3975,49 @@ File -> Invalidate Caches / Restart #可以删除移除之前的cache然后重�
 
    记得去Kite 官方下载engine, 搭配vscode 的插件一起使用
 
+6. 带参数的debug模式
 
+   Run -> open configurations , 主要将args添加进去， 以下为示例
+
+   ```json
+   {
+       // Use IntelliSense to learn about possible attributes.
+       // Hover to view descriptions of existing attributes.
+       // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+       "version": "0.2.0",
+       "configurations": [
+           {
+               "name": "Python: Current File",
+               "type": "python",
+               "request": "launch",
+               "program": "${file}",
+               "console": "integratedTerminal",
+               "args": ["-n","***", "-u", "**", "-p", "**", "-s", "***", "-k", "**", "-g", "acadci_prod"],
+           }
+       ]
+   }
+   
+   
+   #### torch 分布式训练debug, 主要将launch替换为torch底下的
+   {
+       // Use IntelliSense to learn about possible attributes.
+       // Hover to view descriptions of existing attributes.
+       // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+       "version": "0.2.0",
+       "configurations": [
+           {
+               "name": "Python: Current File",
+               "type": "python",
+               "request": "launch",
+               "program": "/path/to/site-packages/torch/distributed/launch.py",
+               "console": "integratedTerminal",
+               "args": ["--nproc_per_node=4",
+                       "/path/train.py",
+                       ],
+           }
+       ]
+   }
+   ```
 
 ------
 
