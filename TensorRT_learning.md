@@ -1,5 +1,5 @@
 <h1 align=center>模型加速</h1>
-<h5 align = right> update 2020.4.3</h5>
+<h5 align = right> update 2021.5.8</h5>
 
 鉴于没有一个好的教程， 网上简体中文教程多半机械式翻译， 跟垃圾差不多， 固自己记录一份并与官方文档及各博客进行整合, 在做模型转换之前， 请先确认你的onnx model 是那个版本torch进行转换的， 如果是1.3， 则TensorRT6并不支持， 
 
@@ -14,7 +14,7 @@
 > 5. Adding A Custom Layer To Your Network In TensorRT
 > 6. Performing Inference In INT8 Using Custom Calibration
 > 7. TensorRT API
->    1. 
+>    1. 构建网路层及运行推断
 >
 > ### torch.onnx
 >
@@ -706,11 +706,381 @@ NVIDIA官方建议是
 >
 > 该章节主要记录各个类的用法， 内容涵盖从创建engine到序列、反序列， 最后自定义plugin等
 
+
+
+
+
+
+
+
+
 **用INetworkDefinition 构建网路层**
 
-IBuilder * builder = create
+主要参考github tensorrtx 项目为主
+
+主要涉及到以下几个大类, 均在**nvinfer1** namespace 底下
+
+1. ITensor
+
+2. Wights
+
+3. IBuilder
+
+   1. setMaxBatchSize() 设置运行时候最大的batchsize
+   2. buildEngineWithConfig(INetworkDefinition& network, IBuilderConfig & config) : 从定义好的Network以及config来构建Engine
+
+4. IBuilderConfig ： 用来设置一些参数
+
+   1. setMaxWorkspaceSize(std::size_t 	workspaceSize): 设置engine在执行的时候，GPU最大临时分配内存, 这边size_t是byte， ex.如果填入 (1<<30) 1左位移30位（ 2的30次3方), 也就是*1 Gigabyte* is equal to 1,073,741,824 bytes (1024x1024x1024)
+
+5. INetworkDefinition
+
+   1. addInput
+
+   2. addShuffle
+
+   3. addConvolutionNd([ITensor](https://docs.nvidia.com/deeplearning/tensorrt/api/c_api/classnvinfer1_1_1_i_tensor.html) &input, int32_t nbOutputMaps, [Dims](https://docs.nvidia.com/deeplearning/tensorrt/api/c_api/namespacenvinfer1.html#af2bdf77382d189916a4e468f19298fec) kernelSize, [Weights](https://docs.nvidia.com/deeplearning/tensorrt/api/c_api/classnvinfer1_1_1_weights.html) kernelWeights, [Weights](https://docs.nvidia.com/deeplearning/tensorrt/api/c_api/classnvinfer1_1_1_weights.html) biasWeights) 
+
+   4. addActivcation(ITensor & input, Activationtype type) : 激活函数类型依照官方定义枚举类进行输入
+
+      ```c++
+      enum class ActivationType : int32_t
+      {
+          kRELU = 0,             //!< Rectified linear activation.
+          kSIGMOID = 1,          //!< Sigmoid activation.
+          kTANH = 2,             //!< TanH activation.
+          kLEAKY_RELU = 3,       //!< LeakyRelu activation: x>=0 ? x : alpha * x.
+          kELU = 4,              //!< Elu activation: x>=0 ? x : alpha * (exp(x) - 1).
+          kSELU = 5,             //!< Selu activation: x>0 ? beta * x : beta * (alpha*exp(x) - alpha)
+          kSOFTSIGN = 6,         //!< Softsign activation: x / (1+|x|)
+          kSOFTPLUS = 7,         //!< Parametric softplus activation: alpha*log(exp(beta*x)+1)
+          kCLIP = 8,             //!< Clip activation: max(alpha, min(beta, x))
+          kHARD_SIGMOID = 9,     //!< Hard sigmoid activation: max(0, min(1, alpha*x+beta))
+          kSCALED_TANH = 10,     //!< Scaled tanh activation: alpha*tanh(beta*x)
+          kTHRESHOLDED_RELU = 11 //!< Thresholded ReLU activation: x>alpha ? x : 0
+      };
+      ```
+
+   5. addElementWise(ITensor & input1. ITensor&input2, ElementWiseOperation op)
+
+      ```c++
+      enum class ElementWiseOperation : int32_t
+      {
+          kSUM = 0,       //!< Sum of the two elements.
+          kPROD = 1,      //!< Product of the two elements.
+          kMAX = 2,       //!< Maximum of the two elements.
+          kMIN = 3,       //!< Minimum of the two elements.
+          kSUB = 4,       //!< Substract the second element from the first.
+          kDIV = 5,       //!< Divide the first element by the second.
+          kPOW = 6,       //!< The first element to the power of the second element.
+          kFLOOR_DIV = 7, //!< Floor division of the first element by the second.
+          kAND = 8,       //!< Logical AND of two elements.
+          kOR = 9,        //!< Logical OR of two elements.
+          kXOR = 10,      //!< Logical XOR of two elements.
+          kEQUAL = 11,    //!< Check if two elements are equal.
+          kGREATER = 12,  //!< Check if element in first tensor is greater than corresponding element in second tensor.
+          kLESS = 13      //!< Check if element in first tensor is less than corresponding element in second tensor.
+      };
+      ```
+
+   6. addConcatenation(ITensor*const* inputs, int32_t nbInputs), nbInputs = number of inputs
+
+   7. addTopK	(	ITensor & 	input,
+      TopKOperation 	op,
+      int32_t 	k,
+      uint32_t 	reduceAxes 
+      )	
+
+      ```c++
+      enum class TopKOperation : int32_t
+      {
+          kMAX = 0, //!< Maximum of the elements.
+          kMIN = 1, //!< Minimum of the elements.
+      };
+      ```
+
+   8. ICudaEngine:
+
+      1. serialize：序列化一个网路到stream ， 记得序列化完要用IHostMemory类型保存
+      2. createExecutionContext：创建一个executionContext
+
+    9. IRuntime:
+
+        1. deserializeCudaEngine() : 用来将输入stream反序列化， 返回得到engine
+        
+    10. IExecutionContext : 执行inference时候使用
+        1. enqueue() : 传入batchsize, bindings, stream可执行异步的推断， bindings指的是input 和 output的buffers
+        
 
 
+DataType 枚举类型 ：
+
+```
+Enumerator
+kFLOAT ：32-bit floating point format.
+
+kHALF ： IEEE 16-bit floating-point format.
+
+kINT8 : 8-bit integer representing a quantized floating-point value.
+
+kINT32 : Signed 32-bit integer format.
+
+kBOOL : 8-bit boolean. 0 = false, 1 = true, other values undefined.
+```
+
+
+
+**大体流程**
+
+```
+//构建网路
+1. create builder/builderconfig using logger
+2. builder create Network
+3. construct network layer using Network class
+4. buildEngine
+5. serialize engine to hostmemory(streaam)
+6. destroy engine and builder
+```
+
+```
+//inference
+可查阅 https://docs.nvidia.com/deeplearning/tensorrt/archives/tensorrt-723/developer-guide/index.html
+
+1. create trtstream nullptr for pointing to engine
+2. read engine file and set trtstream to point the extracted network
+3. using cudaHostAlloc to map memory from host to device
+3. create IRuntime Object
+4. desrialize cuda engine from trtstream
+5. create execution context and delete trtstream ptr
+6. get input and output index using engine->getbindingIndex
+7.create 2 buffer ptr point to input and output buffers on GPU
+8. copy input_image.data to float* data
+10. using cudaHostGetDevicePointer to get GPU pointer pointing to host memory
+11.we have stream, buffer, batchsize, using context to do inferecnce
+```
+
+**具体步骤**
+
+```c++
+IBuilder *builder = createInferBuilder(gLogger);
+IBuilderConfig *config = builder->createBuilderConfig();
+```
+
+接着用builder 创建network 来构建网路层
+
+```c++
+INetworkDefinition *network = builder->createNetworkV2(0U);
+```
+
+第一步需要先创建输入tensor, 然后增加一个shuffle layer 
+
+```c++
+ITensor *data = network->addInput(INPUT_BLOB_NAME, dt, Dims3{INPUT_H, INPUT_W, 3});
+assert(data);
+
+// hwc to chw
+auto ps = network->addShuffle(*data);底下
+ps->setFirstTranspose(nvinfer1::Permutation{2, 0, 1});
+float mean[3] = {0.485, 0.456, 0.406};
+float std[3] = {0.229, 0.224, 0.225};
+ITensor *preinput = MeanStd(network, ps->getOutput(0), mean, std, true);
+```
+
+为什么要创建， 官方文档如下没看太明白
+
+The name of the input tensor is used to find the index into the buffer array for an engine built from the network. The volume of the dimensions must be less than 2^30 elements.
+
+Shuffle layer 可查文档 **nvinfer1::IShuffleLayer** 主要可置换维度
+
+getOutput 是INetworkdefinition的一个成员， 输入index， 可得到输出的ITensor
+
+
+
+
+**读取engine file 并且 反序列化**
+```c++
+// deserialize the .engine and run inference
+    char *trtModelStream{nullptr};
+    size_t size{0};
+    std::ifstream file(engine_name, std::ios::binary);
+    if (file.good())
+    {
+        file.seekg(0, file.end);
+        size = file.tellg();
+        file.seekg(0, file.beg);
+        trtModelStream = new char[size];
+        assert(trtModelStream);
+        file.read(trtModelStream, size); //set trtModelStream point to file
+        file.close();
+    }
+    else
+    {
+        std::cerr << "could not open plan file" << std::endl;
+    }
+
+    // prepare input data ---------------------------
+    cudaSetDeviceFlags(cudaDeviceMapHost);
+    float *data;
+    int *prob; // using int. output is index
+    CHECK(cudaHostAlloc((void **)&data, BATCH_SIZE * 3 * INPUT_H * INPUT_W * sizeof(float), cudaHostAllocMapped));
+    CHECK(cudaHostAlloc((void **)&prob, BATCH_SIZE * OUTPUT_SIZE * sizeof(int), cudaHostAllocMapped));
+
+    IRuntime *runtime = createInferRuntime(gLogger);
+    assert(runtime != nullptr);
+    ICudaEngine *engine = runtime->deserializeCudaEngine(trtModelStream, size);
+    assert(engine != nullptr);
+    IExecutionContext *context = engine->createExecutionContext();
+    assert(context != nullptr);
+    delete[] trtModelStream;
+    void *buffers[2];
+    // In order to bind the buffers, we need to know the names of the input and output tensors.
+    // Note that indices are guaranteed to be less than IEngine::getNbBindings()
+    const int inputIndex = engine->getBindingIndex(INPUT_BLOB_NAME);
+    const int outputIndex = engine->getBindingIndex(OUTPUT_BLOB_NAME);
+    assert(inputIndex == 0);
+    assert(outputIndex == 1);
+    cudaStream_t stream;
+    CHECK(cudaStreamCreate(&stream));
+
+```
+
+---
+
+
+将提前从torch取到的wts格式的权重文件取出并以std::map 类型存储
+
+```c++
+std::map<std::string, Weights> loadWeights(const std::string file)
+{
+    std::cout << "Loading weights: " << file << std::endl;
+    std::map<std::string, Weights> weightMap;
+
+    // Open weights file
+    std::ifstream input(file);
+    assert(input.is_open() && "Unable to load weight file.");
+
+    // Read number of weight blobs
+    int32_t count;
+    input >> count;
+    assert(count > 0 && "Invalid weight map file.");
+
+    while (count--)
+    {
+        Weights wt{DataType::kFLOAT, nullptr, 0};
+        uint32_t size;
+
+        // Read name and type of blob
+        std::string name;
+        input >> name >> std::dec >> size;
+        wt.type = DataType::kFLOAT;
+
+        // Load blob
+        uint32_t *val = reinterpret_cast<uint32_t *>(malloc(sizeof(val) * size));
+        for (uint32_t x = 0, y = size; x < y; ++x)
+        {
+            input >> std::hex >> val[x];
+        }
+        wt.values = val;
+
+        wt.count = size;
+        weightMap[name] = wt;
+    }
+
+    return weightMap;
+}
+```
+
+
+
+**实现conv + Bn + relu** (from tensorrtx)
+
+该函数主要创建convBnrelu模块， 其中调用到addConvolutionNd函数，
+
+```c++
+ILayer *convBnRelu(INetworkDefinition *network,
+                   std::map<std::string, Weights> &weightMap,
+                   ITensor &input, int outch, int ksize, int s, int p,
+                   std::string convname, std::string bnname,
+                   bool relu = true,
+                   bool bias = false)
+{
+    Weights emptywts{DataType::kFLOAT, nullptr, 0};
+    IConvolutionLayer *conv1;
+    //Dims dim;
+    if (!bias)
+    {
+        conv1 = network->addConvolutionNd(input, outch, DimsHW{ksize, ksize}, weightMap[convname + ".weight"], emptywts);
+    }
+    else
+    {
+        conv1 = network->addConvolutionNd(input, outch, DimsHW{ksize, ksize}, weightMap[convname + ".weight"], weightMap[convname + ".bias"]);
+    }
+    assert(conv1);
+    conv1->setStrideNd(DimsHW{s, s});
+    conv1->setPaddingNd(DimsHW{p, p});
+    debug_print(conv1->getOutput(0), convname);
+    IScaleLayer *bn1 = addBatchNorm2d(network, weightMap, *conv1->getOutput(0), bnname, 1e-5);
+    debug_print(bn1->getOutput(0), bnname);
+    if (relu)
+    {
+        auto lr = network->addActivation(*bn1->getOutput(0), ActivationType::kRELU);
+        return lr;
+    }
+    return bn1;
+}
+
+```
+
+以下自定义batchnorm层
+
+```c++
+IScaleLayer *addBatchNorm2d(INetworkDefinition *network, std::map<std::string, Weights> &weightMap, ITensor &input, std::string lname, float eps)
+{
+    float *gamma = (float *)weightMap[lname + ".weight"].values;
+    float *beta = (float *)weightMap[lname + ".bias"].values;
+    float *mean = (float *)weightMap[lname + ".running_mean"].values;
+    float *var = (float *)weightMap[lname + ".running_var"].values;
+    int len = weightMap[lname + ".running_var"].count;
+    //std::cout << "len " << len << std::endl;
+
+    //scale
+    float *scval = reinterpret_cast<float *>(malloc(sizeof(float) * len));
+    for (int i = 0; i < len; i++)
+    {
+        scval[i] = gamma[i] / sqrt(var[i] + eps);
+    }
+    Weights scale{DataType::kFLOAT, scval, len};
+
+    //shift
+    float *shval = reinterpret_cast<float *>(malloc(sizeof(float) * len));
+    for (int i = 0; i < len; i++)
+    {
+        shval[i] = beta[i] - mean[i] * gamma[i] / sqrt(var[i] + eps);
+    }
+    Weights shift{DataType::kFLOAT, shval, len};
+
+    //power
+    float *pval = reinterpret_cast<float *>(malloc(sizeof(float) * len));
+    for (int i = 0; i < len; i++)
+    {
+        pval[i] = 1.0;
+    }
+    Weights power{DataType::kFLOAT, pval, len};
+
+    weightMap[lname + ".scale"] = scale;
+    weightMap[lname + ".shift"] = shift;
+    weightMap[lname + ".power"] = power;
+    IScaleLayer *scale_1 = network->addScale(input, ScaleMode::kCHANNEL, shift, scale, power);
+    assert(scale_1);
+    return scale_1;
+}
+```
+
+
+
+
+
+---
 
 
 
