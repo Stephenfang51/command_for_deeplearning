@@ -1,5 +1,5 @@
 <h1 align=center>模型加速</h1>
-<h5 align = right> update 2021.5.8</h5>
+<h5 align = right> update 2021.5.10</h5>
 
 鉴于没有一个好的教程， 网上简体中文教程多半机械式翻译， 跟垃圾差不多， 固自己记录一份并与官方文档及各博客进行整合, 在做模型转换之前， 请先确认你的onnx model 是那个版本torch进行转换的， 如果是1.3， 则TensorRT6并不支持， 
 
@@ -798,18 +798,27 @@ NVIDIA官方建议是
           kMIN = 1, //!< Minimum of the elements.
       };
       ```
-
-   8. ICudaEngine:
-
-      1. serialize：序列化一个网路到stream ， 记得序列化完要用IHostMemory类型保存
-      2. createExecutionContext：创建一个executionContext
-
-    9. IRuntime:
-
-        1. deserializeCudaEngine() : 用来将输入stream反序列化， 返回得到engine
+    8. addSlice(ITensor &input, Dims start, Dims size, Dims stride)
         
-    10. IExecutionContext : 执行inference时候使用
-        1. enqueue() : 传入batchsize, bindings, stream可执行异步的推断， bindings指的是input 和 output的buffers
+        主要用来切分tensor， start是第几行第一列开始切， size 是切分需要的尺寸， stride是每次移动多少行，然后每行移动几列
+
+        input={{0,2,4}，{1,3,5}} start = {1,0}, size={1,2}, stride={1,2}
+        一开始是从第1行第0列开始移动，第一个为1, 然后移动一行两列（从1->5)就是5,
+        output 就是{1,5}
+
+
+
+6. ICudaEngine:
+
+    1. serialize：序列化一个网路到stream ， 记得序列化完要用IHostMemory类型保存
+    2. createExecutionContext：创建一个executionContext
+
+7. IRuntime:
+
+    1. deserializeCudaEngine() : 用来将输入stream反序列化， 返回得到engine
+    
+8. IExecutionContext : 执行inference时候使用
+    1. enqueue() : 传入batchsize, bindings, stream可执行异步的推断， bindings指的是input 和 output的buffers
         
 
 
