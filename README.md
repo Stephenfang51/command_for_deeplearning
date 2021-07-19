@@ -8,6 +8,8 @@
 
 #### 更新
 
+update date 2021.7.16 加入ffmpeg/nginx rtmp推流方法 、 Linux 指令 rsync 取代scp方法
+
 update date 2021.4.14 修改许多地方
 
 update date 2021.4.6 conda 打包方法新增
