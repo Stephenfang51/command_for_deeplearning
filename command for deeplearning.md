@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.7.16</p>
+<p align=right>update 2021.8.10</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -174,7 +174,9 @@
 
 > #### 使用nginx 本地实时推流rtmp
 
+---
 
+> #### redis-py使用
 
 <h2 align=center>目录结束<h2>
 
@@ -387,9 +389,7 @@ ps.使用时请千万谨慎
 参考 https://www.cnblogs.com/wjoyxt/p/10408423.html
 
 ```shell
-rm -rf !(file1 | file2) #删除除了file1, file2的文件
-rm -rf !(*jpg)  #删除文件名不以jpg结尾的文件
-rm -rf *@(jpg|png) #删除文件名以jpg或png结尾的文件, 千万记得 | 中间不要有空格
+rm -rf !(file1 | file2) #删除除了file1, file2的文件rm -rf !(*jpg)  #删除文件名不以jpg结尾的文件rm -rf *@(jpg|png) #删除文件名以jpg或png结尾的文件, 千万记得 | 中间不要有空格
 ```
 
 
@@ -578,16 +578,11 @@ others= --- = 0+0+0 = 0
 `chmod u +x  filename`   +/-/=
 
 ```
-u ： user 
-g ：group 
-o ：others
-a ： all(所有身份)
+u ： user g ：group o ：othersa ： all(所有身份)
 ```
 
 ```
-r : read
-w : write
-x : execute
+r : readw : writex : execute
 ```
 
 
@@ -788,18 +783,15 @@ grep 搜寻关键字 文件1 文件2
 ex
 
 ```shell
-# 在 /etc/os-release 檔案中搜尋 Ubuntu 關鍵字
-grep Ubuntu /etc/os-release
+# 在 /etc/os-release 檔案中搜尋 Ubuntu 關鍵字grep Ubuntu /etc/os-release
 ```
 
 ```shell
-# 在 /etc/*.conf 中搜尋 network 關鍵字
-grep network /etc/*.con
+# 在 /etc/*.conf 中搜尋 network 關鍵字grep network /etc/*.con
 ```
 
 ```shell
-# 篩選含有 network 關鍵字的檔案名稱
-ls /etc/ | grep network
+# 篩選含有 network 關鍵字的檔案名稱ls /etc/ | grep network
 ```
 
 
@@ -807,8 +799,7 @@ ls /etc/ | grep network
 不分大小写 -i
 
 ```shell
-# 不分大小寫
-grep -i Ubuntu /etc/os-release
+# 不分大小寫grep -i Ubuntu /etc/os-release
 ```
 
 标示出行数 -n
@@ -1090,11 +1081,7 @@ shift + & : close current bash
 在一个窗格中进行分割
 
 ```
-% 垂直分割
-" 水平分割
-x : 关闭窗格
-[ : 在窗口中上下滚动, 支持直接按page up or page down上下, 因为在窗口中无法正常shift+up查看终端信息， 按q 可以退出模式
-ctrl + B + up or down : 调整窗口的高度
+% 垂直分割" 水平分割x : 关闭窗格[ : 在窗口中上下滚动, 支持直接按page up or page down上下, 因为在窗口中无法正常shift+up查看终端信息， 按q 可以退出模式ctrl + B + up or down : 调整窗口的高度
 ```
 
 
@@ -1106,8 +1093,7 @@ ctrl + B + up or down : 调整窗口的高度
 到`~/.vimrc` 下添加
 
 ```
-set term=xterm-256color
-set t_Co=256
+set term=xterm-256colorset t_Co=256
 ```
 
 ------
@@ -1126,7 +1112,7 @@ rsync 参数 来源文件 目的文件
 
 -avzh : 类似scp， 远程传输文件, 将上述命令综合输入
 
--u ：不会修改目标目录下已经有的问题
+-u ：不会修改目标目录下已经有的文件
 
 ```
 rsync -avzh /path/xxx.xx root@192.168.xx.xx:/path/
@@ -1199,7 +1185,10 @@ rsync -avzh /path/xxx.xx --exclude={'*.txt', 'dir3', 'dir4'} root@192.168.xx.xx:
 参考https://blog.gtwang.org/linux/linux-useradd-command-tutorial-examples/
 
 ```shell
-$ sudo useradd -m jason -s /bin/bash $ sudo passwd jason$ sudo adduser jason sudo$ su jason
+$ sudo useradd -m jason -s /bin/bash 
+$ sudo passwd jason
+$ sudo adduser jason sudo
+$ su jason
 ```
 
 - 创建了可以登录的meow用户并使用/bin/bash作为shell。
@@ -1290,7 +1279,11 @@ ref https://blog.csdn.net/weixin_42331537/article/details/89962801?depth_1-utm_s
 下面是几个常用的指令
 
 ```shell
-screen -S session_name           # 新建一个叫session_name的sessionscreen -ls（或者screen -list）    # 列出当前所有的sessionscreen -r session_name           # 回到session_name这个sessionscreen -d session_name           # 远程detach某个sessionscreen -d -r session_name        # 结束当前session并回到session_name这个session
+screen -S session_name           # 新建一个叫session_name的session
+screen -ls（或者screen -list）    # 列出当前所有的session
+screen -r session_name           # 回到session_name这个session
+screen -d session_name           # 远程detach某个session
+screen -d -r session_name        # 结束当前session并回到session_name这个session
 ```
 
 通常先用 `screen -S xxxxx`（任意取名）创建session 并且进入
@@ -1330,7 +1323,13 @@ screen -S session_name           # 新建一个叫session_name的sessionscreen -
 可以
 
 ```shell
-ldd test>>> 输出， 就可以看到连接许多共享库linux-vdso.so.1 =>  (0x00007ffe3dbc1000)libm.so.6 => /lib64/libm.so.6 (0x00007f17a5b55000)libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f17a592e000)libtinfo.so.5 => /lib64/libtinfo.so.5 (0x00007f17a5704000)
+ldd test
+
+>>> 输出， 就可以看到连接许多共享库
+linux-vdso.so.1 =>  (0x00007ffe3dbc1000)
+libm.so.6 => /lib64/libm.so.6 (0x00007f17a5b55000)
+libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f17a592e000)
+libtinfo.so.5 => /lib64/libtinfo.so.5 (0x00007f17a5704000)
 ```
 
 选项
@@ -1348,7 +1347,11 @@ ldd test>>> 输出， 就可以看到连接许多共享库linux-vdso.so.1 =>  (0
 在环境变量中添加
 
 ```
-alias 快捷指令="终端指令"EX.alias wo="cd /home/workplace"则在终端输入wo， 就相当于 cd /home/workplace
+alias 快捷指令="终端指令"
+
+EX.
+alias wo="cd /home/workplace"
+则在终端输入wo， 就相当于 cd /home/workplace
 ```
 
 
@@ -1378,7 +1381,15 @@ ldconfig通常在系统启动时运行，而当用户安装了一个新的动态
 ldconfig需要注意的地方：
 
 ```
-1、往/lib和/usr/lib里面加东西，是不用修改/etc/ld.so.conf文件的，但是添加完后需要调用下ldconfig，不然添加的library会找不到。2、如果添加的library不在/lib和/usr/lib里面的话，就一定要修改/etc/ld.so.conf文件，往该文件追加library所在的路径，然后也需要重新调用下ldconfig命令。比如在安装[MySQL](http://lib.csdn.net/base/14)的时候，其库文件/usr/local/mysql/lib，就需要追加到/etc/ld.so.conf文件中。命令如下：\# echo "/usr/local/mysql/lib" >> /etc/ld.so.conf\# ldconfig -v | grep mysql3、如果添加的library不在/lib或/usr/lib下，但是却没有权限操作写/etc/ld.so.conf文件的话，这时就需要往export里写一个全局变量LD_LIBRARY_PATH，就可以了。
+1、往/lib和/usr/lib里面加东西，是不用修改/etc/ld.so.conf文件的，但是添加完后需要调用下ldconfig，不然添加的library会找不到。
+
+2、如果添加的library不在/lib和/usr/lib里面的话，就一定要修改/etc/ld.so.conf文件，往该文件追加library所在的路径，然后也需要重新调用下ldconfig命令。比如在安装[MySQL](http://lib.csdn.net/base/14)的时候，其库文件/usr/local/mysql/lib，就需要追加到/etc/ld.so.conf文件中。命令如下：
+
+\# echo "/usr/local/mysql/lib" >> /etc/ld.so.conf
+
+\# ldconfig -v | grep mysql
+
+3、如果添加的library不在/lib或/usr/lib下，但是却没有权限操作写/etc/ld.so.conf文件的话，这时就需要往export里写一个全局变量LD_LIBRARY_PATH，就可以了。
 ```
 
 
@@ -1390,7 +1401,29 @@ ldconfig需要注意的地方：
 
 
 ```
-[Desktop Entry]Encoding=UTF-8Name=xxx//可执行文件Exec=sh  /路径/你前面生成的可执行的shell文件.sh       //.sh可执行文件的绝对路径, 前面的sh 命令不要丢哦Icon=/usr/local/share/icons/jesh.png  //软件的图标文件路径 ico也可Info="Spark"Categories=GTK;Network;message; //可写可不写Comment="Gtk+ based like QQ"  //提示性信息 ，可写可不写Terminal=falseType=ApplicationStartupNotify=true
+[Desktop Entry]
+
+Encoding=UTF-8
+
+Name=xxx
+
+//可执行文件
+
+Exec=sh  /路径/你前面生成的可执行的shell文件.sh       //.sh可执行文件的绝对路径, 前面的sh 命令不要丢哦
+
+Icon=/usr/local/share/icons/jesh.png  //软件的图标文件路径 ico也可
+
+Info="Spark"
+
+Categories=GTK;Network;message; //可写可不写
+
+Comment="Gtk+ based like QQ"  //提示性信息 ，可写可不写
+
+Terminal=false
+
+Type=Application
+
+StartupNotify=true
 ```
 
 
@@ -1402,7 +1435,9 @@ ldconfig需要注意的地方：
 首先安装
 
 ```
-apt-get updateapt-get install apt-fileapt-file update
+apt-get update
+apt-get install apt-file
+apt-file update
 ```
 
 
@@ -1464,7 +1499,9 @@ sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
 然后在V2ray Settings 
 
 ```
--> Core Executable Path 设定核心文件中的v2ray-> V2ray Assets Directory 设定 核心文件路径 
+-> Core Executable Path 设定核心文件中的v2ray
+
+-> V2ray Assets Directory 设定 核心文件路径 
 ```
 
 设置好之后按OK
@@ -1495,7 +1532,12 @@ vim /etc/crontab
 比如每隔3分钟执行一次xxx.sh脚本
 
 ```shell
-#打开文件后在最下面添加#依序是min hour day month dayofwork user command#这里只列出每隔几分钟执行的方法*/3 *   * * * root sh /home/path/to/xxx.sh
+#打开文件后在最下面添加
+
+#依序是min hour day month dayofwork user command
+#这里只列出每隔几分钟执行的方法
+
+*/3 *   * * * root sh /home/path/to/xxx.sh
 ```
 
 参考 https://blog.csdn.net/lxz978161079/article/details/80662346?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
@@ -1511,7 +1553,11 @@ vim /etc/crontab
 以下内容复制到sh文件， 可以搭配crontab 定时使用
 
 ```shell
-#!/bin/bashsync; echo 1 > /proc/sys/vm/drop_cachessync; echo 2 > /proc/sys/vm/drop_cachessync; echo 3 > /proc/sys/vm/drop_cachesswapoff -a && swapon -a
+#!/bin/bash
+sync; echo 1 > /proc/sys/vm/drop_caches
+sync; echo 2 > /proc/sys/vm/drop_caches
+sync; echo 3 > /proc/sys/vm/drop_caches
+swapoff -a && swapon -a
 ```
 
 
@@ -1539,7 +1585,13 @@ sudo apt-get install kolourpaint4
 1. Ubuntu安装步骤
 
 ```shell
-sudo apt install zshsh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"#如果该步骤遇到ssl 无法建立问题， 尝试sh -c "$(wget -O- https://gitee.com/mcornella/ohmyzsh/raw/master/tools/install.sh)"#参考 https://github.com/ohmyzsh/ohmyzsh/issues/9528
+sudo apt install zsh
+
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#如果该步骤遇到ssl 无法建立问题， 尝试
+sh -c "$(wget -O- https://gitee.com/mcornella/ohmyzsh/raw/master/tools/install.sh)"
+
+#参考 https://github.com/ohmyzsh/ohmyzsh/issues/9528
 ```
 
 2. 当前terminal 简单切换
@@ -1551,7 +1603,9 @@ exec bash或者 exec zsh
 3. 设置default的shell样式， 设置完之后restart terminal就可以
 
 ```shell
-chsh -s /bin/bash或者chsh -s /bin/zsh
+chsh -s /bin/bash
+或者
+chsh -s /bin/zsh
 ```
 
 
@@ -1631,7 +1685,13 @@ vim提供许多的功能可以依照需求在编辑文件中时添加， 也能�
 可以类似Pycharm 用shift 移动代码行的效果， 也能可视模式下选定多行 然后移动
 
 ```vim
-"move line up/down"nnoremap <S-DOWN> :m .+1<CR>==nnoremap <S-UP> :m .-2<CR>==inoremap <S-DOWN> <Esc>:m .+1<CR>==giinoremap <S-UP> <Esc>:m .-2<CR>==givnoremap <S-DOWN> :m '>+1<CR>gv=gvvnoremap <S-UP> :m '<-2<CR>gv=gv
+"move line up/down"
+nnoremap <S-DOWN> :m .+1<CR>==
+nnoremap <S-UP> :m .-2<CR>==
+inoremap <S-DOWN> <Esc>:m .+1<CR>==gi
+inoremap <S-UP> <Esc>:m .-2<CR>==gi
+vnoremap <S-DOWN> :m '>+1<CR>gv=gv
+vnoremap <S-UP> :m '<-2<CR>gv=gv
 ```
 
 
@@ -1649,7 +1709,33 @@ vim提供许多的功能可以依照需求在编辑文件中时添加， 也能�
 將以下代碼添加到 ~/.vimrc中， vimrc 打開方式 ``` vi ~/.vimrc```
 
 ```
-map <F5> :call CompileRunGcc()<CR>func! CompileRunGcc()	exec "w"	if &filetype == 'c'		exec "!g++ % -o %<"		exec "!time ./%<"	elseif &filetype == 'cpp'		exec "!g++ % -o %<"		exec "!time ./%<"	elseif &filetype == 'java' 		exec "!javac %" 		exec "!time java %<"	elseif &filetype == 'sh'		:!time bash %	elseif &filetype == 'python'		exec "!time python2.7 %"    elseif &filetype == 'html'        exec "!firefox % &"    elseif &filetype == 'go'        exec "!go build %<"        exec "!time go run %"    elseif &filetype == 'mkd'        exec "!~/.vim/markdown.pl % > %.html &"        exec "!firefox %.html &"	endifendfunc
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+	exec "w"
+	if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'java' 
+		exec "!javac %" 
+		exec "!time java %<"
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		exec "!time python2.7 %"
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'go'
+        exec "!go build %<"
+        exec "!time go run %"
+    elseif &filetype == 'mkd'
+        exec "!~/.vim/markdown.pl % > %.html &"
+        exec "!firefox %.html &"
+	endif
+endfunc
+
 ```
 
 添加后保存，Fn+F5可一鍵編譯運行
@@ -1676,7 +1762,8 @@ git hub地址
 install
 
 ```
-mkdir -p ~/.vim/pack/git-plugins/startgit clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/start/ale
+mkdir -p ~/.vim/pack/git-plugins/start
+git clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/start/ale
 ```
 
 #### vundle 插件管理器
@@ -1694,7 +1781,49 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 进入后复制贴上
 
 ```
-set nocompatible              " be iMproved, requiredfiletype off                  " required" set the runtime path to include Vundle and initializeset rtp+=~/.vim/bundle/Vundle.vimcall vundle#begin()" alternatively, pass a path where Vundle should install plugins"call vundle#begin('~/some/path/here')" let Vundle manage Vundle, requiredPlugin 'VundleVim/Vundle.vim'" The following are examples of different formats supported." Keep Plugin commands between vundle#begin/end." plugin on GitHub repoPlugin 'tpope/vim-fugitive'" plugin from http://vim-scripts.org/vim/scripts.html" Plugin 'L9'" Git plugin not hosted on GitHubPlugin 'git://git.wincent.com/command-t.git' #可不加" git repos on your local machine (i.e. when working on your own plugin)Plugin 'file:///home/gmarik/path/to/plugin' #可不加" The sparkup vim script is in a subdirectory of this repo called vim." Pass the path to set the runtimepath properly.Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}" Install L9 and avoid a Naming conflict if you've already installed a" different version somewhere else." Plugin 'ascenator/L9', {'name': 'newL9'}" All of your Plugins must be added before the following linecall vundle#end()            " requiredfiletype plugin indent on    " required" To ignore plugin indent changes, instead use:"filetype plugin on"" Brief help" :PluginList       - lists configured plugins" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate" :PluginSearch foo - searches for foo; append `!` to refresh local cache" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal"" see :h vundle for more details or wiki for FAQ" Put your non-Plugin stuff after this line
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git' #可不加
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin' #可不加
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 ```
 
 
@@ -1875,7 +2004,9 @@ sudo sh 安装之后 如果选择不开机自动激活
 可以改变目录owner
 
 ```shell
-sudo chown -R 你的用户名 miniconda3///或者sudo chown -R 你的用户名 anaconda3
+sudo chown -R 你的用户名 miniconda3/
+//或者
+sudo chown -R 你的用户名 anaconda3
 ```
 
 
@@ -1918,6 +2049,18 @@ pip install conda-pack
 conda pack -n 环境名 #输入之后会在当前目录下生成一个tar.gz文件
 ```
 
+
+
+<span style="color:red">如果遇到CondaPackError:Cannot pack an environment with editable packages</span>
+
+```shell
+conda pack -n 环境名 --ignore-editable-packages
+```
+
+
+
+
+
 然后在把这个文件放到需要使用环境的服务器下解压缩, 比如解压缩出来是haha文件
 
 ```
@@ -1940,6 +2083,10 @@ conda导出已有环境：
 `conda env create -f environment.yaml`
 
 就可以复现安装环境。移植过来的环境只是安装了你原来环境里用conda install等命令直接安装的包，你用pip之类装的东西没有移植过来，需要你重新安装。
+
+
+
+
 
 
 
@@ -1972,7 +2119,14 @@ conda环境下， 查看安装的package `pip list`
 #### conda 安装pytorch
 
 ```
-# CUDA 9.0conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=9.0 -c pytorch# CUDA 10.0conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch# CPU Onlyconda install pytorch-cpu==1.0.1 torchvision-cpu==0.2.2 cpuonly -c pytorch
+# CUDA 9.0
+conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=9.0 -c pytorch
+
+# CUDA 10.0
+conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch
+
+# CPU Only
+conda install pytorch-cpu==1.0.1 torchvision-cpu==0.2.2 cpuonly -c pytorch
 ```
 
 参考Pytorch官方 [https://pytorch.org/get-started/previous-versions/](https://pytorch.org/get-started/previous-versions/)
@@ -1986,13 +2140,46 @@ conda环境下， 查看安装的package `pip list`
 所以用vim 進入編輯
 
 ```shell
-#1  vim 进入vim ~/.condarc#2. 貼入清華源channels:  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ssl_verify: true#3. 如清華源失效， 可以試試中科大源channels:  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/  - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ssl_verify: true#4. 上海交大源channels:  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge/ssl_verify: true#以上三个源， 泽一即可
+#1  vim 进入
+vim ~/.condarc
+#2. 貼入清華源
+
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+ssl_verify: true
+
+
+#3. 如清華源失效， 可以試試中科大源
+channels:
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+ssl_verify: true
+
+
+#4. 上海交大源
+channels:
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge/
+ssl_verify: true
+
+
+#以上三个源， 泽一即可
 ```
 
 经过实际测验， 以下速度飞快， 推荐使用
 
 ```
-channels:  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/  - defaultsshow_channel_urls: true
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/
+  - defaults
+show_channel_urls: true
 ```
 
 
@@ -2008,7 +2195,8 @@ channels:  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/  - htt
 1. 配置指令如以下， Your Name 键入github名称， email键入注册github的邮箱
 
 ```
-git config --global user.name Your Namegit config --global user.email email@example.com
+git config --global user.name Your Name
+git config --global user.email email@example.com
 ```
 
 git config命令的–global参数，用了这个参数，表示你这台机器上所有的 Git 仓库都会使用这个配置
@@ -2032,7 +2220,10 @@ ssh-keygen -t rsa -C email@example.com
 创建一个存放程序的资料夹， 里面可以放各仓库， 例如以下
 
 ```
-cd 指定路径mkdir myprogramcd myprogrammkdir example #这就是一个repo存在myprogram中
+cd 指定路径
+mkdir myprogram
+cd myprogram
+mkdir example #这就是一个repo存在myprogram中
 ```
 
 接着在example文件夹下执行git init 初始化本地仓库 就可成功创建repo仓库
@@ -2267,7 +2458,8 @@ git pull --rebase
 **错误信息 ： Git修改密码后命令行push代码报“fatal: Authentication failed for **
 
 ```shell
-git config --system --unset credential.helpergit config --global credential.helper store
+git config --system --unset credential.helper
+git config --global credential.helper store
 ```
 
 然后在 git push 就会要求输入使用者的账号和密码
@@ -2412,7 +2604,8 @@ sudo apt-get python3-matplotlib
 安装如下需要的包
 
 ```
-sudo apt-get updatesudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
 利用deb的方式安装
@@ -2472,7 +2665,13 @@ sudo docker run hello-world
 加速器地址
 
 ```json
-{	"registry-mirrors": [	"https://dockerhub.azk8s.cn",	"https://hub-mirror.c.163.com", 	"https://reg-mirror.qiniu.com"	]}
+{
+	"registry-mirrors": [
+	"https://dockerhub.azk8s.cn",
+	"https://hub-mirror.c.163.com", 
+	"https://reg-mirror.qiniu.com"
+	]
+}
 ```
 
 
@@ -2490,13 +2689,25 @@ sudo docker run hello-world
 登入阿里云（用支付宝登入）-> 搜寻镜像服务器 -> 控制台->左侧找到镜像加速器， 会看到属于自己的镜像地址
 
 ```shell
-cd /etc/dockervim daemon.json#添加下面内容, 文件必须符合json规范{	"registry-mirrors": [	"这边贴上阿里镜像加速器的地址"	]}#然后wq保存
+cd /etc/docker
+vim daemon.json
+
+#添加下面内容, 文件必须符合json规范
+{
+	"registry-mirrors": [
+	"这边贴上阿里镜像加速器的地址"
+	]
+}
+
+#然后wq保存
+
 ```
 
 reload一下docker
 
 ```shell
-sudo systemctl daemon-reloadsudo systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 然后在pull images 就会发现速度提升非常多
@@ -2508,13 +2719,26 @@ sudo systemctl daemon-reloadsudo systemctl restart docker
 Ex. 例如建造onnx-tensorrt的镜像, 就先clone下项目的repo， 然后确认repo中有dockerfile
 
 ```
-#务必加上sudosudo docker build -t ubuntu/onnx2trt:v5.0
+#务必加上sudo
+sudo docker build -t ubuntu/onnx2trt:v5.0
 ```
 
 接着就会如下开始build
 
 ```
-Sending build context to Docker daemon  3.977MBStep 1/16 : FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.049.0-cudnn7-devel-ubuntu16.04: Pulling from nvidia/cuda976a760c94fc: Pull complete c58992f3c37b: Pull complete 0ca0e5e7f12e: Pull complete f2a274cc00ca: Pull complete 708a53113e13: Pull complete 371ddc2ca87b: Pull complete f81888eb6932: Pull complete 19dbd9dd59d6: Pull complete e07d92c8415d: Extracting [======================>                            ]  276.3MB/615.8MBaa4c26baf056: Download complete 
+Sending build context to Docker daemon  3.977MB
+Step 1/16 : FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+9.0-cudnn7-devel-ubuntu16.04: Pulling from nvidia/cuda
+976a760c94fc: Pull complete 
+c58992f3c37b: Pull complete 
+0ca0e5e7f12e: Pull complete 
+f2a274cc00ca: Pull complete 
+708a53113e13: Pull complete 
+371ddc2ca87b: Pull complete 
+f81888eb6932: Pull complete 
+19dbd9dd59d6: Pull complete 
+e07d92c8415d: Extracting [======================>                            ]  276.3MB/615.8MB
+aa4c26baf056: Download complete 
 ```
 
 
@@ -2743,7 +2967,8 @@ ps.参考[https://medium.com/@jihung.mycena/docker-%E5%BB%BA%E7%AB%8B-jupyter-co
 如果遇到Jupyter notebook启动kernel时 发生
 
 ```
-ImportError: cannot import name 'create_prompt_application'#注意该报错会显示在终端， jupyter notebook的服务器无法成功连接
+ImportError: cannot import name 'create_prompt_application'
+#注意该报错会显示在终端， jupyter notebook的服务器无法成功连接
 ```
 
 表示 ipython 和 prompt-toolkit 版本匹配有问题
@@ -2753,7 +2978,8 @@ ImportError: cannot import name 'create_prompt_application'#注意该报错会�
 1.重新安装ipython
 
 ```
-sudo pip3 uninstall ipythonsudo pip3 install ipython
+sudo pip3 uninstall ipython
+sudo pip3 install ipython
 ```
 
 2. 重新强制安装prompt-toolkit
@@ -2785,13 +3011,27 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 ##### 条件字句 if
 
 ```bash
-if conditionthen	command1 	command2	...	commandN fi
+if condition
+then
+	command1 
+	command2
+	...
+	commandN 
+fi
 ```
 
 ##### if else
 
 ```bash
-if conditionthen	command1 	command2	...	commandNelse	comandfi
+if condition
+then
+	command1 
+	command2
+	...
+	commandN
+else
+	comand
+fi
 ```
 
 ##### 整数之间判断
@@ -2807,7 +3047,9 @@ if conditionthen	command1 	command2	...	commandNelse	comandfi
 example:
 
 ```bash
-if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....    echo "Usage: $0 <Install Folder>"    exit
+if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
+    echo "Usage: $0 <Install Folder>"
+    exit
 ```
 
 
@@ -2839,7 +3081,12 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 参考https://blog.csdn.net/baidu_37973494/article/details/88324236?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-7&spm=1001.2101.3001.4242
 
 ```cbash
-# wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz # tar -xzvf Python-3.7.2.tgz# cd Python-3.7.2# ./configure --enable-optimizations# make# make install
+# wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz 
+# tar -xzvf Python-3.7.2.tgz
+# cd Python-3.7.2
+# ./configure --enable-optimizations
+# make
+# make install
 ```
 
 
@@ -2857,7 +3104,8 @@ sudo apt-get install zlib*
 接着可能遇到
 
 ```
-ModuleNotFoundError: No module named '_ctypes'make: *** [install] Error 1
+ModuleNotFoundError: No module named '_ctypes'
+make: *** [install] Error 1
 ```
 
 可以
@@ -2895,7 +3143,8 @@ sudo apt-get install --reinstall zlibc zlib1g zlib1g-dev sudo apt-get install li
 只教安装
 
 ```
-pip3 install tensorboardXpip3 install tensorflow-gpu
+pip3 install tensorboardX
+pip3 install tensorflow-gpu
 ```
 
 如果要查看, terminal 输入
@@ -2909,7 +3158,8 @@ tensorboard --logdir "这边输入记录的路径"
 在本地用以下指令链接服务器
 
 ```shell
-ssh -L 16006:127.0.0.1:6006 username@hot -p 端口#(ssh -L 本地端口:本地IP:远程端口 远程服务器用户名@远程服务器ip -p 服务器端口)
+ssh -L 16006:127.0.0.1:6006 username@hot -p 端口
+#(ssh -L 本地端口:本地IP:远程端口 远程服务器用户名@远程服务器ip -p 服务器端口)
 ```
 
 然后在本地浏览器打开, 就能显示tensorboard界面
@@ -2957,11 +3207,30 @@ sudo  cp   /etc/apt/sources.list   /etc/apt/sources.list.bak
 2. 修改源文件sources.list
 
 ```
-sudo  chmod  777  /etc/apt/sources.list   #更改文件权限使其可编辑sudo  vim  /etc/apt/sources.list #记得先安装vim
+sudo  chmod  777  /etc/apt/sources.list   #更改文件权限使其可编辑
+sudo  vim  /etc/apt/sources.list #记得先安装vim
 ```
 
 ```shell
-deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 ```
 
 
@@ -3098,7 +3367,13 @@ sudo apt-get isntall libssl-dev
 
 
 ```shell
-tar -xvzf cmake-3.15.3.tar.gzcd cmake-3.15.3./bootstrap    #执行引导文件#该命令执行需要一定时间，请耐心等待。成功执行结束之后，末尾提示:CMake has bootstrapped.  Now run make.makesudo make installcmake --version
+tar -xvzf cmake-3.15.3.tar.gz
+cd cmake-3.15.3
+./bootstrap    #执行引导文件
+#该命令执行需要一定时间，请耐心等待。成功执行结束之后，末尾提示:CMake has bootstrapped.  Now run make.
+make
+sudo make install
+cmake --version
 ```
 
 
@@ -3121,7 +3396,9 @@ Linux共享库的搜索路径先后顺序：
 安装完新的库之后， 要让程序搜寻库之前可以先
 
 ```shell
-vim /etc/ld.so.conf  #进入/usr/local/lib #添加这行进去， 因为开源库安装后都会放到这个下面sudo ldconfig -v  #进行一下更新
+vim /etc/ld.so.conf  #进入
+/usr/local/lib #添加这行进去， 因为开源库安装后都会放到这个下面
+sudo ldconfig -v  #进行一下更新
 ```
 
 
@@ -3141,7 +3418,10 @@ PS. 注意3.0.0以上版本需要用autogen.sh, 不能直接./configure
 卸载 ： 
 
 ```shell
-sudo apt-get remove libprotobuf-devwhich protoc #找到路径rm -rf /path/to/protoc #删除路径下的protoc
+sudo apt-get remove libprotobuf-dev
+
+which protoc #找到路径
+rm -rf /path/to/protoc #删除路径下的protoc
 ```
 
 
@@ -3465,14 +3745,7 @@ Labelme (https://github.com/wkentaro/labelme#ubuntu)
 VOC
 
 ```
-VOC2007
-	|	Annotations (存放目标在图片里的坐标信息)
-	| ImageSets 
-				| Layout
-				|	Main
-	| JPEGImages (存放图片， 按照顺序)
-	| SegementationClass
-	| SegementationObjects
+VOC2007	|	Annotations (存放目标在图片里的坐标信息)	| ImageSets 				| Layout				|	Main	| JPEGImages (存放图片， 按照顺序)	| SegementationClass	| SegementationObjects
 ```
 
 
@@ -3490,7 +3763,15 @@ Labelme_json_to_dataset 可以处理单个文件， 编辑以下脚本可以批�
 在json目录下生成sh文件， 将以下内容复制进入， 然后保存执行就能批量产出png
 
 ```shell
-#！/bin/bashlet i=1path=./cd ${path}for file in *.jsondo     labelme_json_to_dataset ${file}     let i=i+1 done
+#！/bin/bash
+let i=1
+path=./
+cd ${path}
+for file in *.json
+do
+     labelme_json_to_dataset ${file}
+     let i=i+1
+ done
 ```
 
 
@@ -3512,13 +3793,33 @@ cuda版本需要与 Nvidia 显卡驱动匹配才能
 利用ppa 安装显卡驱动
 
 ```shell
-sudo add-apt-repository ppa:graphics-drivers/ppa #添加入ppasudo apt-get update #更新一下ubuntu-drivers devices #这会显示出哪些驱动可以安装#比如看到driver : nvidia-driver-440 #sudo apt install nvidia-driver-440#如果出现软件包有未满足的依赖关系sudo apt-get install libnvidia-compute-440#然后重新再一次sudo apt install nvidia-driver-440#装完nvidia-smi测试一下， 出现以下属于正常， 重启电脑就行了Failed to initilize NVML:Driver/library version mismatchsudo ubuntu-drivers autoinstall
+sudo add-apt-repository ppa:graphics-drivers/ppa #添加入ppa
+sudo apt-get update #更新一下
+ubuntu-drivers devices #这会显示出哪些驱动可以安装
+
+#比如看到
+driver : nvidia-driver-440 
+#
+sudo apt install nvidia-driver-440
+#如果出现软件包有未满足的依赖关系
+sudo apt-get install libnvidia-compute-440
+
+#然后重新再一次
+sudo apt install nvidia-driver-440
+#装完nvidia-smi测试一下， 出现以下属于正常， 重启电脑就行了
+Failed to initilize NVML:Driver/library version mismatch
+
+
+
+
+sudo ubuntu-drivers autoinstall
 ```
 
 上述执行完之后, 
 
 ```
-sudo reboot //重启电脑nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
+sudo reboot //重启电脑
+nvidia-smi //查看是否安装成功， 如果有会出现熟悉的界面
 ```
 
 
@@ -3534,7 +3835,8 @@ sudo reboot //重启电脑nvidia-smi //查看是否安装成功， 如果有会�
 例如如下
 
 ```shell
-wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.runsudo sh cuda_10.1.243_418.87.00_linux.run
+wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
 ```
 
 过程会有一些协议需要accept
@@ -3562,7 +3864,13 @@ sudo sh cuda_10.1.243_418.87.00_linux.run --tmpdir=/home
 然后在环境变量中设置路径
 
 ```bash
-vim ~/.bashrcexport LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64export PATH=$PATH:/usr/local/cuda/binexport CUDA_HOME=$CUDA_HOME:/usr/local/cudasource ~/.bashrc //最后更新一下
+vim ~/.bashrc
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
+export PATH=$PATH:/usr/local/cuda/bin
+export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
+
+
+source ~/.bashrc //最后更新一下
 ```
 
 以上这一步很重要如果没设置好， nvcc会找不到， 并且报错
@@ -3753,7 +4061,8 @@ shift + Alt + 滚轮， 实现如pycharm多光标 下拉
    ##### 快捷
 
    ```
-   Alt + up / down 移动上下行shift + Alt + up/down 可实现多行列选择
+   Alt + up / down 移动上下行
+   shift + Alt + up/down 可实现多行列选择
    ```
 
 5. 安装智能补全插件 Kite
@@ -4118,3 +4427,66 @@ process = sp.Popen(ffmpeg_command, stdin=sp.PIPE)
 process.stdin.write(frame.string)
 ```
 
+
+
+---
+
+<h2 id="" align="center">redis-py 使用 </h2>
+
+Redis 为open source 的key-value数据存储方案
+
+1. https://redis.io/download 下载stable 版本
+
+2. ```shell
+   $ tar xzf redis-6.2.5.tar.gz
+   $ cd redis-6.2.5
+   $ sudo make
+   $ cd src
+   $ sudo make install 
+   ```
+
+安装完毕后可以测试启动
+
+```shell
+src/redis-server
+```
+
+也能使用内建的客户端进行测试
+
+```shell
+src/redis-cli
+redis> set foo bar
+OK
+redis> get foo
+"bar"
+```
+
+我们可以在/usr/local/下建立redis目录存储必须的配置文件
+
+```shell
+mkdir -p /usr/local/redis/bin
+mkdir -p /usr/local/redis/etc
+
+#复制src 下的文件到etc
+cp redis.conf /usr/local/redis/etc
+cp mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel /usr/local/redis/bin
+```
+
+
+
+遇到问题
+
+1. redis failed opening .rdb for saving permission denied
+
+解决：
+
+主要是权限不够
+
+1. vim 开启/usr/local/redis/etc ， 搜索dbfilename dump.rdb
+2. 找到#Note that you must specify a directory here, not a file name
+
+```
+dir ./
+```
+
+就能找到指定文件夹， 然后chmod 777 开启最大权限就行
