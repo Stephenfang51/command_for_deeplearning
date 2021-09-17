@@ -3606,10 +3606,10 @@ ffmpeg -i twice_v2.mp4 -ss 00:00 -to 00:00 -q:v 1 -r 24 test/image-%05d.jpg
 #### 隔N秒取帧
 
 ```
-ffmpeg -i test.mp4 -q:v 1 -vf fps=1/5 test/image-%05d.jpg
+ffmpeg -i test.mp4 -q:v 1 -vf fps=25 test/image-%05d.jpg
 ```
 
-- -vf fps ： 表示区隔多少秒取一帧
+- -vf fps ：  每秒取截取多少帧数
 
 
 
