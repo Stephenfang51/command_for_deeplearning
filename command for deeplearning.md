@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.8.10</p>
+<p align=right>update 2021.10.</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -2252,6 +2252,15 @@ git add --all
 git commit -m "updata the file"
 ```
 
+#### 过滤指定的文件不上传 使用.gitignore
+在文件下新增.gitignore
+输入需要过滤的文件or目录
+```
+test.py
+test/
+*.log
+```
+	
 
 
 #### 把untracked file 删除
