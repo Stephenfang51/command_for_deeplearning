@@ -2206,12 +2206,13 @@ git config命令的–global参数，用了这个参数，表示你这台机器�
 2. 生成金钥SSH Key, 并且连敲三次回车
 
 ```
-ssh-keygen -t rsa -C email@example.com
+ssh-keygen -t rsa -C youremail@example.com
+或者
+ssh-keygen -t ed25519 -C youremail@example.com
+#-t 表示用不一样的method加密
 ```
 
-
-
-3. 到github上， 打开Account settings > SSH and GPG keys>点击Add SSH keys ， 将id_rsa.pub答案内容复制并贴在空格内， title可以自取
+3. 到github上， 打开Account settings > SSH and GPG keys>点击Add SSH keys ， 将id_rsa.pub或者id_ed25519.pub的内容复制并贴在空格内， title可以取名比如xxx's mac 之类的
 
 
 
