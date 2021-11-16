@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.10.</p>
+<p align=right>update 2021.11.16</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -32,7 +32,7 @@
 
 13. [杀死用户进程 kill PID](#13)
 
-14. [确认本机IP位置及端口](#14)
+14. [确认本机IP位置及端口查看](#14)
 
 15. dd 拷贝文件， 刻录iso
 
@@ -183,6 +183,7 @@
 
 
 
+
 # Linux
 
 <h3 id="1">1. 移动到指定目录</h3>
@@ -206,6 +207,7 @@
 6. `pwd`获取当前绝对路径
 
 <h3 id="2">2. ls查看文件下的资料、du显示目录或文件大小, df 磁盘大小</h4>
+
 
 
 
@@ -267,6 +269,7 @@ none            1.5G  156K   1.5G   1%     /run/shm
 <h3 id="3">3. 創建文件夾及删除文件夹</h4>
 
 
+
 `mkdir test1` :創建一個空目錄
 
 `mkdir -p test1/test2`:递归创建多个目录
@@ -285,6 +288,7 @@ none            1.5G  156K   1.5G   1%     /run/shm
 
 <h3 id="5">5. 搜寻文件or文件夹
 </h3>
+
 
 
 参考 https://blog.miniasp.com/post/2010/08/27/Linux-find-command-tips-and-notice
@@ -343,6 +347,7 @@ ls path |wc -l
 ```
 
 
+
 统计path directories下的文件个数
 
 wc表示wordcount
@@ -364,6 +369,7 @@ find path/ -type f |wc -l
 ------
 
 <h3 id="7">7. rm 删除指令</h4>
+
 
 
 rm + 要删除的文件 一个也可以多个
@@ -395,6 +401,7 @@ rm -rf !(file1 | file2) #删除除了file1, file2的文件rm -rf !(*jpg)  #删�
 
 
 <h3 id="8">8. 解压缩及打包</h4>
+
 
 
 
@@ -698,41 +705,67 @@ sudo vim /etc/fstab
 
 ------
 
-<h3 id="14">14. IP 内网及外网地址及端口 </h3>
+<h3 id="14">14. IP 内网及外网地址及端口查看 </h3>
+
+`-a`: -a (all)显示所有选项，默认不显示LISTEN相关
+`-t`: (tcp)仅显示tcp相关选项
+`-u`: (udp)仅显示udp相关选项(all)显示所有选项，默认不显示LISTEN相关
+`-t`: (tcp)仅显示tcp相关选项
+`-u`: (udp)仅显示udp相关选项
+`-n`: 拒绝显示别名，能显示数字的全部转化成数字。
+`-l`: 仅列出有在 Listen (监听) 的服務状态
+`-p`: 显示建立相关链接的程序名
+`-r`: 显示路由信息，路由表
+`-e`: 显示扩展信息，例如uid等
+`-s`: 按各个协议进行统计
+`-c`: 每隔一个固定时间，执行该netstat命令。
 
 ```ifconfig -a``` : 确认内网IP位置，如果是连接wifi 请看wlan0底下inet的位置
 
 ```netstat -anptl``` : 确认端口
 
+`netstat -an |grep {portnum}` :  可查看portnum端口连接的情况
+
+``` bash
+$ netstat -an |grep 8000
+>>>
+tcp        0      0 0.0.0.0:8000            0.0.0.0:*               LISTEN     
+tcp6       0      0 :::8000                 :::*                    LISTEN   
+```
+
+`netstat -nultp` : 查看已经正在使用的端口
+
+```bash
+$ netstat -nultp #主要是加了-l
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 0.0.0.0:8002            0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:3947          0.0.0.0:*               LISTEN      2942980/python      
+tcp        0      0 0.0.0.0:622             0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:31983         0.0.0.0:*               LISTEN      2705969/node        
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:22705         0.0.0.0:*               LISTEN      2942980/python      
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:6010          0.0.0.0:*               LISTEN      -            
+```
+
+
+
 `curl ifconfig.me` : 确认外网ip地址
-
-
-
-
-
-
-
-
-
-
 
 ------
 
 <h3 id="15">15. dd 拷贝文件， 刻录iso </h4>
 
-
 参考 https://www.cnblogs.com/linuxde/p/8719253.html
-
-------
-
-<h3 id="15">16. dd 拷贝文件， 刻录iso </h4>
-
 
 dpkg 是Debian package的简写，为”Debian“ 操作系统 专门开发的套件管理系统，用于软件的安装，更新和移除。 所有源自"Debian"的Linux的发行版都使用 dpkg,   例如"Ubuntu"
 
 ------
 
 <h3 id="17">17. lsof 查询行程开启的文件列表</h4>
+
 
 
 参考 https://blog.gtwang.org/linux/linux-lsof-command-list-open-files-tutorial-examples/
@@ -770,6 +803,7 @@ lsof | grep xxxxx
 ------
 
 <h3 id="18">18. grep 筛选</h4>
+
 
 
 参考https://blog.gtwang.org/linux/linux-grep-command-tutorial-examples/
@@ -830,6 +864,7 @@ grep -r ubuntu /etc/
 <h3 id="19">19. rename 修改文件名, 后缀</h4>
 
 
+
 参考http://einverne.github.io/post/2018/01/rename-files-batch.html
 
 rename 可以用来批量重新命名
@@ -884,6 +919,7 @@ rename "s/.txt//" *      # 把所有以.txt结尾的文件名的.txt删掉
 ------
 
 <h3 id="20">20. Ubuntu终端Terminal快捷键</h4>
+
 
 
 #### 版本16.04
@@ -964,6 +1000,7 @@ CTRL + Z: 把当前任务放到后台运行（相当于运行命令时后面加&
 <h3 id="16">21. SSH 使用方式</h4>
 
 
+
 #### 端口映射
 
 例如将本地地址映射到服务器上， 假设服务器节点为g01n02, port为22
@@ -1041,6 +1078,7 @@ scp -P 端口号 用户名@主机ip:要下载文件的路径 空格 本地路径
 <h3 id="16">22. sftp使用</h4>
 
 
+
 通常可以用来从服务器上下载数据
 
 例如 `get`
@@ -1057,6 +1095,7 @@ get xxxx.后缀
 ------
 
 <h3 id="16">23. Tmux 终端会话插件</h4>
+
 
 
 启动会话 删除等操作
@@ -1100,6 +1139,7 @@ set term=xterm-256colorset t_Co=256
 
 <h3 id="16">25. Rsync 传输文件</h4>
 
+
 ```
 rsync 参数 来源文件 目的文件
 ```
@@ -1134,6 +1174,7 @@ rsync -avzh /path/xxx.xx --exclude={'*.txt', 'dir3', 'dir4'} root@192.168.xx.xx:
 ---
 
 <h3 id="16">25. 其他</h4>
+
 
 
 
@@ -1185,10 +1226,7 @@ rsync -avzh /path/xxx.xx --exclude={'*.txt', 'dir3', 'dir4'} root@192.168.xx.xx:
 参考https://blog.gtwang.org/linux/linux-useradd-command-tutorial-examples/
 
 ```shell
-$ sudo useradd -m jason -s /bin/bash 
-$ sudo passwd jason
-$ sudo adduser jason sudo
-$ su jason
+$ sudo useradd -m jason -s /bin/bash $ sudo passwd jason$ sudo adduser jason sudo$ su jason
 ```
 
 - 创建了可以登录的meow用户并使用/bin/bash作为shell。
@@ -1279,11 +1317,7 @@ ref https://blog.csdn.net/weixin_42331537/article/details/89962801?depth_1-utm_s
 下面是几个常用的指令
 
 ```shell
-screen -S session_name           # 新建一个叫session_name的session
-screen -ls（或者screen -list）    # 列出当前所有的session
-screen -r session_name           # 回到session_name这个session
-screen -d session_name           # 远程detach某个session
-screen -d -r session_name        # 结束当前session并回到session_name这个session
+screen -S session_name           # 新建一个叫session_name的sessionscreen -ls（或者screen -list）    # 列出当前所有的sessionscreen -r session_name           # 回到session_name这个sessionscreen -d session_name           # 远程detach某个sessionscreen -d -r session_name        # 结束当前session并回到session_name这个session
 ```
 
 通常先用 `screen -S xxxxx`（任意取名）创建session 并且进入
@@ -1323,13 +1357,7 @@ screen -d -r session_name        # 结束当前session并回到session_name这�
 可以
 
 ```shell
-ldd test
-
->>> 输出， 就可以看到连接许多共享库
-linux-vdso.so.1 =>  (0x00007ffe3dbc1000)
-libm.so.6 => /lib64/libm.so.6 (0x00007f17a5b55000)
-libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f17a592e000)
-libtinfo.so.5 => /lib64/libtinfo.so.5 (0x00007f17a5704000)
+ldd test>>> 输出， 就可以看到连接许多共享库linux-vdso.so.1 =>  (0x00007ffe3dbc1000)libm.so.6 => /lib64/libm.so.6 (0x00007f17a5b55000)libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f17a592e000)libtinfo.so.5 => /lib64/libtinfo.so.5 (0x00007f17a5704000)
 ```
 
 选项
@@ -1401,29 +1429,7 @@ ldconfig需要注意的地方：
 
 
 ```
-[Desktop Entry]
-
-Encoding=UTF-8
-
-Name=xxx
-
-//可执行文件
-
-Exec=sh  /路径/你前面生成的可执行的shell文件.sh       //.sh可执行文件的绝对路径, 前面的sh 命令不要丢哦
-
-Icon=/usr/local/share/icons/jesh.png  //软件的图标文件路径 ico也可
-
-Info="Spark"
-
-Categories=GTK;Network;message; //可写可不写
-
-Comment="Gtk+ based like QQ"  //提示性信息 ，可写可不写
-
-Terminal=false
-
-Type=Application
-
-StartupNotify=true
+[Desktop Entry]Encoding=UTF-8Name=xxx//可执行文件Exec=sh  /路径/你前面生成的可执行的shell文件.sh       //.sh可执行文件的绝对路径, 前面的sh 命令不要丢哦Icon=/usr/local/share/icons/jesh.png  //软件的图标文件路径 ico也可Info="Spark"Categories=GTK;Network;message; //可写可不写Comment="Gtk+ based like QQ"  //提示性信息 ，可写可不写Terminal=falseType=ApplicationStartupNotify=true
 ```
 
 
@@ -1435,9 +1441,7 @@ StartupNotify=true
 首先安装
 
 ```
-apt-get update
-apt-get install apt-file
-apt-file update
+apt-get updateapt-get install apt-fileapt-file update
 ```
 
 
@@ -1499,9 +1503,7 @@ sudo ./Qv2ray-refs.tags.v1.99.6-linux.AppImage
 然后在V2ray Settings 
 
 ```
--> Core Executable Path 设定核心文件中的v2ray
-
--> V2ray Assets Directory 设定 核心文件路径 
+-> Core Executable Path 设定核心文件中的v2ray-> V2ray Assets Directory 设定 核心文件路径 
 ```
 
 设置好之后按OK
@@ -1585,13 +1587,7 @@ sudo apt-get install kolourpaint4
 1. Ubuntu安装步骤
 
 ```shell
-sudo apt install zsh
-
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#如果该步骤遇到ssl 无法建立问题， 尝试
-sh -c "$(wget -O- https://gitee.com/mcornella/ohmyzsh/raw/master/tools/install.sh)"
-
-#参考 https://github.com/ohmyzsh/ohmyzsh/issues/9528
+sudo apt install zshsh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"#如果该步骤遇到ssl 无法建立问题， 尝试sh -c "$(wget -O- https://gitee.com/mcornella/ohmyzsh/raw/master/tools/install.sh)"#参考 https://github.com/ohmyzsh/ohmyzsh/issues/9528
 ```
 
 2. 当前terminal 简单切换
@@ -1603,9 +1599,7 @@ exec bash或者 exec zsh
 3. 设置default的shell样式， 设置完之后restart terminal就可以
 
 ```shell
-chsh -s /bin/bash
-或者
-chsh -s /bin/zsh
+chsh -s /bin/bash或者chsh -s /bin/zsh
 ```
 
 
@@ -1625,6 +1619,7 @@ sudo snap install pick-colour-picker
 ------
 
 <h3 id="16">16. VIM 编辑器常用操作</h4>
+
 
 
 <h4 #="16-1">編寫文件常用指令</h4>
@@ -1685,13 +1680,7 @@ vim提供许多的功能可以依照需求在编辑文件中时添加， 也能�
 可以类似Pycharm 用shift 移动代码行的效果， 也能可视模式下选定多行 然后移动
 
 ```vim
-"move line up/down"
-nnoremap <S-DOWN> :m .+1<CR>==
-nnoremap <S-UP> :m .-2<CR>==
-inoremap <S-DOWN> <Esc>:m .+1<CR>==gi
-inoremap <S-UP> <Esc>:m .-2<CR>==gi
-vnoremap <S-DOWN> :m '>+1<CR>gv=gv
-vnoremap <S-UP> :m '<-2<CR>gv=gv
+"move line up/down"nnoremap <S-DOWN> :m .+1<CR>==nnoremap <S-UP> :m .-2<CR>==inoremap <S-DOWN> <Esc>:m .+1<CR>==giinoremap <S-UP> <Esc>:m .-2<CR>==givnoremap <S-DOWN> :m '>+1<CR>gv=gvvnoremap <S-UP> :m '<-2<CR>gv=gv
 ```
 
 
@@ -1709,33 +1698,7 @@ vnoremap <S-UP> :m '<-2<CR>gv=gv
 將以下代碼添加到 ~/.vimrc中， vimrc 打開方式 ``` vi ~/.vimrc```
 
 ```
-map <F5> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
-	exec "w"
-	if &filetype == 'c'
-		exec "!g++ % -o %<"
-		exec "!time ./%<"
-	elseif &filetype == 'cpp'
-		exec "!g++ % -o %<"
-		exec "!time ./%<"
-	elseif &filetype == 'java' 
-		exec "!javac %" 
-		exec "!time java %<"
-	elseif &filetype == 'sh'
-		:!time bash %
-	elseif &filetype == 'python'
-		exec "!time python2.7 %"
-    elseif &filetype == 'html'
-        exec "!firefox % &"
-    elseif &filetype == 'go'
-        exec "!go build %<"
-        exec "!time go run %"
-    elseif &filetype == 'mkd'
-        exec "!~/.vim/markdown.pl % > %.html &"
-        exec "!firefox %.html &"
-	endif
-endfunc
-
+map <F5> :call CompileRunGcc()<CR>func! CompileRunGcc()	exec "w"	if &filetype == 'c'		exec "!g++ % -o %<"		exec "!time ./%<"	elseif &filetype == 'cpp'		exec "!g++ % -o %<"		exec "!time ./%<"	elseif &filetype == 'java' 		exec "!javac %" 		exec "!time java %<"	elseif &filetype == 'sh'		:!time bash %	elseif &filetype == 'python'		exec "!time python2.7 %"    elseif &filetype == 'html'        exec "!firefox % &"    elseif &filetype == 'go'        exec "!go build %<"        exec "!time go run %"    elseif &filetype == 'mkd'        exec "!~/.vim/markdown.pl % > %.html &"        exec "!firefox %.html &"	endifendfunc
 ```
 
 添加后保存，Fn+F5可一鍵編譯運行
@@ -1762,8 +1725,7 @@ git hub地址
 install
 
 ```
-mkdir -p ~/.vim/pack/git-plugins/start
-git clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/start/ale
+mkdir -p ~/.vim/pack/git-plugins/startgit clone --depth 1 https://github.com/w0rp/ale.git ~/.vim/pack/git-plugins/start/ale
 ```
 
 #### vundle 插件管理器
@@ -1781,49 +1743,7 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 进入后复制贴上
 
 ```
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git' #可不加
-" git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'file:///home/gmarik/path/to/plugin' #可不加
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+set nocompatible              " be iMproved, requiredfiletype off                  " required" set the runtime path to include Vundle and initializeset rtp+=~/.vim/bundle/Vundle.vimcall vundle#begin()" alternatively, pass a path where Vundle should install plugins"call vundle#begin('~/some/path/here')" let Vundle manage Vundle, requiredPlugin 'VundleVim/Vundle.vim'" The following are examples of different formats supported." Keep Plugin commands between vundle#begin/end." plugin on GitHub repoPlugin 'tpope/vim-fugitive'" plugin from http://vim-scripts.org/vim/scripts.html" Plugin 'L9'" Git plugin not hosted on GitHubPlugin 'git://git.wincent.com/command-t.git' #可不加" git repos on your local machine (i.e. when working on your own plugin)Plugin 'file:///home/gmarik/path/to/plugin' #可不加" The sparkup vim script is in a subdirectory of this repo called vim." Pass the path to set the runtimepath properly.Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}" Install L9 and avoid a Naming conflict if you've already installed a" different version somewhere else." Plugin 'ascenator/L9', {'name': 'newL9'}" All of your Plugins must be added before the following linecall vundle#end()            " requiredfiletype plugin indent on    " required" To ignore plugin indent changes, instead use:"filetype plugin on"" Brief help" :PluginList       - lists configured plugins" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate" :PluginSearch foo - searches for foo; append `!` to refresh local cache" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal"" see :h vundle for more details or wiki for FAQ" Put your non-Plugin stuff after this line
 ```
 
 
@@ -1951,8 +1871,7 @@ g++ -o compress  compress.cpp  -I/home/include/  -L/lib/  -lz
 发现gcc链接到gcc-7.0, 需要将它改为链接到gcc-4.8，方法如下:
 
 ```shell
-sudo mv gcc gcc.backup #备份
-sudo ln -s gcc-4.8 gcc #利用软连接重新链接
+sudo mv gcc gcc.backup #备份sudo ln -s gcc-4.8 gcc #利用软连接重新链接
 ```
 
 完成, 可以在用`ls -l gcc*`检查一下
@@ -2004,9 +1923,7 @@ sudo sh 安装之后 如果选择不开机自动激活
 可以改变目录owner
 
 ```shell
-sudo chown -R 你的用户名 miniconda3/
-//或者
-sudo chown -R 你的用户名 anaconda3
+sudo chown -R 你的用户名 miniconda3///或者sudo chown -R 你的用户名 anaconda3
 ```
 
 
@@ -2119,14 +2036,7 @@ conda环境下， 查看安装的package `pip list`
 #### conda 安装pytorch
 
 ```
-# CUDA 9.0
-conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=9.0 -c pytorch
-
-# CUDA 10.0
-conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch
-
-# CPU Only
-conda install pytorch-cpu==1.0.1 torchvision-cpu==0.2.2 cpuonly -c pytorch
+# CUDA 9.0conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=9.0 -c pytorch# CUDA 10.0conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch# CPU Onlyconda install pytorch-cpu==1.0.1 torchvision-cpu==0.2.2 cpuonly -c pytorch
 ```
 
 参考Pytorch官方 [https://pytorch.org/get-started/previous-versions/](https://pytorch.org/get-started/previous-versions/)
@@ -2254,14 +2164,16 @@ git commit -m "updata the file"
 ```
 
 #### 过滤指定的文件不上传 使用.gitignore
+
 在文件下新增.gitignore
 输入需要过滤的文件or目录
+
 ```
 test.py
 test/
 *.log
 ```
-	
+
 
 
 #### 把untracked file 删除
@@ -2468,8 +2380,7 @@ git pull --rebase
 **错误信息 ： Git修改密码后命令行push代码报“fatal: Authentication failed for **
 
 ```shell
-git config --system --unset credential.helper
-git config --global credential.helper store
+git config --system --unset credential.helpergit config --global credential.helper store
 ```
 
 然后在 git push 就会要求输入使用者的账号和密码
@@ -2675,13 +2586,7 @@ sudo docker run hello-world
 加速器地址
 
 ```json
-{
-	"registry-mirrors": [
-	"https://dockerhub.azk8s.cn",
-	"https://hub-mirror.c.163.com", 
-	"https://reg-mirror.qiniu.com"
-	]
-}
+{	"registry-mirrors": [	"https://dockerhub.azk8s.cn",	"https://hub-mirror.c.163.com", 	"https://reg-mirror.qiniu.com"	]}
 ```
 
 
@@ -3057,9 +2962,7 @@ fi
 example:
 
 ```bash
-if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
-    echo "Usage: $0 <Install Folder>"
-    exit
+if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....    echo "Usage: $0 <Install Folder>"    exit
 ```
 
 
@@ -3091,12 +2994,7 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 参考https://blog.csdn.net/baidu_37973494/article/details/88324236?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-7&spm=1001.2101.3001.4242
 
 ```cbash
-# wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz 
-# tar -xzvf Python-3.7.2.tgz
-# cd Python-3.7.2
-# ./configure --enable-optimizations
-# make
-# make install
+# wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz # tar -xzvf Python-3.7.2.tgz# cd Python-3.7.2# ./configure --enable-optimizations# make# make install
 ```
 
 
@@ -3114,8 +3012,7 @@ sudo apt-get install zlib*
 接着可能遇到
 
 ```
-ModuleNotFoundError: No module named '_ctypes'
-make: *** [install] Error 1
+ModuleNotFoundError: No module named '_ctypes'make: *** [install] Error 1
 ```
 
 可以
@@ -3280,8 +3177,7 @@ sudo apt-get install exfat-utils
 #### 安装pip or pip3
 
 ```shell
-sudo apt-get install python-pip
-sudo apt-get install python3-pip
+sudo apt-get install python-pipsudo apt-get install python3-pip
 ```
 
 
@@ -3648,8 +3544,7 @@ ffmpeg -i path/to/%d.jpg -vcodec libx264 -r 帧率 output.mp4
 首先，把要合并的视频按顺序写到files.txt里，例如
 
 ```
-file '1.mp4'
-file '2.mp4'
+file '1.mp4'file '2.mp4'
 ```
 
 注意必须单引号
@@ -3720,8 +3615,7 @@ H.264 :
 ### Pdb debug 模式
 
 ```python
-import pdb #import 这个包
-在需要断点的地方 set_trace()
+import pdb #import 这个包在需要断点的地方 set_trace()
 ```
 
 快捷键如下
@@ -4140,22 +4034,7 @@ shift + Alt + 滚轮， 实现如pycharm多光标 下拉
 详情参考 https://code.visualstudio.com/docs/cpp/launch-json-reference
 
 ```c++
-{
-  "name": "C++ Launch (Windows)",
-  "type": "cppvsdbg",
-  "request": "launch",
-  "program": "C:\\app1\\Debug\\app1.exe",
-  "symbolSearchPath": "C:\\Symbols;C:\\SymbolDir2",
-  "args":["-a", "-b"],
-  "externalConsole": true,
-  "logging": {
-    "moduleLoad": false,
-    "trace": true
-  },
-  "visualizerFile": "${workspaceFolder}/my.natvis",
-  "showDisplayString": true
-}
-
+{  "name": "C++ Launch (Windows)",  "type": "cppvsdbg",  "request": "launch",  "program": "C:\\app1\\Debug\\app1.exe",  "symbolSearchPath": "C:\\Symbols;C:\\SymbolDir2",  "args":["-a", "-b"],  "externalConsole": true,  "logging": {    "moduleLoad": false,    "trace": true  },  "visualizerFile": "${workspaceFolder}/my.natvis",  "showDisplayString": true}
 ```
 
 
@@ -4195,40 +4074,7 @@ shift + Alt + 滚轮， 实现如pycharm多光标 下拉
 客户端例子如下
 
 ```python
-import cv2
-import io
-import socket
-import struct
-import time
-import pickle
-import zlib
-
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('192.168.1.124', 8485))
-connection = client_socket.makefile('wb')
-
-cam = cv2.VideoCapture(0)
-
-cam.set(3, 320);
-cam.set(4, 240);
-
-img_counter = 0
-
-encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
-
-while True:
-    ret, frame = cam.read()
-    result, frame = cv2.imencode('.jpg', frame, encode_param)
-#    data = zlib.compress(pickle.dumps(frame, 0))
-    data = pickle.dumps(frame, 0)
-    size = len(data)
-
-
-    print("{}: {}".format(img_counter, size))
-    client_socket.sendall(struct.pack(">L", size) + data)
-    img_counter += 1
-
-cam.release()
+import cv2import ioimport socketimport structimport timeimport pickleimport zlibclient_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)client_socket.connect(('192.168.1.124', 8485))connection = client_socket.makefile('wb')cam = cv2.VideoCapture(0)cam.set(3, 320);cam.set(4, 240);img_counter = 0encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]while True:    ret, frame = cam.read()    result, frame = cv2.imencode('.jpg', frame, encode_param)#    data = zlib.compress(pickle.dumps(frame, 0))    data = pickle.dumps(frame, 0)    size = len(data)    print("{}: {}".format(img_counter, size))    client_socket.sendall(struct.pack(">L", size) + data)    img_counter += 1cam.release()
 ```
 
 
@@ -4236,49 +4082,7 @@ cam.release()
 服务端例子如下
 
 ```python
-import socket
-import sys
-import cv2
-import pickle
-import numpy as np
-import struct ## new
-import zlib
-
-HOST=''
-PORT=8485
-
-s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-print('Socket created')
-
-s.bind((HOST,PORT))
-print('Socket bind complete')
-s.listen(10)
-print('Socket now listening')
-
-conn,addr=s.accept()
-
-data = b""
-payload_size = struct.calcsize(">L")
-print("payload_size: {}".format(payload_size))
-while True:
-    while len(data) < payload_size:
-        print("Recv: {}".format(len(data)))
-        data += conn.recv(4096)
-
-    print("Done Recv: {}".format(len(data)))
-    packed_msg_size = data[:payload_size]
-    data = data[payload_size:]
-    msg_size = struct.unpack(">L", packed_msg_size)[0]
-    print("msg_size: {}".format(msg_size))
-    while len(data) < msg_size:
-        data += conn.recv(4096)
-    frame_data = data[:msg_size]
-    data = data[msg_size:]
-
-    frame=pickle.loads(frame_data, fix_imports=True, encoding="bytes")
-    frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-    cv2.imshow('ImageWindow',frame)
-    cv2.waitKey(1)
+import socketimport sysimport cv2import pickleimport numpy as npimport struct ## newimport zlibHOST=''PORT=8485s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)print('Socket created')s.bind((HOST,PORT))print('Socket bind complete')s.listen(10)print('Socket now listening')conn,addr=s.accept()data = b""payload_size = struct.calcsize(">L")print("payload_size: {}".format(payload_size))while True:    while len(data) < payload_size:        print("Recv: {}".format(len(data)))        data += conn.recv(4096)    print("Done Recv: {}".format(len(data)))    packed_msg_size = data[:payload_size]    data = data[payload_size:]    msg_size = struct.unpack(">L", packed_msg_size)[0]    print("msg_size: {}".format(msg_size))    while len(data) < msg_size:        data += conn.recv(4096)    frame_data = data[:msg_size]    data = data[msg_size:]    frame=pickle.loads(frame_data, fix_imports=True, encoding="bytes")    frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)    cv2.imshow('ImageWindow',frame)    cv2.waitKey(1)
 ```
 
 
@@ -4290,30 +4094,7 @@ python3中必须先将要send 的信息encode, 然后接收信息的一段需要
 参考https://stackoverflow.com/questions/33003498/typeerror-a-bytes-like-object-is-required-not-str
 
 ```python
-Client Side:
->>> host='127.0.0.1'
->>> port=1337
->>> import socket
->>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
->>> s.connect((host,port))
->>> st='connection done'
->>> byt=st.encode()
->>> s.send(byt)
-15
->>>
-Server Side:
-
->>> host=''
->>> port=1337
->>> import socket
->>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
->>> s.bind((host,port))
->>> s.listen(1)
->>> conn ,addr=s.accept()
->>> data=conn.recv(2000)
->>> data.decode()
-'connection done'
->>>
+Client Side:>>> host='127.0.0.1'>>> port=1337>>> import socket>>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)>>> s.connect((host,port))>>> st='connection done'>>> byt=st.encode()>>> s.send(byt)15>>>Server Side:>>> host=''>>> port=1337>>> import socket>>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)>>> s.bind((host,port))>>> s.listen(1)>>> conn ,addr=s.accept()>>> data=conn.recv(2000)>>> data.decode()'connection done'>>>
 ```
 
 如果要传送dict可以用json包的dump
@@ -4329,9 +4110,7 @@ Server Side:
 参考 : https://blog.csdn.net/kingroc/article/details/50839994
 
 ```
-sudo apt-get update
-sudo apt-get install libpcre3 libpcre3-dev
-sudo apt-get install openssl libssl-dev
+sudo apt-get updatesudo apt-get install libpcre3 libpcre3-devsudo apt-get install openssl libssl-dev
 ```
 
 找到合适的版本 先下载nginx
@@ -4349,9 +4128,7 @@ git clone https://github.com/arut/nginx-rtmp-module
 解压缩nginx， 然后
 
 ```
-./configure --add-module=指定你rtmp包的位置
-make
-sudo make install
+./configure --add-module=指定你rtmp包的位置makesudo make install
 ```
 
 
@@ -4359,8 +4136,7 @@ sudo make install
 启动服务
 
 ```
-cd /usr/local/nginx
-./sbin/nginx
+cd /usr/local/nginx./sbin/nginx
 ```
 
 
@@ -4368,46 +4144,7 @@ cd /usr/local/nginx
 配置conf, 将rtmp添加到， application 名称可以随意输入
 
 ```json
-worker_processes  1;
-
-events {
-    worker_connections  1024;
-}
-rtmp {
-    server { 
-        listen 1935;
-	chunk_size 4096;
-        
-	application vod {
-		play /opt/video/vod;
-	}
-
-	application live{ #第一处添加的直播字段
-		live on;
-	}
-    }
-
-}
-
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile        on;
-    keepalive_timeout  65;
-    server {
-        listen       80;
-        server_name  localhost;
-        location / {
-            root   html;
-            index  index.html index.htm;
-        }
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-    }
-}
-
+worker_processes  1;events {    worker_connections  1024;}rtmp {    server {         listen 1935;	chunk_size 4096;        	application vod {		play /opt/video/vod;	}	application live{ #第一处添加的直播字段		live on;	}    }}http {    include       mime.types;    default_type  application/octet-stream;    sendfile        on;    keepalive_timeout  65;    server {        listen       80;        server_name  localhost;        location / {            root   html;            index  index.html index.htm;        }        error_page   500 502 503 504  /50x.html;        location = /50x.html {            root   html;        }    }}
 ```
 
 
@@ -4415,26 +4152,7 @@ http {
 接着利用ffmpeg 将python处理过的每一帧数进行推流
 
 ```python
-rtmp_url = 'rtmp://localhost:1935/live/test'
-
-ffmpeg_command = [
-  'ffmpeg',
-  '-y',
-  '-f', 'rawvideo',
-  '-vcodec', 'rawvideo',
-  '-pix_fmt', 'bgr24',
-  '-s', "{}x{}".format(img_width, img_height),
-  '-r', str(fps),
-  '-i', '-',
-  '-c:v', 'libx264',
-  '-pix_fmt', 'yuv420p',
-  '-tune', 'zerolatency',
-  '-f', 'flv',
-  rtmp_url
-]
-
-process = sp.Popen(ffmpeg_command, stdin=sp.PIPE)
-process.stdin.write(frame.string)
+rtmp_url = 'rtmp://localhost:1935/live/test'ffmpeg_command = [  'ffmpeg',  '-y',  '-f', 'rawvideo',  '-vcodec', 'rawvideo',  '-pix_fmt', 'bgr24',  '-s', "{}x{}".format(img_width, img_height),  '-r', str(fps),  '-i', '-',  '-c:v', 'libx264',  '-pix_fmt', 'yuv420p',  '-tune', 'zerolatency',  '-f', 'flv',  rtmp_url]process = sp.Popen(ffmpeg_command, stdin=sp.PIPE)process.stdin.write(frame.string)
 ```
 
 
@@ -4448,11 +4166,7 @@ Redis 为open source 的key-value数据存储方案
 1. https://redis.io/download 下载stable 版本
 
 2. ```shell
-   $ tar xzf redis-6.2.5.tar.gz
-   $ cd redis-6.2.5
-   $ sudo make
-   $ cd src
-   $ sudo make install 
+   $ tar xzf redis-6.2.5.tar.gz$ cd redis-6.2.5$ sudo make$ cd src$ sudo make install 
    ```
 
 安装完毕后可以测试启动
@@ -4464,22 +4178,13 @@ src/redis-server
 也能使用内建的客户端进行测试
 
 ```shell
-src/redis-cli
-redis> set foo bar
-OK
-redis> get foo
-"bar"
+src/redis-cliredis> set foo barOKredis> get foo"bar"
 ```
 
 我们可以在/usr/local/下建立redis目录存储必须的配置文件
 
 ```shell
-mkdir -p /usr/local/redis/bin
-mkdir -p /usr/local/redis/etc
-
-#复制src 下的文件到etc
-cp redis.conf /usr/local/redis/etc
-cp mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel /usr/local/redis/bin
+mkdir -p /usr/local/redis/binmkdir -p /usr/local/redis/etc#复制src 下的文件到etccp redis.conf /usr/local/redis/etccp mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel /usr/local/redis/bin
 ```
 
 
