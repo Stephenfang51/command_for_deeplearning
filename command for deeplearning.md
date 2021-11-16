@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.11.16</p>
+<p align=right>update 2021.11.16_1</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -1226,7 +1226,10 @@ rsync -avzh /path/xxx.xx --exclude={'*.txt', 'dir3', 'dir4'} root@192.168.xx.xx:
 参考https://blog.gtwang.org/linux/linux-useradd-command-tutorial-examples/
 
 ```shell
-$ sudo useradd -m jason -s /bin/bash $ sudo passwd jason$ sudo adduser jason sudo$ su jason
+$ sudo useradd -m jason -s /bin/bash 
+$ sudo passwd jason
+$ sudo adduser jason sudo
+$ su jason
 ```
 
 - 创建了可以登录的meow用户并使用/bin/bash作为shell。
@@ -1680,7 +1683,13 @@ vim提供许多的功能可以依照需求在编辑文件中时添加， 也能�
 可以类似Pycharm 用shift 移动代码行的效果， 也能可视模式下选定多行 然后移动
 
 ```vim
-"move line up/down"nnoremap <S-DOWN> :m .+1<CR>==nnoremap <S-UP> :m .-2<CR>==inoremap <S-DOWN> <Esc>:m .+1<CR>==giinoremap <S-UP> <Esc>:m .-2<CR>==givnoremap <S-DOWN> :m '>+1<CR>gv=gvvnoremap <S-UP> :m '<-2<CR>gv=gv
+"move line up/down"
+nnoremap <S-DOWN> :m .+1<CR>==
+nnoremap <S-UP> :m .-2<CR>==
+inoremap <S-DOWN> <Esc>:m .+1<CR>==gi
+inoremap <S-UP> <Esc>:m .-2<CR>==gi
+vnoremap <S-DOWN> :m '>+1<CR>gv=gv
+vnoremap <S-UP> :m '<-2<CR>gv=gv
 ```
 
 
@@ -1698,7 +1707,33 @@ vim提供许多的功能可以依照需求在编辑文件中时添加， 也能�
 將以下代碼添加到 ~/.vimrc中， vimrc 打開方式 ``` vi ~/.vimrc```
 
 ```
-map <F5> :call CompileRunGcc()<CR>func! CompileRunGcc()	exec "w"	if &filetype == 'c'		exec "!g++ % -o %<"		exec "!time ./%<"	elseif &filetype == 'cpp'		exec "!g++ % -o %<"		exec "!time ./%<"	elseif &filetype == 'java' 		exec "!javac %" 		exec "!time java %<"	elseif &filetype == 'sh'		:!time bash %	elseif &filetype == 'python'		exec "!time python2.7 %"    elseif &filetype == 'html'        exec "!firefox % &"    elseif &filetype == 'go'        exec "!go build %<"        exec "!time go run %"    elseif &filetype == 'mkd'        exec "!~/.vim/markdown.pl % > %.html &"        exec "!firefox %.html &"	endifendfunc
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+	exec "w"
+	if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'java' 
+		exec "!javac %" 
+		exec "!time java %<"
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		exec "!time python2.7 %"
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'go'
+        exec "!go build %<"
+        exec "!time go run %"
+    elseif &filetype == 'mkd'
+        exec "!~/.vim/markdown.pl % > %.html &"
+        exec "!firefox %.html &"
+	endif
+endfunc
+
 ```
 
 添加后保存，Fn+F5可一鍵編譯運行
@@ -1743,7 +1778,49 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 进入后复制贴上
 
 ```
-set nocompatible              " be iMproved, requiredfiletype off                  " required" set the runtime path to include Vundle and initializeset rtp+=~/.vim/bundle/Vundle.vimcall vundle#begin()" alternatively, pass a path where Vundle should install plugins"call vundle#begin('~/some/path/here')" let Vundle manage Vundle, requiredPlugin 'VundleVim/Vundle.vim'" The following are examples of different formats supported." Keep Plugin commands between vundle#begin/end." plugin on GitHub repoPlugin 'tpope/vim-fugitive'" plugin from http://vim-scripts.org/vim/scripts.html" Plugin 'L9'" Git plugin not hosted on GitHubPlugin 'git://git.wincent.com/command-t.git' #可不加" git repos on your local machine (i.e. when working on your own plugin)Plugin 'file:///home/gmarik/path/to/plugin' #可不加" The sparkup vim script is in a subdirectory of this repo called vim." Pass the path to set the runtimepath properly.Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}" Install L9 and avoid a Naming conflict if you've already installed a" different version somewhere else." Plugin 'ascenator/L9', {'name': 'newL9'}" All of your Plugins must be added before the following linecall vundle#end()            " requiredfiletype plugin indent on    " required" To ignore plugin indent changes, instead use:"filetype plugin on"" Brief help" :PluginList       - lists configured plugins" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate" :PluginSearch foo - searches for foo; append `!` to refresh local cache" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal"" see :h vundle for more details or wiki for FAQ" Put your non-Plugin stuff after this line
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git' #可不加
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin' #可不加
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 ```
 
 
@@ -2586,7 +2663,13 @@ sudo docker run hello-world
 加速器地址
 
 ```json
-{	"registry-mirrors": [	"https://dockerhub.azk8s.cn",	"https://hub-mirror.c.163.com", 	"https://reg-mirror.qiniu.com"	]}
+{
+	"registry-mirrors": [
+	"https://dockerhub.azk8s.cn",
+	"https://hub-mirror.c.163.com", 
+	"https://reg-mirror.qiniu.com"
+	]
+}
 ```
 
 
@@ -2962,7 +3045,9 @@ fi
 example:
 
 ```bash
-if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....    echo "Usage: $0 <Install Folder>"    exit
+if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.....
+    echo "Usage: $0 <Install Folder>"
+    exit
 ```
 
 
@@ -2994,7 +3079,12 @@ if [ "$#" -ne 1 ]; then     #表示如果输入的参数数量 不为1, 则echo.
 参考https://blog.csdn.net/baidu_37973494/article/details/88324236?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-7&spm=1001.2101.3001.4242
 
 ```cbash
-# wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz # tar -xzvf Python-3.7.2.tgz# cd Python-3.7.2# ./configure --enable-optimizations# make# make install
+# wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz 
+# tar -xzvf Python-3.7.2.tgz
+# cd Python-3.7.2
+# ./configure --enable-optimizations
+# make
+# make install
 ```
 
 
@@ -3012,7 +3102,8 @@ sudo apt-get install zlib*
 接着可能遇到
 
 ```
-ModuleNotFoundError: No module named '_ctypes'make: *** [install] Error 1
+ModuleNotFoundError: No module named '_ctypes'
+make: *** [install] Error 1
 ```
 
 可以
@@ -3177,7 +3268,8 @@ sudo apt-get install exfat-utils
 #### 安装pip or pip3
 
 ```shell
-sudo apt-get install python-pipsudo apt-get install python3-pip
+sudo apt-get install python-pip
+sudo apt-get install python3-pip
 ```
 
 
@@ -3544,7 +3636,8 @@ ffmpeg -i path/to/%d.jpg -vcodec libx264 -r 帧率 output.mp4
 首先，把要合并的视频按顺序写到files.txt里，例如
 
 ```
-file '1.mp4'file '2.mp4'
+file '1.mp4'
+file '2.mp4'
 ```
 
 注意必须单引号
@@ -3615,7 +3708,8 @@ H.264 :
 ### Pdb debug 模式
 
 ```python
-import pdb #import 这个包在需要断点的地方 set_trace()
+import pdb #import 这个包
+在需要断点的地方 set_trace()
 ```
 
 快捷键如下
@@ -4034,7 +4128,22 @@ shift + Alt + 滚轮， 实现如pycharm多光标 下拉
 详情参考 https://code.visualstudio.com/docs/cpp/launch-json-reference
 
 ```c++
-{  "name": "C++ Launch (Windows)",  "type": "cppvsdbg",  "request": "launch",  "program": "C:\\app1\\Debug\\app1.exe",  "symbolSearchPath": "C:\\Symbols;C:\\SymbolDir2",  "args":["-a", "-b"],  "externalConsole": true,  "logging": {    "moduleLoad": false,    "trace": true  },  "visualizerFile": "${workspaceFolder}/my.natvis",  "showDisplayString": true}
+{
+  "name": "C++ Launch (Windows)",
+  "type": "cppvsdbg",
+  "request": "launch",
+  "program": "C:\\app1\\Debug\\app1.exe",
+  "symbolSearchPath": "C:\\Symbols;C:\\SymbolDir2",
+  "args":["-a", "-b"],
+  "externalConsole": true,
+  "logging": {
+    "moduleLoad": false,
+    "trace": true
+  },
+  "visualizerFile": "${workspaceFolder}/my.natvis",
+  "showDisplayString": true
+}
+
 ```
 
 
@@ -4074,7 +4183,40 @@ shift + Alt + 滚轮， 实现如pycharm多光标 下拉
 客户端例子如下
 
 ```python
-import cv2import ioimport socketimport structimport timeimport pickleimport zlibclient_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)client_socket.connect(('192.168.1.124', 8485))connection = client_socket.makefile('wb')cam = cv2.VideoCapture(0)cam.set(3, 320);cam.set(4, 240);img_counter = 0encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]while True:    ret, frame = cam.read()    result, frame = cv2.imencode('.jpg', frame, encode_param)#    data = zlib.compress(pickle.dumps(frame, 0))    data = pickle.dumps(frame, 0)    size = len(data)    print("{}: {}".format(img_counter, size))    client_socket.sendall(struct.pack(">L", size) + data)    img_counter += 1cam.release()
+import cv2
+import io
+import socket
+import struct
+import time
+import pickle
+import zlib
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('192.168.1.124', 8485))
+connection = client_socket.makefile('wb')
+
+cam = cv2.VideoCapture(0)
+
+cam.set(3, 320);
+cam.set(4, 240);
+
+img_counter = 0
+
+encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
+
+while True:
+    ret, frame = cam.read()
+    result, frame = cv2.imencode('.jpg', frame, encode_param)
+#    data = zlib.compress(pickle.dumps(frame, 0))
+    data = pickle.dumps(frame, 0)
+    size = len(data)
+
+
+    print("{}: {}".format(img_counter, size))
+    client_socket.sendall(struct.pack(">L", size) + data)
+    img_counter += 1
+
+cam.release()
 ```
 
 
@@ -4082,7 +4224,49 @@ import cv2import ioimport socketimport structimport timeimport pickleimport zlib
 服务端例子如下
 
 ```python
-import socketimport sysimport cv2import pickleimport numpy as npimport struct ## newimport zlibHOST=''PORT=8485s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)print('Socket created')s.bind((HOST,PORT))print('Socket bind complete')s.listen(10)print('Socket now listening')conn,addr=s.accept()data = b""payload_size = struct.calcsize(">L")print("payload_size: {}".format(payload_size))while True:    while len(data) < payload_size:        print("Recv: {}".format(len(data)))        data += conn.recv(4096)    print("Done Recv: {}".format(len(data)))    packed_msg_size = data[:payload_size]    data = data[payload_size:]    msg_size = struct.unpack(">L", packed_msg_size)[0]    print("msg_size: {}".format(msg_size))    while len(data) < msg_size:        data += conn.recv(4096)    frame_data = data[:msg_size]    data = data[msg_size:]    frame=pickle.loads(frame_data, fix_imports=True, encoding="bytes")    frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)    cv2.imshow('ImageWindow',frame)    cv2.waitKey(1)
+import socket
+import sys
+import cv2
+import pickle
+import numpy as np
+import struct ## new
+import zlib
+
+HOST=''
+PORT=8485
+
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+print('Socket created')
+
+s.bind((HOST,PORT))
+print('Socket bind complete')
+s.listen(10)
+print('Socket now listening')
+
+conn,addr=s.accept()
+
+data = b""
+payload_size = struct.calcsize(">L")
+print("payload_size: {}".format(payload_size))
+while True:
+    while len(data) < payload_size:
+        print("Recv: {}".format(len(data)))
+        data += conn.recv(4096)
+
+    print("Done Recv: {}".format(len(data)))
+    packed_msg_size = data[:payload_size]
+    data = data[payload_size:]
+    msg_size = struct.unpack(">L", packed_msg_size)[0]
+    print("msg_size: {}".format(msg_size))
+    while len(data) < msg_size:
+        data += conn.recv(4096)
+    frame_data = data[:msg_size]
+    data = data[msg_size:]
+
+    frame=pickle.loads(frame_data, fix_imports=True, encoding="bytes")
+    frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
+    cv2.imshow('ImageWindow',frame)
+    cv2.waitKey(1)
 ```
 
 
@@ -4094,7 +4278,30 @@ python3中必须先将要send 的信息encode, 然后接收信息的一段需要
 参考https://stackoverflow.com/questions/33003498/typeerror-a-bytes-like-object-is-required-not-str
 
 ```python
-Client Side:>>> host='127.0.0.1'>>> port=1337>>> import socket>>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)>>> s.connect((host,port))>>> st='connection done'>>> byt=st.encode()>>> s.send(byt)15>>>Server Side:>>> host=''>>> port=1337>>> import socket>>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)>>> s.bind((host,port))>>> s.listen(1)>>> conn ,addr=s.accept()>>> data=conn.recv(2000)>>> data.decode()'connection done'>>>
+Client Side:
+>>> host='127.0.0.1'
+>>> port=1337
+>>> import socket
+>>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+>>> s.connect((host,port))
+>>> st='connection done'
+>>> byt=st.encode()
+>>> s.send(byt)
+15
+>>>
+Server Side:
+
+>>> host=''
+>>> port=1337
+>>> import socket
+>>> s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+>>> s.bind((host,port))
+>>> s.listen(1)
+>>> conn ,addr=s.accept()
+>>> data=conn.recv(2000)
+>>> data.decode()
+'connection done'
+>>>
 ```
 
 如果要传送dict可以用json包的dump
@@ -4110,7 +4317,9 @@ Client Side:>>> host='127.0.0.1'>>> port=1337>>> import socket>>> s=socket.socke
 参考 : https://blog.csdn.net/kingroc/article/details/50839994
 
 ```
-sudo apt-get updatesudo apt-get install libpcre3 libpcre3-devsudo apt-get install openssl libssl-dev
+sudo apt-get update
+sudo apt-get install libpcre3 libpcre3-dev
+sudo apt-get install openssl libssl-dev
 ```
 
 找到合适的版本 先下载nginx
@@ -4128,7 +4337,9 @@ git clone https://github.com/arut/nginx-rtmp-module
 解压缩nginx， 然后
 
 ```
-./configure --add-module=指定你rtmp包的位置makesudo make install
+./configure --add-module=指定你rtmp包的位置
+make
+sudo make install
 ```
 
 
@@ -4166,7 +4377,11 @@ Redis 为open source 的key-value数据存储方案
 1. https://redis.io/download 下载stable 版本
 
 2. ```shell
-   $ tar xzf redis-6.2.5.tar.gz$ cd redis-6.2.5$ sudo make$ cd src$ sudo make install 
+   $ tar xzf redis-6.2.5.tar.gz
+   $ cd redis-6.2.5
+   $ sudo make
+   $ cd src
+   $ sudo make install 
    ```
 
 安装完毕后可以测试启动
@@ -4178,13 +4393,22 @@ src/redis-server
 也能使用内建的客户端进行测试
 
 ```shell
-src/redis-cliredis> set foo barOKredis> get foo"bar"
+src/redis-cli
+redis> set foo bar
+OK
+redis> get foo
+"bar"
 ```
 
 我们可以在/usr/local/下建立redis目录存储必须的配置文件
 
 ```shell
-mkdir -p /usr/local/redis/binmkdir -p /usr/local/redis/etc#复制src 下的文件到etccp redis.conf /usr/local/redis/etccp mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel /usr/local/redis/bin
+mkdir -p /usr/local/redis/bin
+mkdir -p /usr/local/redis/etc
+
+#复制src 下的文件到etc
+cp redis.conf /usr/local/redis/etc
+cp mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-sentinel /usr/local/redis/bin
 ```
 
 
@@ -4205,3 +4429,4 @@ dir ./
 ```
 
 就能找到指定文件夹， 然后chmod 777 开启最大权限就行
+
