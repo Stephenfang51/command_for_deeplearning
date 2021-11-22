@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.11.16_1</p>
+<p align=right>update 2021.11.22</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -184,6 +184,7 @@
 
 
 
+
 # Linux
 
 <h3 id="1">1. 移动到指定目录</h3>
@@ -207,6 +208,7 @@
 6. `pwd`获取当前绝对路径
 
 <h3 id="2">2. ls查看文件下的资料、du显示目录或文件大小, df 磁盘大小</h4>
+
 
 
 
@@ -270,6 +272,7 @@ none            1.5G  156K   1.5G   1%     /run/shm
 
 
 
+
 `mkdir test1` :創建一個空目錄
 
 `mkdir -p test1/test2`:递归创建多个目录
@@ -288,6 +291,7 @@ none            1.5G  156K   1.5G   1%     /run/shm
 
 <h3 id="5">5. 搜寻文件or文件夹
 </h3>
+
 
 
 
@@ -348,6 +352,7 @@ ls path |wc -l
 
 
 
+
 统计path directories下的文件个数
 
 wc表示wordcount
@@ -369,6 +374,7 @@ find path/ -type f |wc -l
 ------
 
 <h3 id="7">7. rm 删除指令</h4>
+
 
 
 
@@ -401,6 +407,7 @@ rm -rf !(file1 | file2) #删除除了file1, file2的文件rm -rf !(*jpg)  #删�
 
 
 <h3 id="8">8. 解压缩及打包</h4>
+
 
 
 
@@ -664,9 +671,7 @@ chown -R runoob:runoobgroup *
 将swap设定为开机时自动挂载（ubuntu 18之下）
 
 ```
-sudo vim /etc/fstab
-添加以下到最下排
-/swapfile   none swap    sw 0 0
+sudo vim /etc/fstab添加以下到最下排/swapfile   none swap    sw 0 0
 ```
 
 
@@ -758,6 +763,7 @@ tcp        0      0 127.0.0.1:6010          0.0.0.0:*               LISTEN      
 
 <h3 id="15">15. dd 拷贝文件， 刻录iso </h4>
 
+
 参考 https://www.cnblogs.com/linuxde/p/8719253.html
 
 dpkg 是Debian package的简写，为”Debian“ 操作系统 专门开发的套件管理系统，用于软件的安装，更新和移除。 所有源自"Debian"的Linux的发行版都使用 dpkg,   例如"Ubuntu"
@@ -765,6 +771,7 @@ dpkg 是Debian package的简写，为”Debian“ 操作系统 专门开发的�
 ------
 
 <h3 id="17">17. lsof 查询行程开启的文件列表</h4>
+
 
 
 
@@ -803,6 +810,7 @@ lsof | grep xxxxx
 ------
 
 <h3 id="18">18. grep 筛选</h4>
+
 
 
 
@@ -865,6 +873,7 @@ grep -r ubuntu /etc/
 
 
 
+
 参考http://einverne.github.io/post/2018/01/rename-files-batch.html
 
 rename 可以用来批量重新命名
@@ -919,6 +928,7 @@ rename "s/.txt//" *      # 把所有以.txt结尾的文件名的.txt删掉
 ------
 
 <h3 id="20">20. Ubuntu终端Terminal快捷键</h4>
+
 
 
 
@@ -1001,6 +1011,7 @@ CTRL + Z: 把当前任务放到后台运行（相当于运行命令时后面加&
 
 
 
+
 #### 端口映射
 
 例如将本地地址映射到服务器上， 假设服务器节点为g01n02, port为22
@@ -1079,6 +1090,7 @@ scp -P 端口号 用户名@主机ip:要下载文件的路径 空格 本地路径
 
 
 
+
 通常可以用来从服务器上下载数据
 
 例如 `get`
@@ -1095,6 +1107,7 @@ get xxxx.后缀
 ------
 
 <h3 id="16">23. Tmux 终端会话插件</h4>
+
 
 
 
@@ -1140,6 +1153,7 @@ set term=xterm-256colorset t_Co=256
 <h3 id="16">25. Rsync 传输文件</h4>
 
 
+
 ```
 rsync 参数 来源文件 目的文件
 ```
@@ -1169,11 +1183,36 @@ rsync -avzh /path/xxx.xx --exclude={'*.txt', 'dir3', 'dir4'} root@192.168.xx.xx:
 
 
 
+如果是长期需要进行两地同步推荐使用
+
+ `--exclude-from=` : 从txt文件中指定需要**排除**的文件
+
+`--files-from=` ： 从txt文件中指定需要**传输**的文件
+
+**transfered_files.txt** 定义了需要传输的文件
+
+``` 
+AlphaPose/
+yolov5/
+yolov5_4.0/
+spc_project.py
+SPC_config.py
+spc_run_server.py
+models/
+```
+
+使用--files-from=指定定义好的文件
+
+```
+rsync -avzh ./ --files-from=transfered_files.txt user@127.0.0.1:/home/user/VScodeProjects/path/
+```
+
 
 
 ---
 
 <h3 id="16">25. 其他</h4>
+
 
 
 
@@ -1622,6 +1661,7 @@ sudo snap install pick-colour-picker
 ------
 
 <h3 id="16">16. VIM 编辑器常用操作</h4>
+
 
 
 
@@ -2246,9 +2286,7 @@ git commit -m "updata the file"
 输入需要过滤的文件or目录
 
 ```
-test.py
-test/
-*.log
+test.pytest/*.log
 ```
 
 
@@ -2976,8 +3014,7 @@ ImportError: cannot import name 'create_prompt_application'
 1.重新安装ipython
 
 ```
-sudo pip3 uninstall ipython
-sudo pip3 install ipython
+sudo pip3 uninstall ipythonsudo pip3 install ipython
 ```
 
 2. 重新强制安装prompt-toolkit
@@ -3009,27 +3046,13 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 ##### 条件字句 if
 
 ```bash
-if condition
-then
-	command1 
-	command2
-	...
-	commandN 
-fi
+if conditionthen	command1 	command2	...	commandN fi
 ```
 
 ##### if else
 
 ```bash
-if condition
-then
-	command1 
-	command2
-	...
-	commandN
-else
-	comand
-fi
+if conditionthen	command1 	command2	...	commandNelse	comandfi
 ```
 
 ##### 整数之间判断
@@ -3268,8 +3291,7 @@ sudo apt-get install exfat-utils
 #### 安装pip or pip3
 
 ```shell
-sudo apt-get install python-pip
-sudo apt-get install python3-pip
+sudo apt-get install python-pipsudo apt-get install python3-pip
 ```
 
 
@@ -3636,8 +3658,7 @@ ffmpeg -i path/to/%d.jpg -vcodec libx264 -r 帧率 output.mp4
 首先，把要合并的视频按顺序写到files.txt里，例如
 
 ```
-file '1.mp4'
-file '2.mp4'
+file '1.mp4'file '2.mp4'
 ```
 
 注意必须单引号
@@ -4059,8 +4080,7 @@ shift + Alt + 滚轮， 实现如pycharm多光标 下拉
    ##### 快捷
 
    ```
-   Alt + up / down 移动上下行
-   shift + Alt + up/down 可实现多行列选择
+   Alt + up / down 移动上下行shift + Alt + up/down 可实现多行列选择
    ```
 
 5. 安装智能补全插件 Kite
@@ -4429,4 +4449,3 @@ dir ./
 ```
 
 就能找到指定文件夹， 然后chmod 777 开启最大权限就行
-
