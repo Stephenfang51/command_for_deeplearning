@@ -3046,13 +3046,27 @@ sudo pip3 install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 ##### 条件字句 if
 
 ```bash
-if conditionthen	command1 	command2	...	commandN fi
+if condition
+	
+then	
+	command1 	
+	command2	
+	...	
+	commandN 
+fi
 ```
 
 ##### if else
 
 ```bash
-if conditionthen	command1 	command2	...	commandNelse	comandfi
+if condition
+then	
+	command1 	
+	command2	
+	...	
+	commandN
+else	
+	comandfi
 ```
 
 ##### 整数之间判断
@@ -3291,7 +3305,9 @@ sudo apt-get install exfat-utils
 #### 安装pip or pip3
 
 ```shell
-sudo apt-get install python-pipsudo apt-get install python3-pip
+sudo apt-get install python-pip
+
+sudo apt-get install python3-pip
 ```
 
 
@@ -3658,7 +3674,9 @@ ffmpeg -i path/to/%d.jpg -vcodec libx264 -r 帧率 output.mp4
 首先，把要合并的视频按顺序写到files.txt里，例如
 
 ```
-file '1.mp4'file '2.mp4'
+file '1.mp4'
+	
+file '2.mp4'
 ```
 
 注意必须单引号
@@ -4080,7 +4098,9 @@ shift + Alt + 滚轮， 实现如pycharm多光标 下拉
    ##### 快捷
 
    ```
-   Alt + up / down 移动上下行shift + Alt + up/down 可实现多行列选择
+   Alt + up / down 移动上下行
+
+   shift + Alt + up/down 可实现多行列选择
    ```
 
 5. 安装智能补全插件 Kite
