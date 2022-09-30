@@ -2467,6 +2467,16 @@ git merge origin/master
 git pull --rebase
 ```
 
+#### 克隆特定的子文件夹
+```
+1. mkdir test
+2. cd test
+3. git init
+4. git remote add origin http:xxxx.git
+5. git config core.sparsecheckout true
+6. echo "文件夹路径" >> .git/info/sparse-checkout
+7. git pull origin master
+```
 
 
 
@@ -2500,6 +2510,9 @@ git config --system --unset credential.helpergit config --global credential.help
 
 然后在 git push 就会要求输入使用者的账号和密码
 
+
+
+	
 ------
 
 <h3 id="21">21. cuda 使用 </h3>
