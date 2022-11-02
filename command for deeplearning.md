@@ -1,5 +1,5 @@
 <h1 align=center>Basic All You Need For Deep</h1>
-<p align=right>update 2021.11.22</p>
+<p align=right>update 2022.11.2</p>
 <h2 align = 'center'>目錄</h2>
 
 > ### Linux
@@ -64,7 +64,7 @@
 
     4. Screen 后台执行程序
 
-    5. ldd 指令查询程序或者依赖的共享库
+    5. ldd / readelf 指令查询程序或者依赖的共享库
 
     6. Linux 查看装置
 
@@ -1388,7 +1388,7 @@ screen -S session_name           # 新建一个叫session_name的sessionscreen -
 
 
 
-#### ldd 指令查询程序或者依赖的共享库
+#### ldd / readelf 指令查询程序或者依赖的共享库
 
 `ldd 选项 file`
 
@@ -1406,10 +1406,30 @@ ldd test>>> 输出， 就可以看到连接许多共享库linux-vdso.so.1 =>  (0
 
 `-v` : 看更多资讯包含版本信息
 
+#### readelf
+
+参考 https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/readelf.html
 
 
+就是用于读取elf文件的，一般elf文件是
 
 
+- 可重定位的对象文件(Relocatable file)
+由汇编器汇编生成的 .o 文件
+
+- 可执行的对象文件(Executable file)
+可执行应用程序
+
+- 可被共享的对象文件(Shared object file)
+动态库文件，也即 .so 文件
+
+如果想知道一个程序可运行的架构平台
+
+`$readelf -h main| grep Machine`
+
+想知道一个库需要什么其他的库支持
+
+`$readelf -d xxxxx.so`
 
 
 #### alias 环境变量设置别名
